@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanad · سند — Your support system in Saudi Arabia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F3F1E6;
+    --bg-alt: #EAE5D3;
+    --card: #FFFFFF;
+    --ink: #1F2A24;
+    --ink-soft: #58635B;
+    --ink-faint: #8A9189;
+    --green: #0F5C4E;
+    --green-dark: #0A3E34;
+    --green-tint: #E4EEE9;
+    --gold: #C1892F;
+    --gold-tint: #F4E6C9;
+    --brick: #B5462F;
+    --brick-tint: #F5E2DB;
+    --line: #DDD6C2;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+    --radius-sm: 9px;
+    --shadow: 0 8px 24px rgba(31,42,36,0.08);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+  html[dir="rtl"]{
+    --font-display: 'Noto Kufi Arabic', sans-serif;
+    --font-body: 'Noto Sans Arabic', sans-serif;
+  }
+  html[dir="rtl"][data-lang="ur"]{
+    --font-display: 'Noto Nastaliq Urdu', serif;
+    --font-body: 'Noto Nastaliq Urdu', serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4,button,.display{font-family:var(--font-display);}
+  a{color:inherit;}
+  button{font-family:var(--font-body);cursor:pointer;}
+  :focus-visible{outline:2.5px solid var(--gold);outline-offset:2px;}
+
+  /* ---------- Shell ---------- */
+  .app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:84px;}
+  @media (min-width:760px){
+    .app{max-width:900px;padding-bottom:40px;}
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    position:sticky;top:0;z-index:40;
+    background:var(--green-dark);
+    color:#F3F1E6;
+    padding:14px 18px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:10px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-mark{
+    width:38px;height:38px;border-radius:50%;
+    border:1.5px dashed rgba(243,241,230,0.55);
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .brand-mark svg{width:20px;height:20px;}
+  .brand-text .name{font-size:16px;font-weight:700;line-height:1.1;letter-spacing:0.2px;}
+  .brand-text .tag{font-size:10.5px;color:#C9D9D2;margin-top:2px;font-family:var(--font-body);}
+  .lang-switch{display:flex;background:rgba(243,241,230,0.12);border-radius:999px;padding:3px;gap:2px;}
+  .lang-switch button{
+    border:none;background:transparent;color:#C9D9D2;
+    font-size:11.5px;font-weight:600;padding:6px 9px;border-radius:999px;
+    transition:background .15s,color .15s;
+  }
+  .lang-switch button.active{background:var(--gold);color:#2A1D08;}
+
+  /* ---------- Tabs (top on desktop, bottom on mobile) ---------- */
+  nav.tabbar{
+    position:fixed;bottom:0;left:0;right:0;z-index:50;
+    background:var(--card);
+    border-top:1px solid var(--line);
+    display:flex;
+    max-width:480px;margin:0 auto;
+  }
+  @media (min-width:760px){
+    nav.tabbar{max-width:900px;position:sticky;top:66px;border-top:none;border-bottom:1px solid var(--line);}
+  }
+  nav.tabbar button{
+    flex:1;border:none;background:transparent;padding:10px 4px 12px;
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    color:var(--ink-faint);font-size:10.5px;font-weight:600;
+  }
+  nav.tabbar button svg{width:20px;height:20px;stroke:var(--ink-faint);transition:stroke .15s;}
+  nav.tabbar button.active{color:var(--green);}
+  nav.tabbar button.active svg{stroke:var(--green);}
+
+  main{padding:20px 18px 8px;}
+  section.view{display:none;}
+  section.view.active{display:block;animation:fadeUp .35s ease;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- Common bits ---------- */
+  .eyebrow{
+    font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 6px;
+  }
+  html[dir="rtl"] .eyebrow{letter-spacing:0;}
+  h1.page-title{font-size:23px;margin:0 0 4px;color:var(--green-dark);}
+  p.page-sub{color:var(--ink-soft);font-size:14px;margin:0 0 18px;line-height:1.5;}
+
+  .seal{
+    width:30px;height:30px;border-radius:50%;
+    border:1.4px dashed var(--green);
+    display:flex;align-items:center;justify-content:center;flex:none;
+    color:var(--green);
+  }
+  .seal svg{width:15px;height:15px;}
+
+  /* ---------- Home ---------- */
+  .hero{
+    background:var(--green-dark);
+    color:#F3F1E6;
+    border-radius:var(--radius-lg);
+    padding:26px 22px;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle at 88% 18%, rgba(193,137,47,0.35), transparent 45%),
+                      radial-gradient(circle at 15% 95%, rgba(193,137,47,0.18), transparent 40%);
+    pointer-events:none;
+  }
+  .hero h1{font-size:26px;line-height:1.2;margin:0 0 10px;position:relative;}
+  .hero p{font-size:14px;color:#CFE0D8;line-height:1.55;margin:0 0 18px;max-width:38ch;position:relative;}
+  .hero-stats{display:flex;gap:18px;position:relative;flex-wrap:wrap;}
+  .hero-stat .num{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--gold-tint);}
+  .hero-stat .lbl{font-size:10.5px;color:#A9C2B7;margin-top:2px;}
+
+  .quicknav{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+  .quicknav .full{grid-column:1/-1;}
+  .qn-card{
+    background:var(--card);border-radius:var(--radius-md);padding:16px;
+    border:1px solid var(--line);text-align:start;display:flex;flex-direction:column;gap:8px;
+    transition:transform .15s, box-shadow .15s; box-shadow:none;
+  }
+  .qn-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+  .qn-card .ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+  .qn-card .ic svg{width:18px;height:18px;}
+  .qn-card h3{font-size:14.5px;margin:0;color:var(--ink);}
+  .qn-card p{font-size:12px;color:var(--ink-soft);margin:0;line-height:1.4;}
+  .ic.g{background:var(--green-tint);color:var(--green);}
+  .ic.h{background:var(--gold-tint);color:var(--gold);}
+  .ic.c{background:var(--brick-tint);color:var(--brick);}
+
+  .trust-strip{
+    display:flex;align-items:flex-start;gap:12px;
+    background:var(--bg-alt);border-radius:var(--radius-md);padding:16px;margin-bottom:10px;
+  }
+  .trust-strip p{margin:0;font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
+  .trust-strip strong{color:var(--green-dark);display:block;font-size:13.5px;margin-bottom:3px;font-family:var(--font-display);}
+
+  /* ---------- Guide Hub ---------- */
+  .guide-grid{display:grid;grid-template-columns:1fr;gap:10px;}
+  .guide-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);
+    overflow:hidden;
+  }
+  .guide-head{
+    width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;
+    background:transparent;border:none;text-align:start;
+  }
+  .guide-head .ic{width:38px;height:38px;border-radius:11px;background:var(--green-tint);color:var(--green);
+    display:flex;align-items:center;justify-content:center;flex:none;}
+  .guide-head .ic svg{width:19px;height:19px;}
+  .guide-head .tt{flex:1;}
+  .guide-head .tt h3{margin:0;font-size:14.5px;color:var(--ink);}
+  .guide-head .tt span{font-size:11.5px;color:var(--ink-faint);}
+  .chev{width:16px;height:16px;flex:none;transition:transform .2s;color:var(--ink-faint);}
+  .guide-card.open .chev{transform:rotate(180deg);}
+  .guide-body{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .guide-card.open .guide-body{max-height:900px;}
+  .guide-body-inner{padding:0 16px 18px 16px;font-size:13px;color:var(--ink-soft);line-height:1.65;border-top:1px dashed var(--line);margin-top:2px;padding-top:14px;}
+  .guide-body-inner ul{margin:6px 0;padding-inline-start:18px;}
+  .guide-body-inner li{margin-bottom:5px;}
+  .emergency-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+  .em-item{background:var(--brick-tint);border-radius:var(--radius-sm);padding:10px 12px;}
+  .em-item .num{font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--brick);}
+  .em-item .lbl{font-size:11px;color:#7A3323;}
+
+  /* ---------- Housing ---------- */
+  .filter-bar{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:14px;}
+  .filter-bar select{
+    border:1px solid var(--line);background:var(--card);border-radius:999px;
+    padding:8px 12px;font-size:12.5px;color:var(--ink);flex:none;font-family:var(--font-body);
+  }
+  .listing-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);
+    margin-bottom:14px; position:relative; overflow:visible;
+  }
+  .listing-main{padding:16px 16px 14px;}
+  .listing-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+  .listing-top h3{margin:0;font-size:15px;color:var(--green-dark);}
+  .listing-top .city{font-size:11.5px;color:var(--ink-faint);margin-top:2px;}
+  .price-tag{font-family:var(--font-display);font-weight:700;color:var(--gold);font-size:15px;white-space:nowrap;}
+  .price-tag small{display:block;font-size:9.5px;color:var(--ink-faint);font-weight:500;font-family:var(--font-body);}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px;}
+  .tag{
+    font-size:10.5px;font-weight:600;padding:4px 9px;border-radius:999px;
+    background:var(--green-tint);color:var(--green-dark);
+  }
+  .tag.alt{background:var(--gold-tint);color:#7A5417;}
+  .listing-desc{font-size:12.5px;color:var(--ink-soft);line-height:1.5;margin-top:8px;}
+  .stub-divider{
+    position:relative;height:0;border-top:1.5px dashed var(--line);margin:0 0;
+  }
+  .stub-divider::before, .stub-divider::after{
+    content:"";position:absolute;top:-9px;width:18px;height:18px;border-radius:50%;background:var(--bg);
+  }
+  .stub-divider::before{left:-9px;}
+  .stub-divider::after{right:-9px;}
+  .listing-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;}
+  .poster{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-faint);}
+  .poster .dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+  .wa-btn{
+    display:flex;align-items:center;gap:7px;background:#128C4A;color:#fff;border:none;
+    padding:9px 14px;border-radius:999px;font-size:12.5px;font-weight:700;
+  }
+  .wa-btn svg{width:15px;height:15px;fill:#fff;}
+
+  /* ---------- Forms ---------- */
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);padding:18px;margin-bottom:20px;}
+  .panel h3{margin:0 0 4px;font-size:15px;color:var(--green-dark);}
+  .panel .hint{font-size:12px;color:var(--ink-faint);margin:0 0 14px;}
+  .field{margin-bottom:12px;}
+  .field label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px;}
+  .field input,.field select,.field textarea{
+    width:100%;border:1px solid var(--line);background:var(--bg);border-radius:var(--radius-sm);
+    padding:10px 12px;font-size:13px;color:var(--ink);font-family:var(--font-body);
+  }
+  .field textarea{resize:vertical;min-height:64px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:12px;}
+  .toggle-row span{font-size:12.5px;color:var(--ink-soft);font-weight:600;}
+  .switch{position:relative;width:38px;height:22px;flex:none;}
+  .switch input{opacity:0;width:0;height:0;}
+  .switch .track{position:absolute;inset:0;background:var(--line);border-radius:999px;transition:.15s;}
+  .switch .track::before{content:"";position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s;}
+  .switch input:checked + .track{background:var(--green);}
+  .switch input:checked + .track::before{transform:translateX(16px);}
+  html[dir="rtl"] .switch input:checked + .track::before{transform:translateX(-16px);}
+  .btn-primary{
+    width:100%;background:var(--green);color:#fff;border:none;padding:12px;border-radius:999px;
+    font-size:13.5px;font-weight:700;margin-top:4px;
+  }
+  .btn-primary:hover{background:var(--green-dark);}
+  .toggle-open{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;border:1.5px dashed var(--green);background:var(--green-tint);color:var(--green-dark);
+    padding:12px;border-radius:var(--radius-md);font-size:13px;font-weight:700;margin-bottom:16px;
+  }
+  .toggle-open svg{width:15px;height:15px;}
+
+  /* ---------- Forum ---------- */
+  .cat-chip-row{display:flex;gap:7px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;}
+  .cat-chip{
+    flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;
+    padding:7px 13px;font-size:11.5px;font-weight:600;color:var(--ink-soft);
+  }
+  .cat-chip.active{background:var(--green-dark);border-color:var(--green-dark);color:#fff;}
+  .q-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);padding:15px 16px;margin-bottom:12px;}
+  .q-top{display:flex;gap:10px;}
+  .vote{display:flex;flex-direction:column;align-items:center;gap:2px;flex:none;width:34px;}
+  .vote button{border:1px solid var(--line);background:var(--bg);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);}
+  .vote button:hover{border-color:var(--green);color:var(--green);}
+  .vote .n{font-size:12.5px;font-weight:700;color:var(--ink);}
+  .q-body{flex:1;}
+  .q-cat{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.05em;}
+  html[dir="rtl"] .q-cat{letter-spacing:0;}
+  .q-body h4{margin:4px 0 5px;font-size:14px;color:var(--ink);line-height:1.4;}
+  .q-body p.by{font-size:11px;color:var(--ink-faint);margin:0 0 8px;}
+  .q-actions{display:flex;align-items:center;gap:14px;font-size:11.5px;color:var(--ink-faint);}
+  .q-actions button{background:none;border:none;color:var(--green);font-weight:700;font-size:11.5px;padding:0;}
+  .replies{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);display:none;}
+  .replies.open{display:block;}
+  .reply{background:var(--bg);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;}
+  .reply .who{font-weight:700;color:var(--green-dark);font-size:11.5px;display:block;margin-bottom:3px;}
+
+  footer.appfoot{text-align:center;padding:18px 20px 6px;font-size:11px;color:var(--ink-faint);line-height:1.6;}
+
+  ::-webkit-scrollbar{height:0;width:0;}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#F3F1E6" stroke-width="1.6"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div class="brand-text">
+        <div class="name" data-i18n="brandName">Sanad · سند</div>
+        <div class="tag" data-i18n="brandTag">Your support system in Saudi Arabia</div>
+      </div>
+    </div>
+    <div class="lang-switch">
+      <button data-lang-btn="en">EN</button>
+      <button data-lang-btn="ar">عربي</button>
+      <button data-lang-btn="ur">اردو</button>
+    </div>
+  </header>
+
+  <nav class="tabbar">
+    <button data-tab="home" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+      <span data-i18n="navHome">Home</span>
+    </button>
+    <button data-tab="guide">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h9v18H6a2 2 0 01-2-2V5z"/><path d="M15 3l5 2v16l-5-2"/></svg>
+      <span data-i18n="navGuide">Guide</span>
+    </button>
+    <button data-tab="housing">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
+      <span data-i18n="navHousing">Housing</span>
+    </button>
+    <button data-tab="community">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M2 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M14.5 15c2.7.2 4.5 2.1 4.5 5"/></svg>
+      <span data-i18n="navCommunity">Community</span>
+    </button>
+  </nav>
+
+  <main>
+    <!-- HOME -->
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <h1 data-i18n="heroTitle">One place for housing, guidance, and community.</h1>
+        <p data-i18n="heroSub">Skip the confusing Facebook groups. Find a room, understand your rights, and ask people who've been there.</p>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">6</div><div class="lbl" data-i18n="statCities">Cities covered</div></div>
+          <div class="hero-stat"><div class="num">120+</div><div class="lbl" data-i18n="statListings">Rooms shared this month</div></div>
+          <div class="hero-stat"><div class="num">3</div><div class="lbl" data-i18n="statLangs">Languages</div></div>
+        </div>
+      </div>
+
+      <div class="quicknav">
+        <button class="qn-card" data-goto="guide">
+          <div class="ic g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h9v18H6a2 2 0 01-2-2V5z"/><path d="M15 3l5 2v16l-5-2"/></svg></div>
+          <h3 data-i18n="qnGuideTitle">Know your rights</h3>
+          <p data-i18n="qnGuideSub">Labor law, Qiwa, Iqama &amp; banking, explained simply</p>
+        </button>
+        <button class="qn-card" data-goto="housing">
+          <div class="ic h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg></div>
+          <h3 data-i18n="qnHousingTitle">Find a room</h3>
+          <p data-i18n="qnHousingSub">Shared housing across 6 major cities</p>
+        </button>
+        <button class="qn-card full" data-goto="community">
+          <div class="ic c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M2 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/></svg></div>
+          <h3 data-i18n="qnCommunityTitle">Ask the community</h3>
+          <p data-i18n="qnCommunitySub">Real answers from people already living here — not a random Facebook group</p>
+        </button>
+      </div>
+
+      <div class="trust-strip">
+        <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <p><strong data-i18n="trustTitle">Built to be trustworthy</strong><span data-i18n="trustBody">No login wall for browsing, no algorithm deciding what you see. Guide content is written in plain language and reviewed for accuracy, not virality.</span></p>
+      </div>
+    </section>
+
+    <!-- GUIDE HUB -->
+    <section class="view" id="view-guide">
+      <p class="eyebrow" data-i18n="guideEyebrow">Knowledge guide hub</p>
+      <h1 class="page-title" data-i18n="guideTitle">Understand the system before it confuses you</h1>
+      <p class="page-sub" data-i18n="guideSub">Short, plain-language explainers on the things every worker eventually needs.</p>
+      <div class="guide-grid" id="guideGrid"></div>
+    </section>
+
+    <!-- HOUSING -->
+    <section class="view" id="view-housing">
+      <p class="eyebrow" data-i18n="housingEyebrow">Roommate &amp; shared housing board</p>
+      <h1 class="page-title" data-i18n="housingTitle">Find your next room</h1>
+      <p class="page-sub" data-i18n="housingSub">Real listings from tenants and property owners. Contact directly on WhatsApp — no middleman.</p>
+
+      <button class="toggle-open" id="btnOpenPost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        <span data-i18n="housingPostBtn">Post a room or list a spare bed</span>
+      </button>
+
+      <div class="panel" id="postForm" style="display:none;">
+        <h3 data-i18n="postFormTitle">Post a listing</h3>
+        <p class="hint" data-i18n="postFormHint">This is a demo form — submissions are shown below but not saved.</p>
+        <div class="field">
+          <label data-i18n="lblCity">City</label>
+          <select id="f-city">
+            <option value="Riyadh">Riyadh</option>
+            <option value="Jeddah">Jeddah</option>
+            <option value="Dammam/Khobar">Dammam / Khobar</option>
+            <option value="Makkah">Makkah</option>
+            <option value="Madinah">Madinah</option>
+            <option value="Hail">Hail</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label data-i18n="lblRent">Monthly rent (SAR)</label>
+            <input type="number" id="f-rent" placeholder="600">
+          </div>
+          <div class="field">
+            <label data-i18n="lblRoomType">Room type</label>
+            <select id="f-roomtype">
+              <option data-i18n="rtShared">Shared room</option>
+              <option data-i18n="rtPrivate">Private room</option>
+              <option data-i18n="rtBed">Bed space</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label data-i18n="lblGender">Gender preference</label>
+            <select id="f-gender">
+              <option data-i18n="genAny">Any</option>
+              <option data-i18n="genMale">Men only</option>
+              <option data-i18n="genFemale">Women only</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="lblNationality">Nationality / language preference</label>
+            <select id="f-nat">
+              <option data-i18n="natAny">Any</option>
+              <option>Indian</option>
+              <option>Pakistani</option>
+              <option>Filipino</option>
+              <option data-i18n="natArab">Arab</option>
+              <option>Bangladeshi</option>
+            </select>
+          </div>
+        </div>
+        <div class="toggle-row">
+          <span data-i18n="lblBills">Electricity &amp; water included</span>
+          <label class="switch"><input type="checkbox" id="f-bills" checked><span class="track"></span></label>
+        </div>
+        <div class="field">
+          <label data-i18n="lblDesc">Description</label>
+          <textarea id="f-desc" data-i18n-ph="descPh"></textarea>
+        </div>
+        <div class="field">
+          <label data-i18n="lblWhatsapp">WhatsApp number</label>
+          <input type="text" id="f-wa" placeholder="+966 5x xxx xxxx">
+        </div>
+        <button class="btn-primary" id="btnSubmitListing" data-i18n="postFormSubmit">Publish listing</button>
+      </div>
+
+      <div class="filter-bar">
+        <select id="filterCity"><option value="all" data-i18n="filterAllCities">All cities</option></select>
+        <select id="filterBudget">
+          <option value="all" data-i18n="filterAnyBudget">Any budget</option>
+          <option value="500" data-i18n="filterUnder500">Under 500 SAR</option>
+          <option value="800" data-i18n="filterUnder800">Under 800 SAR</option>
+          <option value="1200" data-i18n="filterUnder1200">Under 1,200 SAR</option>
+        </select>
+        <select id="filterNat"><option value="all" data-i18n="filterAnyNat">Any nationality pref.</option></select>
+      </div>
+
+      <div id="listingsGrid"></div>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section class="view" id="view-community">
+      <p class="eyebrow" data-i18n="communityEyebrow">Community Q&amp;A</p>
+      <h1 class="page-title" data-i18n="communityTitle">Ask people who've already figured it out</h1>
+      <p class="page-sub" data-i18n="communitySub">Peer answers on housing, legal questions, jobs, and everyday life.</p>
+
+      <button class="toggle-open" id="btnOpenAsk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        <span data-i18n="communityAskBtn">Ask a question</span>
+      </button>
+
+      <div class="panel" id="askForm" style="display:none;">
+        <h3 data-i18n="askFormTitle">New question</h3>
+        <p class="hint" data-i18n="askFormHint">This is a demo form — submissions are shown below but not saved.</p>
+        <div class="field">
+          <label data-i18n="lblCategory">Category</label>
+          <select id="q-cat">
+            <option data-i18n="catHousing">Housing</option>
+            <option data-i18n="catLegal">Legal</option>
+            <option data-i18n="catJobs">Jobs</option>
+            <option data-i18n="catLife">General life</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="lblQuestion">Your question</label>
+          <textarea id="q-text" data-i18n-ph="questionPh"></textarea>
+        </div>
+        <button class="btn-primary" id="btnSubmitQuestion" data-i18n="askFormSubmit">Post question</button>
+      </div>
+
+      <div class="cat-chip-row" id="catChipRow"></div>
+      <div id="forumList"></div>
+    </section>
+  </main>
+
+  <footer class="appfoot">
+    <span data-i18n="footNote">Sanad is a community platform. Always verify official procedures on government portals such as Qiwa, Absher, and Muqeem.</span>
+  </footer>
+</div>
+
+<!-- Supabase JS Client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* ============================= Supabase ============================= */
+// Replace with your project details from Supabase Dashboard -> Project Settings -> API
+const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_ANON_PUBLIC_KEY";
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* Expected tables (create these in the Supabase SQL editor):
+
+create table housing_listings (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  city text, rent int, room_type text, gender_pref text,
+  nationality_pref text, bills_included boolean,
+  description text, poster_role text, whatsapp text
+);
+
+create table forum_posts (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  category text, question text, posted_by text, votes int default 0
+);
+
+create table forum_replies (
+  id uuid primary key default gen_random_uuid(),
+  post_id uuid references forum_posts(id) on delete cascade,
+  reply_text text
+);
+   Enable Row Level Security with policies that allow public select/insert
+   if you want anonymous visitors to read and post without logging in. */
+
+/* ============================= i18n ============================= */
+const translations = {
+en: {
+  brandName:"Sanad · سند", brandTag:"Your support system in Saudi Arabia",
+  navHome:"Home", navGuide:"Guide", navHousing:"Housing", navCommunity:"Community",
+  heroTitle:"One place for housing, guidance, and community.",
+  heroSub:"Skip the confusing Facebook groups. Find a room, understand your rights, and ask people who've been there.",
+  statCities:"Cities covered", statListings:"Rooms shared this month", statLangs:"Languages",
+  qnGuideTitle:"Know your rights", qnGuideSub:"Labor law, Qiwa, Iqama & banking, explained simply",
+  qnHousingTitle:"Find a room", qnHousingSub:"Shared housing across 6 major cities",
+  qnCommunityTitle:"Ask the community", qnCommunitySub:"Real answers from people already living here — not a random Facebook group",
+  trustTitle:"Built to be trustworthy",
+  trustBody:"No login wall for browsing, no algorithm deciding what you see. Guide content is written in plain language and reviewed for accuracy, not virality.",
+  guideEyebrow:"Knowledge guide hub", guideTitle:"Understand the system before it confuses you",
+  guideSub:"Short, plain-language explainers on the things every worker eventually needs.",
+  housingEyebrow:"Roommate & shared housing board", housingTitle:"Find your next room",
+  housingSub:"Real listings from tenants and property owners. Contact directly on WhatsApp — no middleman.",
+  housingPostBtn:"Post a room or list a spare bed",
+  postFormTitle:"Post a listing", postFormHint:"This is a demo form — submissions are shown below but not saved.",
+  lblCity:"City", lblRent:"Monthly rent (SAR)", lblRoomType:"Room type",
+  rtShared:"Shared room", rtPrivate:"Private room", rtBed:"Bed space",
+  lblGender:"Gender preference", genAny:"Any", genMale:"Men only", genFemale:"Women only",
+  lblNationality:"Nationality / language preference", natAny:"Any", natArab:"Arab",
+  lblBills:"Electricity & water included", lblDesc:"Description", descPh:"e.g. Close to metro, quiet flat, 3 flatmates already...",
+  lblWhatsapp:"WhatsApp number", postFormSubmit:"Publish listing",
+  filterAllCities:"All cities", filterAnyBudget:"Any budget", filterUnder500:"Under 500 SAR", filterUnder800:"Under 800 SAR", filterUnder1200:"Under 1,200 SAR",
+  filterAnyNat:"Any nationality pref.",
+  perMonth:"/ month", contactWA:"WhatsApp", billsIncluded:"Bills included", billsShared:"Bills shared",
+  postedBy:"Posted by",
+  communityEyebrow:"Community Q&A", communityTitle:"Ask people who've already figured it out",
+  communitySub:"Peer answers on housing, legal questions, jobs, and everyday life.",
+  communityAskBtn:"Ask a question",
+  askFormTitle:"New question", askFormHint:"This is a demo form — submissions are shown below but not saved.",
+  lblCategory:"Category", catHousing:"Housing", catLegal:"Legal", catJobs:"Jobs", catLife:"General life",
+  lblQuestion:"Your question", questionPh:"Type your question here...", askFormSubmit:"Post question",
+  catAll:"All", replies:"replies", viewReplies:"View replies", hideReplies:"Hide replies",
+  footNote:"Sanad is a community platform. Always verify official procedures on government portals such as Qiwa, Absher, and Muqeem.",
+  emergencyTitle:"Emergency contacts", em911:"Emergency (Police)", em998:"Civil Defense (Fire)", em997:"Ambulance (Red Crescent)", em19911:"Ministry of HR — Labor Inquiries"
+},
+ar: {
+  brandName:"سند · Sanad", brandTag:"سندك في السعودية",
+  navHome:"الرئيسية", navGuide:"الدليل", navHousing:"السكن", navCommunity:"المجتمع",
+  heroTitle:"مكان واحد للسكن والإرشاد والمجتمع",
+  heroSub:"تجاوز مجموعات فيسبوك المربكة. اعثر على غرفة، افهم حقوقك، واسأل من سبقوك بالتجربة.",
+  statCities:"مدن مغطاة", statListings:"غرف تم مشاركتها هذا الشهر", statLangs:"لغات",
+  qnGuideTitle:"اعرف حقوقك", qnGuideSub:"نظام العمل، قوى، الإقامة والبنوك بشرح مبسّط",
+  qnHousingTitle:"ابحث عن غرفة", qnHousingSub:"سكن مشترك في ٦ مدن رئيسية",
+  qnCommunityTitle:"اسأل المجتمع", qnCommunitySub:"إجابات حقيقية من أشخاص يعيشون هنا فعلاً — وليس مجموعة فيسبوك عشوائية",
+  trustTitle:"مصمَّم ليكون جديراً بالثقة",
+  trustBody:"لا تحتاج تسجيل دخول للتصفح، ولا خوارزمية تتحكم بما تراه. محتوى الدليل مكتوب بلغة بسيطة ويُراجَع للدقة لا للانتشار.",
+  guideEyebrow:"مركز الدليل المعرفي", guideTitle:"افهم النظام قبل أن يربكك",
+  guideSub:"شروحات قصيرة وبلغة بسيطة لكل ما يحتاجه العامل عاجلاً أم آجلاً.",
+  housingEyebrow:"لوحة السكن المشترك والزملاء", housingTitle:"ابحث عن غرفتك القادمة",
+  housingSub:"إعلانات حقيقية من مستأجرين وملاك عقارات. تواصل مباشرة عبر واتساب — بدون وسيط.",
+  housingPostBtn:"أضف إعلان غرفة أو سرير شاغر",
+  postFormTitle:"نشر إعلان", postFormHint:"هذا نموذج تجريبي — تظهر الإعلانات أدناه ولا يتم حفظها.",
+  lblCity:"المدينة", lblRent:"الإيجار الشهري (ريال)", lblRoomType:"نوع الغرفة",
+  rtShared:"غرفة مشتركة", rtPrivate:"غرفة خاصة", rtBed:"سرير فقط",
+  lblGender:"تفضيل الجنس", genAny:"الكل", genMale:"رجال فقط", genFemale:"نساء فقط",
+  lblNationality:"تفضيل الجنسية / اللغة", natAny:"أي جنسية", natArab:"عربي",
+  lblBills:"الكهرباء والماء شاملة", lblDesc:"الوصف", descPh:"مثال: قريب من المترو، شقة هادئة، ٣ سكان حالياً...",
+  lblWhatsapp:"رقم واتساب", postFormSubmit:"نشر الإعلان",
+  filterAllCities:"كل المدن", filterAnyBudget:"أي ميزانية", filterUnder500:"أقل من ٥٠٠ ريال", filterUnder800:"أقل من ٨٠٠ ريال", filterUnder1200:"أقل من ١٢٠٠ ريال",
+  filterAnyNat:"أي تفضيل جنسية",
+  perMonth:"/ شهرياً", contactWA:"واتساب", billsIncluded:"الفواتير شاملة", billsShared:"الفواتير مشتركة",
+  postedBy:"نشره",
+  communityEyebrow:"أسئلة وأجوبة المجتمع", communityTitle:"اسأل من سبقك بالتجربة",
+  communitySub:"إجابات من زملاء حول السكن والمسائل القانونية والعمل والحياة اليومية.",
+  communityAskBtn:"اطرح سؤالاً",
+  askFormTitle:"سؤال جديد", askFormHint:"هذا نموذج تجريبي — تظهر الأسئلة أدناه ولا يتم حفظها.",
+  lblCategory:"التصنيف", catHousing:"السكن", catLegal:"قانوني", catJobs:"وظائف", catLife:"حياة عامة",
+  lblQuestion:"سؤالك", questionPh:"اكتب سؤالك هنا...", askFormSubmit:"نشر السؤال",
+  catAll:"الكل", replies:"ردود", viewReplies:"عرض الردود", hideReplies:"إخفاء الردود",
+  footNote:"سند منصة مجتمعية. تأكد دائماً من الإجراءات الرسمية عبر البوابات الحكومية مثل قوى وأبشر ومقيم.",
+  emergencyTitle:"أرقام الطوارئ", em911:"الطوارئ (الشرطة)", em998:"الدفاع المدني (الإطفاء)", em997:"الإسعاف (الهلال الأحمر)", em19911:"وزارة الموارد البشرية — استفسارات العمل"
+},
+ur: {
+  brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
+  navHome:"ہوم", navGuide:"گائیڈ", navHousing:"رہائش", navCommunity:"کمیونٹی",
+  heroTitle:"رہائش، رہنمائی اور کمیونٹی — سب ایک جگہ",
+  heroSub:"الجھی ہوئی فیس بک گروپس کو چھوڑیں۔ کمرہ ڈھونڈیں، اپنے حقوق سمجھیں، اور تجربہ کار لوگوں سے سوال کریں۔",
+  statCities:"شہر شامل ہیں", statListings:"اس مہینے شیئر ہونے والے کمرے", statLangs:"زبانیں",
+  qnGuideTitle:"اپنے حقوق جانیں", qnGuideSub:"لیبر قانون، قویٰ، اقامہ اور بینکنگ — آسان زبان میں",
+  qnHousingTitle:"کمرہ تلاش کریں", qnHousingSub:"6 بڑے شہروں میں مشترکہ رہائش",
+  qnCommunityTitle:"کمیونٹی سے پوچھیں", qnCommunitySub:"یہاں پہلے سے رہنے والے لوگوں کے حقیقی جوابات — کسی بے ترتیب فیس بک گروپ سے نہیں",
+  trustTitle:"اعتماد کے قابل بنایا گیا",
+  trustBody:"براؤز کرنے کے لیے لاگ ان کی ضرورت نہیں، کوئی الگورتھم یہ طے نہیں کرتا کہ آپ کیا دیکھیں۔ گائیڈ کا مواد آسان زبان میں لکھا اور درستگی کے لیے جانچا گیا ہے۔",
+  guideEyebrow:"نالج گائیڈ ہب", guideTitle:"نظام کو الجھن سے پہلے سمجھیں",
+  guideSub:"ہر ورکر کو بالآخر درکار چیزوں کی مختصر، آسان وضاحتیں۔",
+  housingEyebrow:"روم میٹ اور مشترکہ رہائش بورڈ", housingTitle:"اپنا اگلا کمرہ تلاش کریں",
+  housingSub:"کرایہ داروں اور مالکان کی حقیقی لسٹنگز۔ براہ راست واٹس ایپ پر رابطہ کریں — کوئی بیچ والا نہیں۔",
+  housingPostBtn:"کمرہ یا خالی بیڈ کی پوسٹ لگائیں",
+  postFormTitle:"لسٹنگ پوسٹ کریں", postFormHint:"یہ ایک ڈیمو فارم ہے — اندراجات نیچے دکھائے جائیں گے مگر محفوظ نہیں ہوں گے۔",
+  lblCity:"شہر", lblRent:"ماہانہ کرایہ (SAR)", lblRoomType:"کمرے کی قسم",
+  rtShared:"مشترکہ کمرہ", rtPrivate:"نجی کمرہ", rtBed:"صرف بیڈ",
+  lblGender:"صنفی ترجیح", genAny:"کوئی بھی", genMale:"صرف مرد", genFemale:"صرف خواتین",
+  lblNationality:"قومیت / زبان کی ترجیح", natAny:"کوئی بھی", natArab:"عرب",
+  lblBills:"بجلی اور پانی شامل", lblDesc:"تفصیل", descPh:"مثلاً: میٹرو کے قریب، پرسکون فلیٹ، پہلے سے 3 ساتھی...",
+  lblWhatsapp:"واٹس ایپ نمبر", postFormSubmit:"لسٹنگ شائع کریں",
+  filterAllCities:"تمام شہر", filterAnyBudget:"کوئی بھی بجٹ", filterUnder500:"500 SAR سے کم", filterUnder800:"800 SAR سے کم", filterUnder1200:"1,200 SAR سے کم",
+  filterAnyNat:"کوئی بھی قومیت ترجیح",
+  perMonth:"/ ماہانہ", contactWA:"واٹس ایپ", billsIncluded:"بلز شامل ہیں", billsShared:"بلز مشترکہ",
+  postedBy:"پوسٹ کردہ",
+  communityEyebrow:"کمیونٹی سوال و جواب", communityTitle:"تجربہ کار لوگوں سے پوچھیں",
+  communitySub:"رہائش، قانونی سوالات، ملازمت اور روزمرہ زندگی سے متعلق ساتھیوں کے جوابات۔",
+  communityAskBtn:"سوال پوچھیں",
+  askFormTitle:"نیا سوال", askFormHint:"یہ ایک ڈیمو فارم ہے — سوالات نیچے دکھائے جائیں گے مگر محفوظ نہیں ہوں گے۔",
+  lblCategory:"زمرہ", catHousing:"رہائش", catLegal:"قانونی", catJobs:"ملازمتیں", catLife:"عمومی زندگی",
+  lblQuestion:"آپ کا سوال", questionPh:"اپنا سوال یہاں لکھیں...", askFormSubmit:"سوال پوسٹ کریں",
+  catAll:"تمام", replies:"جوابات", viewReplies:"جوابات دیکھیں", hideReplies:"جوابات چھپائیں",
+  footNote:"سند ایک کمیونٹی پلیٹ فارم ہے۔ ہمیشہ سرکاری طریقہ کار کی تصدیق قویٰ، ابشر اور مقیم جیسے سرکاری پورٹلز سے کریں۔",
+  emergencyTitle:"ہنگامی نمبرز", em911:"ایمرجنسی (پولیس)", em998:"سول ڈیفنس (فائر)", em997:"ایمبولینس (ریڈ کریسنٹ)", em19911:"وزارت انسانی وسائل — لیبر انکوائریز"
+}
+};
+
+/* ============================= Guide content ============================= */
+const guideIcons = {
+  labor:'<path d="M4 7h16M4 12h16M4 17h10"/>',
+  qiwa:'<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+  bank:'<rect x="3" y="10" width="18" height="9" rx="1"/><path d="M3 10l9-6 9 6"/><path d="M7 14v3M12 14v3M17 14v3"/>',
+  iqama:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M13 10h5M13 14h5"/>',
+  health:'<path d="M12 21s-7-4.5-9.5-9C0.8 8.3 2.6 4 7 4c2.2 0 3.9 1.3 5 3 1.1-1.7 2.8-3 5-3 4.4 0 6.2 4.3 4.5 8-2.5 4.5-9.5 9-9.5 9z"/>',
+  emergency:'<path d="M12 2l9 4.5v6c0 5-3.8 8-9 9.5-5.2-1.5-9-4.5-9-9.5v-6L12 2z"/><path d="M12 8v5M12 16h.01"/>',
+  travel:'<path d="M2 16l20-8-8 20-2-8-8-2 -2-2z" />'
+};
+
+const guideData = {
+en: [
+ {k:"labor", title:"Labor Law & Contracts", sub:"Know what your contract must include", body:`<ul>
+   <li>Your work contract must state job title, salary, working hours, and contract duration — get a copy in a language you understand.</li>
+   <li>Standard working hours are 8 hours/day or 48 hours/week, reduced during Ramadan for Muslim workers.</li>
+   <li>Employers cannot legally withhold your passport in most sectors — ask about your rights if this happens.</li>
+   <li>End-of-service benefits (gratuity) are calculated based on years of service — keep your own record of your start date and salary changes.</li>
+ </ul>`},
+ {k:"qiwa", title:"The Qiwa Platform", sub:"Saudi Arabia's labor services portal", body:`<ul>
+   <li>Qiwa is the official platform for managing work contracts, transfers, and labor complaints — accessible via app or web.</li>
+   <li>You can view and confirm your own contract details on Qiwa once your employer registers it.</li>
+   <li>Job/employer transfer requests, and reporting an unpaid salary, can both be started through Qiwa.</li>
+   <li>Always check Qiwa directly rather than trusting a broker's word about your contract status.</li>
+ </ul>`},
+ {k:"bank", title:"Banking & Money Transfer", sub:"Opening accounts, Absher & Nafath basics", body:`<ul>
+   <li>Most banks require a valid Iqama to open an account; some offer accounts for new arrivals with limited features.</li>
+   <li><strong>Absher</strong> is the government's main citizen/resident e-services platform — link your Iqama and phone number to access government services online.</li>
+   <li><strong>Nafath</strong> is the national digital identity app used to verify your identity for banking, government, and many private services — install it and complete verification early, as many services now require it.</li>
+   <li>Use licensed money transfer operators or your bank's app for remittances — avoid informal transfer agents.</li>
+ </ul>`},
+ {k:"iqama", title:"Iqama & Government Services", sub:"Your residency permit, explained", body:`<ul>
+   <li>The Iqama is your residency ID — carry it at all times, it's required for almost everything from SIM cards to renting.</li>
+   <li>Your employer is generally responsible for renewing your Iqama on time — follow up before it expires to avoid fines.</li>
+   <li>Muqeem is the online portal for checking your Iqama status, exit/re-entry visas, and dependents' records.</li>
+   <li>An expired Iqama can affect your ability to travel, open accounts, or renew a driving license.</li>
+ </ul>`},
+ {k:"health", title:"Healthcare", sub:"Insurance and where to get treatment", body:`<ul>
+   <li>Private-sector employers are generally required to provide medical insurance — ask HR for your insurance card and network hospital list.</li>
+   <li>Government hospitals may have separate procedures for non-citizens; private clinics and insurance-network hospitals are usually more accessible.</li>
+   <li>Keep a digital copy of your insurance card and policy number saved on your phone.</li>
+ </ul>`},
+ {k:"emergency", title:"Emergency Contacts", sub:"Save these numbers now", body:`<div class="emergency-grid">
+   <div class="em-item"><div class="num">911</div><div class="lbl" data-i18n="em911">Emergency (Police)</div></div>
+   <div class="em-item"><div class="num">998</div><div class="lbl" data-i18n="em998">Civil Defense (Fire)</div></div>
+   <div class="em-item"><div class="num">997</div><div class="lbl" data-i18n="em997">Ambulance (Red Crescent)</div></div>
+   <div class="em-item"><div class="num">19911</div><div class="lbl" data-i18n="em19911">Ministry of HR — Labor Inquiries</div></div>
+ </div>`},
+ {k:"travel", title:"Before You Travel Checklist", sub:"For those preparing to move", body:`<ul>
+   <li>Verify your job offer and contract terms directly through Qiwa before traveling, if possible.</li>
+   <li>Confirm who is paying for your visa, flight, and initial accommodation in writing.</li>
+   <li>Save your recruitment agency's license number and your employer's official company name.</li>
+   <li>Bring digital and physical copies of your passport, contract, and medical clearance certificate.</li>
+ </ul>`}
+],
+ar: [
+ {k:"labor", title:"نظام العمل والعقود", sub:"تعرّف على ما يجب أن يتضمنه عقدك", body:`<ul>
+   <li>يجب أن يحدد عقد عملك المسمى الوظيفي والراتب وساعات العمل ومدة العقد — احصل على نسخة بلغة تفهمها.</li>
+   <li>ساعات العمل النظامية ٨ ساعات يومياً أو ٤٨ ساعة أسبوعياً، وتُخفَّض في رمضان للعمال المسلمين.</li>
+   <li>لا يحق لصاحب العمل الاحتفاظ بجواز سفرك في معظم القطاعات — اسأل عن حقوقك إن حدث ذلك.</li>
+   <li>مكافأة نهاية الخدمة تُحسب حسب سنوات الخدمة — احتفظ بسجل خاص بتاريخ بدء عملك وتغييرات راتبك.</li>
+ </ul>`},
+ {k:"qiwa", title:"منصة قوى", sub:"البوابة الرسمية لخدمات العمل في السعودية", body:`<ul>
+   <li>قوى هي المنصة الرسمية لإدارة عقود العمل والنقل والشكاوى العمالية — متاحة عبر التطبيق أو الموقع.</li>
+   <li>يمكنك عرض وتأكيد تفاصيل عقدك بمجرد تسجيل صاحب العمل له في قوى.</li>
+   <li>يمكن بدء طلبات نقل الكفالة والإبلاغ عن تأخر الراتب عبر قوى.</li>
+   <li>تحقق دائماً من قوى مباشرة بدلاً من الاعتماد على كلام الوسيط بشأن حالة عقدك.</li>
+ </ul>`},
+ {k:"bank", title:"البنوك وتحويل الأموال", sub:"فتح الحسابات وأساسيات أبشر ونفاذ", body:`<ul>
+   <li>تتطلب معظم البنوك إقامة سارية لفتح حساب؛ بعضها يوفر حسابات للوافدين الجدد بميزات محدودة.</li>
+   <li><strong>أبشر</strong> هي المنصة الحكومية الرئيسية للخدمات الإلكترونية — اربط إقامتك ورقم جوالك للوصول إلى الخدمات الحكومية.</li>
+   <li><strong>نفاذ</strong> هو تطبيق الهوية الرقمية الوطنية المستخدم للتحقق من هويتك في البنوك والخدمات الحكومية والخاصة — فعّله مبكراً فكثير من الخدمات باتت تتطلبه.</li>
+   <li>استخدم شركات تحويل أموال مرخصة أو تطبيق بنكك للحوالات — تجنب وسطاء التحويل غير الرسميين.</li>
+ </ul>`},
+ {k:"iqama", title:"الإقامة والخدمات الحكومية", sub:"تصريح إقامتك بشرح مبسّط", body:`<ul>
+   <li>الإقامة هي بطاقة هويتك للسكن — احملها دائماً، فهي مطلوبة لكل شيء تقريباً من شرائح الجوال إلى استئجار السكن.</li>
+   <li>صاحب العمل مسؤول عادةً عن تجديد إقامتك في وقتها — تابع الأمر قبل انتهائها لتجنب الغرامات.</li>
+   <li>مقيم هي البوابة الإلكترونية لمتابعة حالة إقامتك وتأشيرات الخروج والعودة وسجلات التابعين.</li>
+   <li>انتهاء صلاحية الإقامة قد يؤثر على قدرتك على السفر أو فتح حساب بنكي أو تجديد رخصة القيادة.</li>
+ </ul>`},
+ {k:"health", title:"الرعاية الصحية", sub:"التأمين وأين تحصل على العلاج", body:`<ul>
+   <li>عادة ما يُلزَم أصحاب العمل في القطاع الخاص بتوفير تأمين طبي — اطلب بطاقة التأمين وقائمة المستشفيات من الموارد البشرية.</li>
+   <li>قد تختلف إجراءات المستشفيات الحكومية لغير المواطنين؛ العيادات الخاصة ومستشفيات شبكة التأمين عادة أسهل وصولاً.</li>
+   <li>احتفظ بنسخة رقمية من بطاقة تأمينك ورقم الوثيقة على هاتفك.</li>
+ </ul>`},
+ {k:"emergency", title:"أرقام الطوارئ", sub:"احفظ هذه الأرقام الآن", body:`<div class="emergency-grid">
+   <div class="em-item"><div class="num">911</div><div class="lbl">الطوارئ (الشرطة)</div></div>
+   <div class="em-item"><div class="num">998</div><div class="lbl">الدفاع المدني (الإطفاء)</div></div>
+   <div class="em-item"><div class="num">997</div><div class="lbl">الإسعاف (الهلال الأحمر)</div></div>
+   <div class="em-item"><div class="num">19911</div><div class="lbl">وزارة الموارد البشرية — استفسارات العمل</div></div>
+ </div>`},
+ {k:"travel", title:"قائمة ما قبل السفر", sub:"لمن يستعد للانتقال", body:`<ul>
+   <li>تحقق من عرض العمل وشروط العقد مباشرة عبر قوى قبل السفر إن أمكن.</li>
+   <li>احصل على تأكيد كتابي بمن يدفع تكاليف التأشيرة والطيران والسكن الأولي.</li>
+   <li>احتفظ برقم ترخيص مكتب الاستقدام والاسم الرسمي لشركة صاحب العمل.</li>
+   <li>أحضر نسخاً رقمية وورقية من جواز سفرك وعقدك وشهادة الفحص الطبي.</li>
+ </ul>`}
+],
+ur: [
+ {k:"labor", title:"لیبر قانون اور معاہدے", sub:"جانیں کہ آپ کے معاہدے میں کیا شامل ہونا چاہیے", body:`<ul>
+   <li>آپ کے ورک کنٹریکٹ میں جاب ٹائٹل، تنخواہ، اوقات کار اور مدت درج ہونی چاہیے — ایسی زبان میں کاپی لیں جو آپ سمجھتے ہوں۔</li>
+   <li>معیاری اوقات کار 8 گھنٹے یومیہ یا 48 گھنٹے ہفتہ وار ہیں، رمضان میں مسلمان ورکرز کے لیے کم کیے جاتے ہیں۔</li>
+   <li>زیادہ تر شعبوں میں آجر قانونی طور پر آپ کا پاسپورٹ نہیں رکھ سکتا — اگر ایسا ہو تو اپنے حقوق کے بارے میں پوچھیں۔</li>
+   <li>سروس کے اختتام پر فوائد (گریجویٹی) سالوں کی خدمت کی بنیاد پر ہوتے ہیں — اپنی شروعاتی تاریخ اور تنخواہ کی تبدیلیوں کا ریکارڈ رکھیں۔</li>
+ </ul>`},
+ {k:"qiwa", title:"قویٰ پلیٹ فارم", sub:"سعودی عرب کا لیبر سروسز پورٹل", body:`<ul>
+   <li>قویٰ ورک کنٹریکٹس، ٹرانسفرز اور لیبر شکایات کے انتظام کا سرکاری پلیٹ فارم ہے — ایپ یا ویب کے ذریعے قابل رسائی۔</li>
+   <li>آجر کے رجسٹر کرنے کے بعد آپ اپنے معاہدے کی تفصیلات قویٰ پر دیکھ اور تصدیق کر سکتے ہیں۔</li>
+   <li>ملازمت کی منتقلی کی درخواستیں، اور غیر ادا شدہ تنخواہ کی رپورٹنگ، دونوں قویٰ کے ذریعے شروع کی جا سکتی ہیں۔</li>
+   <li>اپنے معاہدے کی صورتحال کے بارے میں ایجنٹ کی بات پر بھروسہ کرنے کے بجائے ہمیشہ قویٰ پر خود چیک کریں۔</li>
+ </ul>`},
+ {k:"bank", title:"بینکنگ اور رقم کی ترسیل", sub:"اکاؤنٹ کھولنا، ابشر اور نفاذ کے بنیادی اصول", body:`<ul>
+   <li>زیادہ تر بینکوں کو اکاؤنٹ کھولنے کے لیے درست اقامہ درکار ہوتا ہے؛ کچھ نئے آنے والوں کے لیے محدود سہولیات والے اکاؤنٹس فراہم کرتے ہیں۔</li>
+   <li><strong>ابشر</strong> حکومت کا اہم ای-سروسز پلیٹ فارم ہے — اپنا اقامہ اور فون نمبر منسلک کریں تاکہ حکومتی خدمات آن لائن حاصل کر سکیں۔</li>
+   <li><strong>نفاذ</strong> قومی ڈیجیٹل شناختی ایپ ہے جو بینکنگ، حکومتی اور کئی نجی خدمات کے لیے شناخت کی تصدیق کرتی ہے — جلد انسٹال اور تصدیق مکمل کریں کیونکہ اب کئی خدمات کو اس کی ضرورت ہوتی ہے۔</li>
+   <li>ترسیلات کے لیے لائسنس یافتہ منی ٹرانسفر آپریٹرز یا اپنے بینک کی ایپ استعمال کریں — غیر رسمی ایجنٹس سے گریز کریں۔</li>
+ </ul>`},
+ {k:"iqama", title:"اقامہ اور سرکاری خدمات", sub:"آپ کا رہائشی اجازت نامہ، سمجھایا گیا", body:`<ul>
+   <li>اقامہ آپ کا رہائشی شناختی کارڈ ہے — ہمیشہ ساتھ رکھیں، سم کارڈ سے لے کر کرایہ تک تقریباً ہر چیز کے لیے درکار ہے۔</li>
+   <li>عام طور پر آپ کے آجر کی ذمہ داری ہے کہ وہ وقت پر آپ کا اقامہ تجدید کرے — ختم ہونے سے پہلے پیروی کریں تاکہ جرمانوں سے بچا جا سکے۔</li>
+   <li>مقیم آن لائن پورٹل ہے جہاں آپ اقامہ کی صورتحال، خروج/ری اینٹری ویزے اور زیر کفالت افراد کے ریکارڈز چیک کر سکتے ہیں۔</li>
+   <li>ختم شدہ اقامہ سفر، اکاؤنٹ کھولنے یا ڈرائیونگ لائسنس کی تجدید پر اثر ڈال سکتا ہے۔</li>
+ </ul>`},
+ {k:"health", title:"صحت کی دیکھ بھال", sub:"انشورنس اور علاج کہاں سے کروائیں", body:`<ul>
+   <li>نجی شعبے کے آجروں کے لیے عام طور پر میڈیکل انشورنس فراہم کرنا لازمی ہے — اپنا انشورنس کارڈ اور نیٹ ورک ہسپتالوں کی فہرست HR سے مانگیں۔</li>
+   <li>سرکاری ہسپتالوں کا غیر شہریوں کے لیے الگ طریقہ کار ہو سکتا ہے؛ نجی کلینکس اور انشورنس نیٹ ورک ہسپتال عام طور پر زیادہ قابل رسائی ہوتے ہیں۔</li>
+   <li>اپنے فون میں انشورنس کارڈ اور پالیسی نمبر کی ڈیجیٹل کاپی محفوظ رکھیں۔</li>
+ </ul>`},
+ {k:"emergency", title:"ہنگامی نمبرز", sub:"یہ نمبرز ابھی محفوظ کریں", body:`<div class="emergency-grid">
+   <div class="em-item"><div class="num">911</div><div class="lbl">ایمرجنسی (پولیس)</div></div>
+   <div class="em-item"><div class="num">998</div><div class="lbl">سول ڈیفنس (فائر)</div></div>
+   <div class="em-item"><div class="num">997</div><div class="lbl">ایمبولینس (ریڈ کریسنٹ)</div></div>
+   <div class="em-item"><div class="num">19911</div><div class="lbl">وزارت انسانی وسائل — لیبر انکوائریز</div></div>
+ </div>`},
+ {k:"travel", title:"سفر سے پہلے کی چیک لسٹ", sub:"منتقلی کی تیاری کرنے والوں کے لیے", body:`<ul>
+   <li>ممکن ہو تو سفر سے پہلے اپنی جاب آفر اور معاہدے کی شرائط قویٰ کے ذریعے براہ راست تصدیق کریں۔</li>
+   <li>تحریری طور پر تصدیق کریں کہ ویزا، فلائٹ اور ابتدائی رہائش کی ادائیگی کون کرے گا۔</li>
+   <li>اپنی ریکروٹمنٹ ایجنسی کا لائسنس نمبر اور آجر کا سرکاری کمپنی نام محفوظ رکھیں۔</li>
+   <li>پاسپورٹ، معاہدے اور میڈیکل کلیئرنس سرٹیفکیٹ کی ڈیجیٹل اور فزیکل کاپیاں ساتھ لائیں۔</li>
+ </ul>`}
+]
+};
+
+/* ============================= Housing listings ============================= */
+/* Placeholder data shown briefly while the real rows load from Supabase (see fetchAndRenderListings). */
+let listings = [
+ {city:"Riyadh", rent:550, type:"Shared room", gender:"Men only", nat:"Any", bills:true,
+  desc:"3-bedroom flat near Olaya, 15 min walk to metro. 2 flatmates already, both Pakistani. Kitchen shared, AC in every room.",
+  by:"Owner", wa:"966501234567"},
+ {city:"Jeddah", rent:700, type:"Private room", gender:"Any", nat:"Filipino", bills:false,
+  desc:"Private room in Al Rawdah, close to Corniche. Bills split evenly between 4 tenants. Prefer Filipino or Southeast Asian tenant.",
+  by:"Tenant", wa:"966502345678"},
+ {city:"Dammam/Khobar", rent:450, type:"Bed space", gender:"Men only", nat:"Indian", bills:true,
+  desc:"Bed space in shared labor accommodation near Khobar Corniche, 6 beds total, cleaning rota in place, water and electricity included.",
+  by:"Tenant", wa:"966503456789"},
+ {city:"Makkah", rent:900, type:"Private room", gender:"Women only", nat:"Arab", bills:true,
+  desc:"Furnished private room for a working woman, close to Haram bus route. Quiet building, Arabic-speaking flatmates preferred.",
+  by:"Owner", wa:"966504567890"},
+ {city:"Madinah", rent:600, type:"Shared room", gender:"Any", nat:"Any", bills:false,
+  desc:"Shared room available near King Fahd road, 2 people currently, open to any nationality. Bills split monthly by usage.",
+  by:"Tenant", wa:"966505678901"},
+ {city:"Hail", rent:400, type:"Bed space", gender:"Men only", nat:"Bangladeshi", bills:true,
+  desc:"Simple bed space, factory workers' housing block, walking distance to industrial area. All utilities included in rent.",
+  by:"Owner", wa:"966506789012"},
+ {city:"Riyadh", rent:1100, type:"Private room", gender:"Any", nat:"Any", bills:true,
+  desc:"Modern private room in a new building near King Fahd Road, gym access included, professional flatmates, all bills covered.",
+  by:"Owner", wa:"966507890123"},
+ {city:"Jeddah", rent:520, type:"Shared room", gender:"Men only", nat:"Indian", bills:true,
+  desc:"Shared room close to Al Balad, 3 Indian flatmates, walking distance to bus stop, water and electricity included in rent.",
+  by:"Tenant", wa:"966508901234"}
+];
+
+/* ============================= Forum data ============================= */
+/* Placeholder data shown briefly while the real rows load from Supabase (see fetchAndRenderForum). */
+let forumPosts = [
+ {cat:"Housing", q:"Can I share an Iqama address with roommates who aren't my family?", by:"New in Riyadh", votes:14,
+  replies:["Yes, many shared flats register the lease under one tenant's name — just make sure your municipal address on Absher matches where you actually live.",
+   "We did this for 2 years in Jeddah, no issues, just keep a copy of the rent agreement in case anyone asks."]},
+ {cat:"Legal", q:"My employer is delaying my Iqama renewal — what should I do?", by:"Worried_Worker", votes:22,
+  replies:["Check your Iqama status directly on Muqeem first. If it's genuinely overdue, you can raise it through Qiwa's labor complaint feature."]},
+ {cat:"Jobs", q:"Is it normal for a new employer to ask for a fee to process my transfer?", by:"Fahad_K", votes:31,
+  replies:["No — transfer of sponsorship fees paid by the worker are not standard practice. Verify everything through Qiwa directly rather than a middleman.",
+   "Be cautious, this is a common scam pattern. Ask your new employer to handle it officially."]},
+ {cat:"General life", q:"Best way to send money home without high fees?", by:"RemitteeRiyadh", votes:18,
+  replies:["Compare rates between your bank's app and licensed remittance companies — rates change weekly, so check both before sending."]},
+ {cat:"Housing", q:"Any tips for finding female-only shared housing in Makkah?", by:"Amina_S", votes:9,
+  replies:["Ask around at your workplace first — most listings for women-only flats circulate by word of mouth before they're posted anywhere."]},
+ {cat:"Legal", q:"Do I need Nafath to open a bank account or just Absher?", by:"NewArrival22", votes:12,
+  replies:["You'll likely need both — Absher registration first, then Nafath for identity verification at the bank or in their app."]},
+ {cat:"Jobs", q:"How long does a standard Qiwa contract transfer usually take?", by:"Sana_T", votes:7,
+  replies:["It varies, but once both employers confirm on Qiwa it's often processed within a couple of weeks. Follow up directly on the platform."]},
+ {cat:"General life", q:"Which is cheaper for a first month — hotel or shared bed space?", by:"JustLanded", votes:15,
+  replies:["Bed space, by far, if you can find one through a trusted contact — hotels add up fast in the first two weeks."]}
+];
+
+/* ============================= State & render ============================= */
+let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all'}, forumCat:'All', openReplies:{} };
+
+function t(key){ return translations[state.lang][key] ?? key; }
+
+function applyI18n(){
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = (state.lang==='ar'||state.lang==='ur') ? 'rtl' : 'ltr';
+  document.documentElement.setAttribute('data-lang', state.lang);
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(translations[state.lang][k] !== undefined) el.innerHTML = translations[state.lang][k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-ph');
+    if(translations[state.lang][k] !== undefined) el.setAttribute('placeholder', translations[state.lang][k]);
+  });
+  document.querySelectorAll('[data-lang-btn]').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-lang-btn')===state.lang);
+  });
+  document.title = state.lang==='en' ? "Sanad · سند — Your support system in Saudi Arabia" : translations[state.lang].brandName + " — " + translations[state.lang].brandTag;
+}
+
+function setTab(tab){
+  state.tab = tab;
+  document.querySelectorAll('section.view').forEach(s=>s.classList.remove('active'));
+  document.getElementById('view-'+tab).classList.add('active');
+  document.querySelectorAll('nav.tabbar button').forEach(b=>b.classList.toggle('active', b.getAttribute('data-tab')===tab));
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+/* ---- Guide render ---- */
+function renderGuide(){
+  const grid = document.getElementById('guideGrid');
+  const data = guideData[state.lang];
+  grid.innerHTML = data.map((g,i)=>`
+    <div class="guide-card ${state.guideOpen[g.k]?'open':''}" data-guide="${g.k}">
+      <button class="guide-head" data-guide-toggle="${g.k}">
+        <div class="ic">${'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+guideIcons[g.k]+'</svg>'}</div>
+        <div class="tt"><h3>${g.title}</h3><span>${g.sub}</span></div>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="guide-body"><div class="guide-body-inner">${g.body}</div></div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('[data-guide-toggle]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const k = btn.getAttribute('data-guide-toggle');
+      state.guideOpen[k] = !state.guideOpen[k];
+      btn.closest('.guide-card').classList.toggle('open', state.guideOpen[k]);
+    });
+  });
+}
+
+/* ---- Housing render ---- */
+function populateFilterOptions(){
+  const cities = ["Riyadh","Jeddah","Dammam/Khobar","Makkah","Madinah","Hail"];
+  const cityLabels = {en:cities, ar:["الرياض","جدة","الدمام/الخبر","مكة","المدينة","حائل"], ur:["ریاض","جدہ","دمام/خبر","مکہ","مدینہ","حائل"]};
+  const fc = document.getElementById('filterCity');
+  fc.querySelectorAll('option:not(:first-child)').forEach(o=>o.remove());
+  cities.forEach((c,i)=>{
+    const opt = document.createElement('option');
+    opt.value=c; opt.textContent = cityLabels[state.lang][i];
+    fc.appendChild(opt);
+  });
+  const nats = ["Any","Indian","Pakistani","Filipino","Arab","Bangladeshi"];
+  const natLabels = {
+    en:["Any nationality pref.","Indian","Pakistani","Filipino","Arab","Bangladeshi"],
+    ar:["أي جنسية","هندي","باكستاني","فلبيني","عربي","بنغلاديشي"],
+    ur:["کوئی بھی قومیت","بھارتی","پاکستانی","فلپائنی","عرب","بنگلہ دیشی"]
+  };
+  const fn = document.getElementById('filterNat');
+  fn.innerHTML = '';
+  nats.forEach((n,i)=>{
+    const opt = document.createElement('option');
+    opt.value = n==='Any' ? 'all' : n;
+    opt.textContent = natLabels[state.lang][i];
+    fn.appendChild(opt);
+  });
+  fc.value = state.filters.city; fn.value = state.filters.nat;
+
+  // room type / gender / nationality select translations inside the post form
+  const rtSel = document.getElementById('f-roomtype');
+  [...rtSel.options].forEach(o=>{ const k=o.getAttribute('data-i18n'); if(k) o.textContent = t(k); });
+  const genSel = document.getElementById('f-gender');
+  [...genSel.options].forEach(o=>{ const k=o.getAttribute('data-i18n'); if(k) o.textContent = t(k); });
+  const natSel = document.getElementById('f-nat');
+  [...natSel.options].forEach(o=>{ const k=o.getAttribute('data-i18n'); if(k) o.textContent = t(k); });
+  const catSel = document.getElementById('q-cat');
+  [...catSel.options].forEach(o=>{ const k=o.getAttribute('data-i18n'); if(k) o.textContent = t(k); });
+}
+
+async function fetchAndRenderListings(){
+  const { data, error } = await supabase
+    .from('housing_listings')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error loading listings:', error);
+    return;
+  }
+
+  listings = data.map(l => ({
+    city: l.city,
+    rent: l.rent,
+    type: l.room_type,
+    gender: l.gender_pref,
+    nat: l.nationality_pref,
+    bills: l.bills_included,
+    desc: l.description,
+    by: l.poster_role,
+    wa: l.whatsapp
+  }));
+
+  renderListings();
+}
+
+const waIconSvg = '<svg viewBox="0 0 32 32"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.34.63 4.53 1.73 6.42L3 29l7.27-2.19a12.4 12.4 0 005.73 1.4c6.905 0 12.5-5.596 12.5-12.5S22.906 3 16.001 3zm7.28 17.7c-.31.87-1.53 1.6-2.51 1.81-.67.14-1.55.25-4.5-.97-3.78-1.57-6.22-5.4-6.4-5.65-.19-.25-1.53-2.04-1.53-3.89 0-1.85.97-2.76 1.31-3.14.34-.38.74-.47.98-.47.25 0 .49 0 .7.01.23.01.53-.09.83.63.31.74 1.06 2.56 1.15 2.74.09.19.15.4.03.65-.13.25-.19.4-.38.62-.19.22-.4.49-.57.66-.19.19-.39.4-.17.78.22.38.98 1.62 2.11 2.62 1.45 1.29 2.67 1.7 3.05 1.89.38.19.6.16.82-.1.22-.25.94-1.1 1.19-1.48.25-.38.5-.31.84-.19.34.13 2.16 1.02 2.53 1.2.37.19.62.28.71.44.09.15.09.85-.22 1.72z"/></svg>';
+
+function renderListings(){
+  const wrap = document.getElementById('listingsGrid');
+  const f = state.filters;
+  const filtered = listings.filter(l=>{
+    if(f.city!=='all' && l.city!==f.city) return false;
+    if(f.budget!=='all' && l.rent > parseInt(f.budget)) return false;
+    if(f.nat!=='all' && l.nat!==f.nat) return false;
+    return true;
+  });
+  if(filtered.length===0){
+    wrap.innerHTML = `<p style="text-align:center;color:var(--ink-faint);font-size:13px;padding:30px 0;">—</p>`;
+    return;
+  }
+  wrap.innerHTML = filtered.map(l=>`
+    <div class="listing-card">
+      <div class="listing-main">
+        <div class="listing-top">
+          <div><h3>${l.type}</h3><div class="city">${l.city}</div></div>
+          <div class="price-tag">${l.rent} SAR<small>${t('perMonth')}</small></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">${l.gender}</span>
+          <span class="tag">${l.nat==='Any' ? t('natAny') : l.nat}</span>
+          <span class="tag alt">${l.bills ? t('billsIncluded') : t('billsShared')}</span>
+        </div>
+        <p class="listing-desc">${l.desc}</p>
+      </div>
+      <div class="stub-divider"></div>
+      <div class="listing-footer">
+        <div class="poster"><span class="dot"></span>${t('postedBy')} ${l.by}</div>
+        <a class="wa-btn" href="https://wa.me/${l.wa}" target="_blank" rel="noopener">${waIconSvg}${t('contactWA')}</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ---- Forum render ---- */
+async function fetchAndRenderForum(){
+  const { data, error } = await supabase
+    .from('forum_posts')
+    .select('*, forum_replies(*)')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching forum:', error);
+    return;
+  }
+
+  forumPosts = data.map(p => ({
+    id: p.id,
+    cat: p.category,
+    q: p.question,
+    by: p.posted_by,
+    votes: p.votes,
+    replies: p.forum_replies ? p.forum_replies.map(r => r.reply_text) : []
+  }));
+
+  renderForum();
+}
+
+function renderCatChips(){
+  const cats = ["All","Housing","Legal","Jobs","General life"];
+  const catKeys = {All:"catAll", Housing:"catHousing", Legal:"catLegal", Jobs:"catJobs", "General life":"catLife"};
+  const row = document.getElementById('catChipRow');
+  row.innerHTML = cats.map(c=>`<button class="cat-chip ${state.forumCat===c?'active':''}" data-cat="${c}">${t(catKeys[c])}</button>`).join('');
+  row.querySelectorAll('[data-cat]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.forumCat = btn.getAttribute('data-cat');
+      renderCatChips(); renderForum();
+    });
+  });
+}
+
+function renderForum(){
+  const list = document.getElementById('forumList');
+  const catKeys = {Housing:"catHousing", Legal:"catLegal", Jobs:"catJobs", "General life":"catLife"};
+  const items = state.forumCat==='All' ? forumPosts : forumPosts.filter(p=>p.cat===state.forumCat);
+  list.innerHTML = items.map((p,i)=>{
+    const idx = forumPosts.indexOf(p);
+    const open = state.openReplies[idx];
+    return `
+    <div class="q-card">
+      <div class="q-top">
+        <div class="vote">
+          <button data-vote="${idx}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5l7 8H5l7-8z"/></svg>
+          </button>
+          <div class="n">${p.votes}</div>
+        </div>
+        <div class="q-body">
+          <div class="q-cat">${t(catKeys[p.cat])}</div>
+          <h4>${p.q}</h4>
+          <p class="by">${p.by}</p>
+          <div class="q-actions">
+            <button data-toggle-reply="${idx}">${p.replies.length} ${t('replies')} · ${open ? t('hideReplies') : t('viewReplies')}</button>
+          </div>
+          <div class="replies ${open?'open':''}" id="replies-${idx}">
+            ${p.replies.map(r=>`<div class="reply"><span class="who">↳</span>${r}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('[data-vote]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const idx = btn.getAttribute('data-vote');
+      const post = forumPosts[idx];
+      post.votes++;
+      renderForum();
+      if (post.id) {
+        const { error } = await supabase
+          .from('forum_posts')
+          .update({ votes: post.votes })
+          .eq('id', post.id);
+        if (error) console.error('Error updating vote:', error);
+      }
+    });
+  });
+  list.querySelectorAll('[data-toggle-reply]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = btn.getAttribute('data-toggle-reply');
+      state.openReplies[idx] = !state.openReplies[idx];
+      renderForum();
+    });
+  });
+}
+
+/* ---- Full re-render ---- */
+function renderAll(){
+  applyI18n();
+  populateFilterOptions();
+  renderGuide();
+  renderListings();
+  renderCatChips();
+  renderForum();
+}
+
+/* ============================= Events ============================= */
+document.querySelectorAll('[data-lang-btn]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    state.lang = btn.getAttribute('data-lang-btn');
+    renderAll();
+  });
+});
+document.querySelectorAll('nav.tabbar button').forEach(btn=>{
+  btn.addEventListener('click', ()=> setTab(btn.getAttribute('data-tab')));
+});
+document.querySelectorAll('[data-goto]').forEach(btn=>{
+  btn.addEventListener('click', ()=> setTab(btn.getAttribute('data-goto')));
+});
+
+document.getElementById('btnOpenPost').addEventListener('click', ()=>{
+  const p = document.getElementById('postForm');
+  p.style.display = p.style.display==='none' ? 'block' : 'none';
+});
+document.getElementById('btnOpenAsk').addEventListener('click', ()=>{
+  const p = document.getElementById('askForm');
+  p.style.display = p.style.display==='none' ? 'block' : 'none';
+});
+
+document.getElementById('filterCity').addEventListener('change', e=>{ state.filters.city = e.target.value; renderListings(); });
+document.getElementById('filterBudget').addEventListener('change', e=>{ state.filters.budget = e.target.value; renderListings(); });
+document.getElementById('filterNat').addEventListener('change', e=>{ state.filters.nat = e.target.value; renderListings(); });
+
+document.getElementById('btnSubmitListing').addEventListener('click', async ()=>{
+  const city = document.getElementById('f-city').value;
+  const rent = parseInt(document.getElementById('f-rent').value) || 0;
+  const room_type = document.getElementById('f-roomtype').selectedOptions[0].textContent;
+  const gender_pref = document.getElementById('f-gender').selectedOptions[0].textContent;
+  const nationality_pref = document.getElementById('f-nat').value === 'all' ? 'Any' : document.getElementById('f-nat').value;
+  const bills_included = document.getElementById('f-bills').checked;
+  const description = document.getElementById('f-desc').value || '—';
+  const whatsapp = (document.getElementById('f-wa').value || '966500000000').replace(/[^0-9]/g, '');
+
+  if (!rent) {
+    document.getElementById('f-rent').focus();
+    return;
+  }
+
+  const { error } = await supabase.from('housing_listings').insert([{
+    city,
+    rent,
+    room_type,
+    gender_pref,
+    nationality_pref,
+    bills_included,
+    description,
+    poster_role: 'You',
+    whatsapp
+  }]);
+
+  if (error) {
+    console.error('Error publishing listing:', error);
+    return;
+  }
+
+  document.getElementById('postForm').style.display = 'none';
+  document.getElementById('f-rent').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-wa').value = '';
+  await fetchAndRenderListings();
+  setTab('housing');
+});
+
+document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=>{
+  const catEl = document.getElementById('q-cat');
+  const catMap = {"catHousing":"Housing","catLegal":"Legal","catJobs":"Jobs","catLife":"General life"};
+  const selKey = catEl.selectedOptions[0].getAttribute('data-i18n');
+  const category = catMap[selKey] || "General life";
+  const question = document.getElementById('q-text').value.trim();
+  if(!question){ document.getElementById('q-text').focus(); return; }
+
+  const { error } = await supabase.from('forum_posts').insert([{
+    category,
+    question,
+    posted_by: 'You',
+    votes: 0
+  }]);
+
+  if (error) {
+    console.error('Error posting question:', error);
+    return;
+  }
+
+  document.getElementById('askForm').style.display = 'none';
+  document.getElementById('q-text').value = '';
+  state.forumCat = 'All';
+  renderCatChips();
+  await fetchAndRenderForum();
+});
+
+/* ============================= Initial load ============================= */
+async function initApp(){
+  renderAll();
+  await Promise.all([fetchAndRenderListings(), fetchAndRenderForum()]);
+}
+
+initApp();
+</script>
+</body>
+</html>
