@@ -509,15 +509,24 @@
 </div>
 
 <!-- Supabase JS Client -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="console.warn('Sanad: Supabase CDN script failed to load (network/CORS/blocked) — app will run on local data only.')"></script>
 
 <script>
 /* ============================= Supabase ============================= */
 // Replace with your project details from Supabase Dashboard -> Project Settings -> API
-const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_ANON_PUBLIC_KEY";
+const SUPABASE_URL = "https://fbwubybszqzridyrydmi.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZid3VieWJzenF6cmlkeXJ5ZG1pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MDQ1MzYsImV4cCI6MjEwMjQ4MDUzNn0.GevYCvCFsIOgvyHrQB5CmGM225LfnhJ9njt7rjMeaOw";
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// True once you swap in your real project URL/key. Until then the app runs
+// on local in-memory data only, so every button still works — it just won't
+// save anywhere or sync between visitors.
+const SUPABASE_CONFIGURED = !SUPABASE_URL.includes("YOUR_PROJECT_ID") && !SUPABASE_ANON_KEY.includes("YOUR_ANON_PUBLIC_KEY");
+
+const supabaseClient = SUPABASE_CONFIGURED ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+if (!SUPABASE_CONFIGURED) {
+  console.warn("Sanad: Supabase isn't configured yet (still using the placeholder URL/key). Housing and forum posts will only live in this browser tab until you add your real project credentials at the top of the script.");
+}
 
 /* Expected tables (create these in the Supabase SQL editor):
 
@@ -946,29 +955,36 @@ function populateFilterOptions(){
 }
 
 async function fetchAndRenderListings(){
-  const { data, error } = await supabase
-    .from('housing_listings')
-    .select('*')
-    .order('created_at', { ascending: false });
+  if (!SUPABASE_CONFIGURED) { renderListings(); return; }
+  try {
+    const { data, error } = await supabaseClient
+      .from('housing_listings')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error loading listings:', error);
-    return;
+    if (error) {
+      console.error('Error loading listings:', error);
+      renderListings();
+      return;
+    }
+
+    listings = data.map(l => ({
+      city: l.city,
+      rent: l.rent,
+      type: l.room_type,
+      gender: l.gender_pref,
+      nat: l.nationality_pref,
+      bills: l.bills_included,
+      desc: l.description,
+      by: l.poster_role,
+      wa: l.whatsapp
+    }));
+
+    renderListings();
+  } catch (err) {
+    console.error('Could not reach Supabase for listings, showing local data instead:', err);
+    renderListings();
   }
-
-  listings = data.map(l => ({
-    city: l.city,
-    rent: l.rent,
-    type: l.room_type,
-    gender: l.gender_pref,
-    nat: l.nationality_pref,
-    bills: l.bills_included,
-    desc: l.description,
-    by: l.poster_role,
-    wa: l.whatsapp
-  }));
-
-  renderListings();
 }
 
 const waIconSvg = '<svg viewBox="0 0 32 32"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.34.63 4.53 1.73 6.42L3 29l7.27-2.19a12.4 12.4 0 005.73 1.4c6.905 0 12.5-5.596 12.5-12.5S22.906 3 16.001 3zm7.28 17.7c-.31.87-1.53 1.6-2.51 1.81-.67.14-1.55.25-4.5-.97-3.78-1.57-6.22-5.4-6.4-5.65-.19-.25-1.53-2.04-1.53-3.89 0-1.85.97-2.76 1.31-3.14.34-.38.74-.47.98-.47.25 0 .49 0 .7.01.23.01.53-.09.83.63.31.74 1.06 2.56 1.15 2.74.09.19.15.4.03.65-.13.25-.19.4-.38.62-.19.22-.4.49-.57.66-.19.19-.39.4-.17.78.22.38.98 1.62 2.11 2.62 1.45 1.29 2.67 1.7 3.05 1.89.38.19.6.16.82-.1.22-.25.94-1.1 1.19-1.48.25-.38.5-.31.84-.19.34.13 2.16 1.02 2.53 1.2.37.19.62.28.71.44.09.15.09.85-.22 1.72z"/></svg>';
@@ -1011,26 +1027,33 @@ function renderListings(){
 
 /* ---- Forum render ---- */
 async function fetchAndRenderForum(){
-  const { data, error } = await supabase
-    .from('forum_posts')
-    .select('*, forum_replies(*)')
-    .order('created_at', { ascending: false });
+  if (!SUPABASE_CONFIGURED) { renderForum(); return; }
+  try {
+    const { data, error } = await supabaseClient
+      .from('forum_posts')
+      .select('*, forum_replies(*)')
+      .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error fetching forum:', error);
-    return;
+    if (error) {
+      console.error('Error fetching forum:', error);
+      renderForum();
+      return;
+    }
+
+    forumPosts = data.map(p => ({
+      id: p.id,
+      cat: p.category,
+      q: p.question,
+      by: p.posted_by,
+      votes: p.votes,
+      replies: p.forum_replies ? p.forum_replies.map(r => r.reply_text) : []
+    }));
+
+    renderForum();
+  } catch (err) {
+    console.error('Could not reach Supabase for forum posts, showing local data instead:', err);
+    renderForum();
   }
-
-  forumPosts = data.map(p => ({
-    id: p.id,
-    cat: p.category,
-    q: p.question,
-    by: p.posted_by,
-    votes: p.votes,
-    replies: p.forum_replies ? p.forum_replies.map(r => r.reply_text) : []
-  }));
-
-  renderForum();
 }
 
 function renderCatChips(){
@@ -1082,12 +1105,16 @@ function renderForum(){
       const post = forumPosts[idx];
       post.votes++;
       renderForum();
-      if (post.id) {
-        const { error } = await supabase
-          .from('forum_posts')
-          .update({ votes: post.votes })
-          .eq('id', post.id);
-        if (error) console.error('Error updating vote:', error);
+      if (SUPABASE_CONFIGURED && post.id) {
+        try {
+          const { error } = await supabaseClient
+            .from('forum_posts')
+            .update({ votes: post.votes })
+            .eq('id', post.id);
+          if (error) console.error('Error updating vote:', error);
+        } catch (err) {
+          console.error('Could not reach Supabase to save vote:', err);
+        }
       }
     });
   });
@@ -1152,29 +1179,39 @@ document.getElementById('btnSubmitListing').addEventListener('click', async ()=>
     return;
   }
 
-  const { error } = await supabase.from('housing_listings').insert([{
-    city,
-    rent,
-    room_type,
-    gender_pref,
-    nationality_pref,
-    bills_included,
-    description,
-    poster_role: 'You',
-    whatsapp
-  }]);
+  const clearFormAndClose = () => {
+    document.getElementById('postForm').style.display = 'none';
+    document.getElementById('f-rent').value = '';
+    document.getElementById('f-desc').value = '';
+    document.getElementById('f-wa').value = '';
+  };
 
-  if (error) {
-    console.error('Error publishing listing:', error);
+  if (!SUPABASE_CONFIGURED) {
+    // No backend configured yet — keep the listing in this tab so the form still works.
+    listings.unshift({ city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: description, by: 'You', wa: whatsapp });
+    clearFormAndClose();
+    setTab('housing');
+    renderListings();
     return;
   }
 
-  document.getElementById('postForm').style.display = 'none';
-  document.getElementById('f-rent').value = '';
-  document.getElementById('f-desc').value = '';
-  document.getElementById('f-wa').value = '';
-  await fetchAndRenderListings();
-  setTab('housing');
+  try {
+    const { error } = await supabaseClient.from('housing_listings').insert([{
+      city, rent, room_type, gender_pref, nationality_pref, bills_included, description,
+      poster_role: 'You', whatsapp
+    }]);
+
+    if (error) {
+      console.error('Error publishing listing:', error);
+      return;
+    }
+
+    clearFormAndClose();
+    await fetchAndRenderListings();
+    setTab('housing');
+  } catch (err) {
+    console.error('Could not reach Supabase to publish listing:', err);
+  }
 });
 
 document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=>{
@@ -1185,23 +1222,36 @@ document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=
   const question = document.getElementById('q-text').value.trim();
   if(!question){ document.getElementById('q-text').focus(); return; }
 
-  const { error } = await supabase.from('forum_posts').insert([{
-    category,
-    question,
-    posted_by: 'You',
-    votes: 0
-  }]);
+  const clearFormAndClose = () => {
+    document.getElementById('askForm').style.display = 'none';
+    document.getElementById('q-text').value = '';
+    state.forumCat = 'All';
+    renderCatChips();
+  };
 
-  if (error) {
-    console.error('Error posting question:', error);
+  if (!SUPABASE_CONFIGURED) {
+    // No backend configured yet — keep the question in this tab so the form still works.
+    forumPosts.unshift({ cat: category, q: question, by: 'You', votes: 0, replies: [] });
+    clearFormAndClose();
+    renderForum();
     return;
   }
 
-  document.getElementById('askForm').style.display = 'none';
-  document.getElementById('q-text').value = '';
-  state.forumCat = 'All';
-  renderCatChips();
-  await fetchAndRenderForum();
+  try {
+    const { error } = await supabaseClient.from('forum_posts').insert([{
+      category, question, posted_by: 'You', votes: 0
+    }]);
+
+    if (error) {
+      console.error('Error posting question:', error);
+      return;
+    }
+
+    clearFormAndClose();
+    await fetchAndRenderForum();
+  } catch (err) {
+    console.error('Could not reach Supabase to post question:', err);
+  }
 });
 
 /* ============================= Initial load ============================= */
