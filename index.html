@@ -104,6 +104,9 @@
   nav.tabbar button.active svg{stroke:var(--green);}
 
   main{padding:20px 18px 8px;}
+  @media (max-width:759px){
+    #view-housing{padding:0;}
+  }
   section.view{display:none;}
   section.view.active{display:block;animation:fadeUp .35s ease;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
@@ -326,6 +329,79 @@
     overflow-y:auto; scroll-snap-type:y mandatory;
     border-radius:var(--radius-lg); background:var(--feed-bg);
   }
+  @media (max-width:759px){
+    .feed-scroll{
+      height:calc(100vh - 84px); max-height:none; 
+      border-radius:0; margin:0;
+    }
+  }
+  /* Hide housing header content on mobile to make feed full-screen */
+  @media (max-width:759px){
+    #view-housing .page-head-row,
+    #view-housing .page-title,
+    #view-housing .page-sub,
+    #view-housing .panel,
+    #view-housing #postForm{
+      display:none;
+    }
+    /* Floating action buttons on mobile */
+    #view-housing #btnOpenPost,
+    #view-housing #btnToggleFilters{
+      position:fixed;z-index:60;
+      width:48px;height:48px;padding:0;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--green);border:none;border-radius:50%;
+      box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      color:#fff;transition:all .2s ease;
+    }
+    #view-housing #btnOpenPost:active,
+    #view-housing #btnToggleFilters:active{
+      transform:scale(0.95);
+    }
+    #view-housing #btnOpenPost{
+      top:16px;inset-inline-end:16px;
+    }
+    #view-housing #btnToggleFilters{
+      top:16px;inset-inline-end:72px;
+      background:var(--gold);
+    }
+    #view-housing #btnOpenPost svg,
+    #view-housing #btnToggleFilters svg{
+      width:24px;height:24px;stroke-width:2;
+    }
+    /* Clean filter bar design */
+    #view-housing .filter-bar{
+      position:fixed;bottom:84px;left:0;right:0;z-index:50;
+      display:none;flex-direction:column;gap:12px;
+      padding:16px 16px;margin:0;
+      background:var(--card);border-top:1.5px solid var(--line);
+      max-width:480px;margin:0 auto;width:100%;
+      box-shadow:0 -2px 8px rgba(0,0,0,0.08);
+      max-height:180px;overflow-y:auto;
+    }
+    #view-housing .filter-bar.open{
+      display:flex;
+    }
+    #view-housing .filter-bar select{
+      border:1px solid var(--line);background:var(--bg);
+      border-radius:8px;padding:10px 12px;font-size:12px;
+      color:var(--ink);font-family:var(--font-body);
+      flex:1;appearance:none;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23585C5D" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+      background-repeat:no-repeat;background-position:right 8px center;
+      background-size:16px;padding-inline-end:32px;
+    }
+    /* Two-column filter layout */
+    #view-housing .filter-bar{
+      display:none;grid;grid-template-columns:1fr 1fr;gap:10px;
+    }
+    #view-housing .filter-bar.open{
+      display:grid;
+    }
+    #view-housing .filter-bar select:nth-child(n+5){
+      grid-column:1/-1;
+    }
+  }
   .feed-card{
     scroll-snap-align:start; position:relative; height:100%; width:100%;
     display:flex; align-items:flex-end; overflow:hidden; background:var(--feed-bg);
@@ -480,7 +556,9 @@
 
       <button class="toggle-open" id="btnOpenPost">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        <span data-i18n="housingPostBtn">Post a room or list a spare bed</span>
+      </button>
+      <button class="toggle-open" id="btnToggleFilters" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
       </button>
 
       <div class="panel" id="postForm" style="display:none;">
@@ -562,6 +640,17 @@
           <option value="1200" data-i18n="filterUnder1200">Under 1,200 SAR</option>
         </select>
         <select id="filterNat"><option value="all" data-i18n="filterAnyNat">Any nationality pref.</option></select>
+        <select id="filterGender">
+          <option value="all" data-i18n="filterAnyGender">Any gender</option>
+          <option value="male" data-i18n="filterMaleOnly">Men only</option>
+          <option value="female" data-i18n="filterFemaleOnly">Women only</option>
+        </select>
+        <select id="filterRoomType">
+          <option value="all" data-i18n="filterAnyRoom">Any room type</option>
+          <option value="shared" data-i18n="filterShared">Shared room</option>
+          <option value="private" data-i18n="filterPrivate">Private room</option>
+          <option value="bed" data-i18n="filterBed">Bed space</option>
+        </select>
       </div>
 
       <div class="feed-scroll" id="listingsGrid"></div>
@@ -1099,7 +1188,7 @@ let buddies = [
 ];
 
 /* ============================= State & render ============================= */
-let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa' };
+let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa' };
 let appUser = null; // { id, name, phone } once signed in — in-memory only, resets on reload
 let myShareLinks = []; // [{id, page, code, clicks}]
 let pendingSignInAction = null; // callback to run right after a successful sign-in
@@ -1130,6 +1219,22 @@ function setTab(tab){
   document.getElementById('view-'+tab).classList.add('active');
   document.querySelectorAll('nav.tabbar button').forEach(b=>b.classList.toggle('active', b.getAttribute('data-tab')===tab));
   window.scrollTo({top:0, behavior:'instant'});
+  
+  // Hide header and adjust layout on mobile for housing page
+  const app = document.querySelector('.app');
+  const topbar = document.querySelector('header.topbar');
+  const filterBtn = document.getElementById('btnToggleFilters');
+  const filterBar = document.querySelector('#view-housing .filter-bar');
+  if(window.innerWidth < 760){
+    topbar.style.display = tab === 'housing' ? 'none' : 'flex';
+    app.style.paddingBottom = tab === 'housing' ? '0' : '84px';
+    if(filterBtn) filterBtn.style.display = tab === 'housing' ? 'flex' : 'none';
+    if(filterBar) filterBar.classList.remove('open');
+  } else {
+    topbar.style.display = 'flex';
+    app.style.paddingBottom = '40px';
+    if(filterBtn) filterBtn.style.display = 'none';
+  }
 }
 
 /* ---- Guide render ---- */
@@ -1181,6 +1286,10 @@ function populateFilterOptions(){
     fn.appendChild(opt);
   });
   fc.value = state.filters.city; fn.value = state.filters.nat;
+  const fgSel = document.getElementById('filterGender');
+  if(fgSel) fgSel.value = state.filters.gender;
+  const frtSel = document.getElementById('filterRoomType');
+  if(frtSel) frtSel.value = state.filters.roomType;
 
   // room type / gender / nationality select translations inside the post form
   const rtSel = document.getElementById('f-roomtype');
@@ -1239,6 +1348,8 @@ function renderListings(){
     if(f.city!=='all' && l.city!==f.city) return false;
     if(f.budget!=='all' && l.rent > parseInt(f.budget)) return false;
     if(f.nat!=='all' && l.nat!==f.nat) return false;
+    if(f.gender!=='all' && l.gender.toLowerCase()!==f.gender.toLowerCase()) return false;
+    if(f.roomType!=='all' && l.type.toLowerCase()!==f.roomType.toLowerCase()) return false;
     return true;
   });
   if(filtered.length===0){
@@ -1648,6 +1759,11 @@ document.getElementById('btnOpenPost').addEventListener('click', ()=>{
   const p = document.getElementById('postForm');
   p.style.display = p.style.display==='none' ? 'block' : 'none';
 });
+
+document.getElementById('btnToggleFilters').addEventListener('click', ()=>{
+  const filterBar = document.querySelector('#view-housing .filter-bar');
+  if(filterBar) filterBar.classList.toggle('open');
+});
 document.getElementById('btnOpenAsk').addEventListener('click', ()=>{
   const p = document.getElementById('askForm');
   p.style.display = p.style.display==='none' ? 'block' : 'none';
@@ -1695,6 +1811,8 @@ document.getElementById('btnSubmitBuddy').addEventListener('click', submitBuddy)
 document.getElementById('filterCity').addEventListener('change', e=>{ state.filters.city = e.target.value; renderListings(); });
 document.getElementById('filterBudget').addEventListener('change', e=>{ state.filters.budget = e.target.value; renderListings(); });
 document.getElementById('filterNat').addEventListener('change', e=>{ state.filters.nat = e.target.value; renderListings(); });
+document.getElementById('filterGender').addEventListener('change', e=>{ state.filters.gender = e.target.value; renderListings(); });
+document.getElementById('filterRoomType').addEventListener('change', e=>{ state.filters.roomType = e.target.value; renderListings(); });
 
 document.getElementById('btnSubmitListing').addEventListener('click', async ()=>{
   const city = document.getElementById('f-city').value;
