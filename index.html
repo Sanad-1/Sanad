@@ -28,6 +28,12 @@
     --shadow: 0 8px 24px rgba(31,42,36,0.08);
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
+    /* Feed accents — deliberately close to the short-video app workers already know */
+    --feed-bg: #0A0A0C;
+    --feed-cyan: #23F1EA;
+    --feed-pink: #FE2C55;
+    --feed-ink: #FFFFFF;
+    --feed-ink-soft: rgba(255,255,255,0.72);
   }
   html[dir="rtl"]{
     --font-display: 'Noto Kufi Arabic', sans-serif;
@@ -292,6 +298,83 @@
 
   footer.appfoot{text-align:center;padding:18px 20px 6px;font-size:11px;color:var(--ink-faint);line-height:1.6;}
 
+  /* ---------- Page head row (title + share) ---------- */
+  .page-head-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .share-btn{
+    display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:6px 12px;font-size:11.5px;font-weight:700;color:var(--green-dark);flex:none;
+  }
+  .share-btn svg{width:14px;height:14px;}
+  .share-btn:hover{border-color:var(--green);}
+
+  /* ---------- Modals (sign-in / share) ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:100;background:rgba(10,20,16,0.55);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+  }
+  .modal-box{
+    background:var(--card);border-radius:var(--radius-lg);padding:22px;
+    width:100%;max-width:380px;box-shadow:0 20px 50px rgba(0,0,0,0.3);
+  }
+  .modal-box h3{margin:0 0 6px;font-size:16px;color:var(--green-dark);}
+  .modal-box .hint{font-size:12px;color:var(--ink-faint);margin:0 0 14px;line-height:1.5;}
+  #shareLinkInput{font-size:12px;}
+
+  /* ---------- TikTok-style video feed (Housing) ---------- */
+  .feed-scroll{
+    height:calc(100vh - 300px); min-height:420px; max-height:640px;
+    overflow-y:auto; scroll-snap-type:y mandatory;
+    border-radius:var(--radius-lg); background:var(--feed-bg);
+  }
+  .feed-card{
+    scroll-snap-align:start; position:relative; height:100%; width:100%;
+    display:flex; align-items:flex-end; overflow:hidden; background:var(--feed-bg);
+  }
+  .feed-card + .feed-card{border-top:1px solid rgba(255,255,255,0.06);}
+  .feed-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .feed-placeholder{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(35,241,234,0.18), transparent 55%),
+      radial-gradient(circle at 75% 80%, rgba(254,44,85,0.20), transparent 50%),
+      linear-gradient(160deg, #101013, #0A0A0C 70%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .feed-placeholder svg{width:56px;height:56px;stroke:rgba(255,255,255,0.35);}
+  .feed-scrim{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.75) 100%);}
+  .feed-mute{
+    position:absolute;top:14px;inset-inline-end:14px;width:32px;height:32px;border-radius:50%;
+    background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.25);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .feed-mute svg{width:16px;height:16px;}
+  .feed-rail{
+    position:absolute;inset-inline-end:12px;bottom:110px;display:flex;flex-direction:column;gap:16px;align-items:center;z-index:3;
+  }
+  .feed-rail button{
+    width:46px;height:46px;border-radius:50%;border:none;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .feed-rail button svg{width:21px;height:21px;}
+  .feed-rail .wa{background:linear-gradient(145deg, var(--feed-pink), #C21F41);}
+  .feed-rail .sh{background:linear-gradient(145deg, var(--feed-cyan), #0FBDB6);}
+  .feed-rail .lbl{font-size:9px;color:var(--feed-ink-soft);text-align:center;margin-top:-8px;font-weight:600;}
+  .feed-content{position:relative;z-index:2;padding:18px 76px 20px 18px;color:var(--feed-ink);width:100%;}
+  .feed-price{font-family:var(--font-display);font-weight:700;color:var(--feed-cyan);font-size:15px;margin-bottom:4px;}
+  .feed-content h3{margin:0 0 4px;font-size:16px;color:#fff;}
+  .feed-content .city{font-size:11.5px;color:var(--feed-ink-soft);margin-bottom:8px;}
+  .feed-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+  .feed-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.14);color:#fff;backdrop-filter:blur(4px);}
+  .feed-desc{font-size:12px;color:var(--feed-ink-soft);line-height:1.5;max-width:90%;}
+  .feed-empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--feed-ink-soft);font-size:13px;text-align:center;padding:30px;}
+
+  /* ---------- Buddy cards ---------- */
+  .buddy-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);padding:16px;margin-bottom:12px;}
+  .buddy-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;}
+  .buddy-top h3{margin:0;font-size:14.5px;color:var(--green-dark);}
+  .buddy-desc{font-size:12.5px;color:var(--ink-soft);line-height:1.5;margin:6px 0 10px;}
+
+
   ::-webkit-scrollbar{height:0;width:0;}
 </style>
 </head>
@@ -331,6 +414,10 @@
     <button data-tab="community">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M2 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M14.5 15c2.7.2 4.5 2.1 4.5 5"/></svg>
       <span data-i18n="navCommunity">Community</span>
+    </button>
+    <button data-tab="profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.8 4.4-5.8 7.5-5.8s6.1 2 7.5 5.8"/></svg>
+      <span data-i18n="navProfile">Profile</span>
     </button>
   </nav>
 
@@ -373,7 +460,10 @@
 
     <!-- GUIDE HUB -->
     <section class="view" id="view-guide">
-      <p class="eyebrow" data-i18n="guideEyebrow">Knowledge guide hub</p>
+      <div class="page-head-row">
+        <p class="eyebrow" data-i18n="guideEyebrow">Knowledge guide hub</p>
+        <button class="share-btn" data-share-page="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg><span data-i18n="shareLabel">Share</span></button>
+      </div>
       <h1 class="page-title" data-i18n="guideTitle">Understand the system before it confuses you</h1>
       <p class="page-sub" data-i18n="guideSub">Short, plain-language explainers on the things every worker eventually needs.</p>
       <div class="guide-grid" id="guideGrid"></div>
@@ -381,7 +471,10 @@
 
     <!-- HOUSING -->
     <section class="view" id="view-housing">
-      <p class="eyebrow" data-i18n="housingEyebrow">Roommate &amp; shared housing board</p>
+      <div class="page-head-row">
+        <p class="eyebrow" data-i18n="housingEyebrow">Roommate &amp; shared housing board</p>
+        <button class="share-btn" data-share-page="housing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg><span data-i18n="shareLabel">Share</span></button>
+      </div>
       <h1 class="page-title" data-i18n="housingTitle">Find your next room</h1>
       <p class="page-sub" data-i18n="housingSub">Real listings from tenants and property owners. Contact directly on WhatsApp — no middleman.</p>
 
@@ -451,6 +544,12 @@
           <label data-i18n="lblWhatsapp">WhatsApp number</label>
           <input type="text" id="f-wa" placeholder="+966 5x xxx xxxx">
         </div>
+        <div class="field">
+          <label data-i18n="videoLabel">Room video (optional)</label>
+          <p class="hint" style="margin:0 0 8px;" data-i18n="videoHint">A short walkthrough gets far more replies than photos alone.</p>
+          <input type="file" id="f-video" accept="video/*">
+          <p class="hint" id="videoUploadStatus" style="margin:6px 0 0;display:none;" data-i18n="uploadingVideo">Uploading video...</p>
+        </div>
         <button class="btn-primary" id="btnSubmitListing" data-i18n="postFormSubmit">Publish listing</button>
       </div>
 
@@ -465,43 +564,137 @@
         <select id="filterNat"><option value="all" data-i18n="filterAnyNat">Any nationality pref.</option></select>
       </div>
 
-      <div id="listingsGrid"></div>
+      <div class="feed-scroll" id="listingsGrid"></div>
     </section>
 
     <!-- COMMUNITY -->
     <section class="view" id="view-community">
-      <p class="eyebrow" data-i18n="communityEyebrow">Community Q&amp;A</p>
+      <div class="page-head-row">
+        <p class="eyebrow" data-i18n="communityEyebrow">Community Q&amp;A</p>
+        <button class="share-btn" data-share-page="community"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg><span data-i18n="shareLabel">Share</span></button>
+      </div>
       <h1 class="page-title" data-i18n="communityTitle">Ask people who've already figured it out</h1>
       <p class="page-sub" data-i18n="communitySub">Peer answers on housing, legal questions, jobs, and everyday life.</p>
 
-      <button class="toggle-open" id="btnOpenAsk">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        <span data-i18n="communityAskBtn">Ask a question</span>
-      </button>
-
-      <div class="panel" id="askForm" style="display:none;">
-        <h3 data-i18n="askFormTitle">New question</h3>
-        <p class="hint" data-i18n="askFormHint">This is a demo form — submissions are shown below but not saved.</p>
-        <div class="field">
-          <label data-i18n="lblCategory">Category</label>
-          <select id="q-cat">
-            <option data-i18n="catHousing">Housing</option>
-            <option data-i18n="catLegal">Legal</option>
-            <option data-i18n="catJobs">Jobs</option>
-            <option data-i18n="catLife">General life</option>
-          </select>
-        </div>
-        <div class="field">
-          <label data-i18n="lblQuestion">Your question</label>
-          <textarea id="q-text" data-i18n-ph="questionPh"></textarea>
-        </div>
-        <button class="btn-primary" id="btnSubmitQuestion" data-i18n="askFormSubmit">Post question</button>
+      <div class="cat-chip-row" id="communitySubTabs" style="margin-bottom:16px;">
+        <button class="cat-chip active" data-subtab="qa" data-i18n="communityTabQA">Q&amp;A</button>
+        <button class="cat-chip" data-subtab="buddies" data-i18n="communityTabBuddies">Buddies</button>
       </div>
 
-      <div class="cat-chip-row" id="catChipRow"></div>
-      <div id="forumList"></div>
+      <div id="communityQA">
+        <button class="toggle-open" id="btnOpenAsk">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span data-i18n="communityAskBtn">Ask a question</span>
+        </button>
+
+        <div class="panel" id="askForm" style="display:none;">
+          <h3 data-i18n="askFormTitle">New question</h3>
+          <p class="hint" data-i18n="askFormHint">This is a demo form — submissions are shown below but not saved.</p>
+          <div class="field">
+            <label data-i18n="lblCategory">Category</label>
+            <select id="q-cat">
+              <option data-i18n="catHousing">Housing</option>
+              <option data-i18n="catLegal">Legal</option>
+              <option data-i18n="catJobs">Jobs</option>
+              <option data-i18n="catLife">General life</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="lblQuestion">Your question</label>
+            <textarea id="q-text" data-i18n-ph="questionPh"></textarea>
+          </div>
+          <button class="btn-primary" id="btnSubmitQuestion" data-i18n="askFormSubmit">Post question</button>
+        </div>
+
+        <div class="cat-chip-row" id="catChipRow"></div>
+        <div id="forumList"></div>
+      </div>
+
+      <div id="communityBuddies" style="display:none;">
+        <button class="toggle-open" id="btnOpenBuddy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span data-i18n="becomeBuddyBtn">Become a buddy — help newcomers</span>
+        </button>
+
+        <div class="panel" id="buddyForm" style="display:none;">
+          <h3 data-i18n="buddyFormTitle">Sign up as a buddy</h3>
+          <p class="hint" data-i18n="buddyFormHint">Newcomers will be able to see your profile and reach you on WhatsApp.</p>
+          <div class="field">
+            <label data-i18n="lblHelpAreas">What can you help with?</label>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft);"><input type="checkbox" class="buddy-help" value="Housing"><span data-i18n="helpHousing">Finding housing</span></label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft);"><input type="checkbox" class="buddy-help" value="Paperwork"><span data-i18n="helpPaperwork">Paperwork &amp; procedures</span></label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft);"><input type="checkbox" class="buddy-help" value="Orientation"><span data-i18n="helpOrientation">General orientation</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="lblBio">Short bio</label>
+            <textarea id="buddy-bio" data-i18n-ph="bioPh"></textarea>
+          </div>
+          <div class="field">
+            <label data-i18n="lblWhatsapp">WhatsApp number</label>
+            <input type="text" id="buddy-wa" placeholder="+966 5x xxx xxxx">
+          </div>
+          <button class="btn-primary" id="btnSubmitBuddy" data-i18n="buddyFormSubmit">Publish my buddy profile</button>
+        </div>
+
+        <div id="buddyList"></div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="view" id="view-profile">
+      <p class="eyebrow" data-i18n="profileEyebrow">Your account</p>
+      <div id="profileSignedOut">
+        <h1 class="page-title" data-i18n="profileTitleSignedOut">Sign in to unlock more</h1>
+        <p class="page-sub" data-i18n="profileSubSignedOut">Posting, becoming a buddy, and sharing links all use the same quick sign-in.</p>
+        <button class="btn-primary" id="btnProfileSignIn" style="width:auto;padding:12px 22px;" data-i18n="signInTitle">Quick sign-in</button>
+      </div>
+      <div id="profileSignedIn" style="display:none;">
+        <div class="panel">
+          <h3><span data-i18n="signedInAs">Signed in as</span> <span id="profileName"></span></h3>
+          <p class="hint" id="profilePhone"></p>
+          <button class="toggle-open" id="btnSignOut" style="margin-top:10px;margin-bottom:0;" data-i18n="signOutBtn">Sign out</button>
+        </div>
+        <div class="panel">
+          <h3 data-i18n="myLinksTitle">My share links</h3>
+          <p class="hint" data-i18n="myLinksHint">Generate a personal link for any section — you'll see how many times each one gets clicked.</p>
+          <div id="myLinksList"></div>
+        </div>
+      </div>
     </section>
   </main>
+
+  <!-- SIGN-IN MODAL -->
+  <div class="modal-overlay" id="signInModal" style="display:none;">
+    <div class="modal-box">
+      <h3 data-i18n="signInTitle">Quick sign-in</h3>
+      <p class="hint" data-i18n="signInHint">Just your name and phone — no password needed. This lets us credit your posts and track your shared links.</p>
+      <div class="field">
+        <label data-i18n="lblName">Your name</label>
+        <input type="text" id="si-name">
+      </div>
+      <div class="field">
+        <label data-i18n="lblPhone">Phone number</label>
+        <input type="text" id="si-phone" placeholder="+966 5x xxx xxxx">
+      </div>
+      <button class="btn-primary" id="btnSignInSubmit" data-i18n="signInSubmit">Continue</button>
+      <button class="toggle-open" id="btnSignInCancel" style="margin-top:10px;margin-bottom:0;border-style:solid;">✕</button>
+    </div>
+  </div>
+
+  <!-- SHARE PANEL -->
+  <div class="modal-overlay" id="sharePanel" style="display:none;">
+    <div class="modal-box">
+      <h3 data-i18n="shareThisPage">Share this page</h3>
+      <div class="field">
+        <input type="text" id="shareLinkInput" readonly>
+      </div>
+      <button class="btn-primary" id="btnCopyShareLink" data-i18n="copyLink">Copy link</button>
+      <a class="wa-btn" id="btnShareWhatsapp" style="margin-top:10px;justify-content:center;width:100%;" target="_blank" rel="noopener"><span data-i18n="shareViaWhatsapp">Share via WhatsApp</span></a>
+      <button class="toggle-open" id="btnShareClose" style="margin-top:10px;margin-bottom:0;border-style:solid;">✕</button>
+    </div>
+  </div>
 
   <footer class="appfoot">
     <span data-i18n="footNote">Sanad is a community platform. Always verify official procedures on government portals such as Qiwa, Absher, and Muqeem.</span>
@@ -589,7 +782,19 @@ en: {
   lblQuestion:"Your question", questionPh:"Type your question here...", askFormSubmit:"Post question",
   catAll:"All", replies:"replies", viewReplies:"View replies", hideReplies:"Hide replies",
   footNote:"Sanad is a community platform. Always verify official procedures on government portals such as Qiwa, Absher, and Muqeem.",
-  emergencyTitle:"Emergency contacts", em911:"Emergency (Police)", em998:"Civil Defense (Fire)", em997:"Ambulance (Red Crescent)", em19911:"Ministry of HR — Labor Inquiries"
+  emergencyTitle:"Emergency contacts", em911:"Emergency (Police)", em998:"Civil Defense (Fire)", em997:"Ambulance (Red Crescent)", em19911:"Ministry of HR — Labor Inquiries",
+  navProfile:"Profile", shareLabel:"Share", copyLink:"Copy link", linkCopied:"Link copied!", shareViaWhatsapp:"Share via WhatsApp", shareThisPage:"Share this page",
+  signInTitle:"Quick sign-in", signInHint:"Just your name and phone — no password needed. This lets us credit your posts and track your shared links.",
+  lblName:"Your name", lblPhone:"Phone number", signInSubmit:"Continue", signedInAs:"Signed in as", signOutBtn:"Sign out",
+  communityTabQA:"Q&A", communityTabBuddies:"Buddies", becomeBuddyBtn:"Become a buddy — help newcomers",
+  buddyFormTitle:"Sign up as a buddy", buddyFormHint:"Newcomers will be able to see your profile and reach you on WhatsApp.",
+  lblHelpAreas:"What can you help with?", helpHousing:"Finding housing", helpPaperwork:"Paperwork & procedures", helpOrientation:"General orientation",
+  lblBio:"Short bio", bioPh:"e.g. Lived in Riyadh for 3 years, happy to help with Absher/Nafath setup...",
+  buddyFormSubmit:"Publish my buddy profile", noBuddiesYet:"No buddies listed yet — be the first!", helpsWith:"Can help with",
+  videoLabel:"Room video (optional)", videoHint:"A short walkthrough gets far more replies than photos alone.", uploadingVideo:"Uploading video...",
+  profileEyebrow:"Your account", profileTitleSignedOut:"Sign in to unlock more", profileSubSignedOut:"Posting, becoming a buddy, and sharing links all use the same quick sign-in.",
+  myLinksTitle:"My share links", myLinksHint:"Generate a personal link for any section — you'll see how many times each one gets clicked.",
+  generateLinkBtn:"Get link", clicksLabel:"clicks"
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
@@ -626,7 +831,19 @@ ar: {
   lblQuestion:"سؤالك", questionPh:"اكتب سؤالك هنا...", askFormSubmit:"نشر السؤال",
   catAll:"الكل", replies:"ردود", viewReplies:"عرض الردود", hideReplies:"إخفاء الردود",
   footNote:"سند منصة مجتمعية. تأكد دائماً من الإجراءات الرسمية عبر البوابات الحكومية مثل قوى وأبشر ومقيم.",
-  emergencyTitle:"أرقام الطوارئ", em911:"الطوارئ (الشرطة)", em998:"الدفاع المدني (الإطفاء)", em997:"الإسعاف (الهلال الأحمر)", em19911:"وزارة الموارد البشرية — استفسارات العمل"
+  emergencyTitle:"أرقام الطوارئ", em911:"الطوارئ (الشرطة)", em998:"الدفاع المدني (الإطفاء)", em997:"الإسعاف (الهلال الأحمر)", em19911:"وزارة الموارد البشرية — استفسارات العمل",
+  navProfile:"الملف الشخصي", shareLabel:"مشاركة", copyLink:"نسخ الرابط", linkCopied:"تم نسخ الرابط!", shareViaWhatsapp:"مشاركة عبر واتساب", shareThisPage:"شارك هذه الصفحة",
+  signInTitle:"تسجيل دخول سريع", signInHint:"فقط اسمك ورقم جوالك — بدون كلمة مرور. هذا يساعدنا على نسب مشاركاتك وتتبع روابطك.",
+  lblName:"اسمك", lblPhone:"رقم الجوال", signInSubmit:"متابعة", signedInAs:"مسجل الدخول باسم", signOutBtn:"تسجيل الخروج",
+  communityTabQA:"أسئلة وأجوبة", communityTabBuddies:"الرفقاء", becomeBuddyBtn:"كن رفيقاً — ساعد الوافدين الجدد",
+  buddyFormTitle:"سجّل كرفيق", buddyFormHint:"سيتمكن الوافدون الجدد من رؤية ملفك الشخصي والتواصل معك عبر واتساب.",
+  lblHelpAreas:"بماذا يمكنك المساعدة؟", helpHousing:"إيجاد السكن", helpPaperwork:"الأوراق والإجراءات", helpOrientation:"التوجيه العام",
+  lblBio:"نبذة قصيرة", bioPh:"مثال: أعيش في الرياض منذ 3 سنوات، يسعدني المساعدة في إعداد أبشر ونفاذ...",
+  buddyFormSubmit:"نشر ملفي كرفيق", noBuddiesYet:"لا يوجد رفقاء بعد — كن الأول!", helpsWith:"يمكنه المساعدة في",
+  videoLabel:"فيديو الغرفة (اختياري)", videoHint:"جولة قصيرة بالفيديو تحصل على ردود أكثر بكثير من الصور فقط.", uploadingVideo:"جارٍ رفع الفيديو...",
+  profileEyebrow:"حسابك", profileTitleSignedOut:"سجّل الدخول لفتح المزيد", profileSubSignedOut:"النشر والانضمام كرفيق ومشاركة الروابط، كلها تستخدم نفس تسجيل الدخول السريع.",
+  myLinksTitle:"روابط المشاركة الخاصة بي", myLinksHint:"أنشئ رابطاً شخصياً لأي قسم — ستشاهد عدد مرات النقر على كل رابط.",
+  generateLinkBtn:"احصل على الرابط", clicksLabel:"نقرات"
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
@@ -663,7 +880,19 @@ ur: {
   lblQuestion:"آپ کا سوال", questionPh:"اپنا سوال یہاں لکھیں...", askFormSubmit:"سوال پوسٹ کریں",
   catAll:"تمام", replies:"جوابات", viewReplies:"جوابات دیکھیں", hideReplies:"جوابات چھپائیں",
   footNote:"سند ایک کمیونٹی پلیٹ فارم ہے۔ ہمیشہ سرکاری طریقہ کار کی تصدیق قویٰ، ابشر اور مقیم جیسے سرکاری پورٹلز سے کریں۔",
-  emergencyTitle:"ہنگامی نمبرز", em911:"ایمرجنسی (پولیس)", em998:"سول ڈیفنس (فائر)", em997:"ایمبولینس (ریڈ کریسنٹ)", em19911:"وزارت انسانی وسائل — لیبر انکوائریز"
+  emergencyTitle:"ہنگامی نمبرز", em911:"ایمرجنسی (پولیس)", em998:"سول ڈیفنس (فائر)", em997:"ایمبولینس (ریڈ کریسنٹ)", em19911:"وزارت انسانی وسائل — لیبر انکوائریز",
+  navProfile:"پروفائل", shareLabel:"شیئر", copyLink:"لنک کاپی کریں", linkCopied:"لنک کاپی ہو گیا!", shareViaWhatsapp:"واٹس ایپ پر شیئر کریں", shareThisPage:"یہ صفحہ شیئر کریں",
+  signInTitle:"فوری سائن ان", signInHint:"صرف آپ کا نام اور فون نمبر — پاس ورڈ کی ضرورت نہیں۔ یہ ہمیں آپ کی پوسٹس کا سہرا دینے اور آپ کے شیئر کردہ لنکس ٹریک کرنے میں مدد دیتا ہے۔",
+  lblName:"آپ کا نام", lblPhone:"فون نمبر", signInSubmit:"جاری رکھیں", signedInAs:"بطور سائن ان", signOutBtn:"سائن آؤٹ",
+  communityTabQA:"سوال و جواب", communityTabBuddies:"ساتھی", becomeBuddyBtn:"ساتھی بنیں — نئے آنے والوں کی مدد کریں",
+  buddyFormTitle:"بطور ساتھی سائن اپ کریں", buddyFormHint:"نئے آنے والے آپ کی پروفائل دیکھ سکیں گے اور واٹس ایپ پر آپ سے رابطہ کر سکیں گے۔",
+  lblHelpAreas:"آپ کس چیز میں مدد کر سکتے ہیں؟", helpHousing:"رہائش تلاش کرنا", helpPaperwork:"کاغذی کارروائی اور طریقہ کار", helpOrientation:"عمومی رہنمائی",
+  lblBio:"مختصر تعارف", bioPh:"مثلاً: 3 سال سے ریاض میں مقیم ہوں، ابشر/نفاذ سیٹ اپ میں مدد کے لیے تیار ہوں...",
+  buddyFormSubmit:"میری ساتھی پروفائل شائع کریں", noBuddiesYet:"ابھی تک کوئی ساتھی نہیں — پہلے آپ بنیں!", helpsWith:"مدد کر سکتا ہے",
+  videoLabel:"کمرے کی ویڈیو (اختیاری)", videoHint:"ایک مختصر ویڈیو صرف تصاویر کے مقابلے میں کہیں زیادہ جوابات لاتی ہے۔", uploadingVideo:"ویڈیو اپ لوڈ ہو رہی ہے...",
+  profileEyebrow:"آپ کا اکاؤنٹ", profileTitleSignedOut:"مزید کے لیے سائن ان کریں", profileSubSignedOut:"پوسٹ کرنا، ساتھی بننا، اور لنکس شیئر کرنا سب ایک ہی فوری سائن ان استعمال کرتے ہیں۔",
+  myLinksTitle:"میرے شیئر لنکس", myLinksHint:"کسی بھی سیکشن کے لیے ذاتی لنک بنائیں — آپ دیکھ سکیں گے کہ ہر لنک پر کتنی بار کلک ہوا۔",
+  generateLinkBtn:"لنک حاصل کریں", clicksLabel:"کلکس"
 }
 };
 
@@ -862,8 +1091,18 @@ let forumPosts = [
   replies:["Bed space, by far, if you can find one through a trusted contact — hotels add up fast in the first two weeks."]}
 ];
 
+/* ============================= Buddies ============================= */
+/* Placeholder data shown briefly while the real rows load from Supabase (see fetchAndRenderBuddies). */
+let buddies = [
+ {name:"Waseem A.", help:["Housing","Paperwork"], bio:"3 years in Riyadh, happy to help with Absher/Nafath setup and finding shared housing near Olaya.", wa:"966509012345"},
+ {name:"Grace M.", help:["Orientation","Housing"], bio:"Been in Jeddah for 2 years, know the ropes around Al Balad and Corniche housing options.", wa:"966509123456"}
+];
+
 /* ============================= State & render ============================= */
-let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all'}, forumCat:'All', openReplies:{} };
+let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa' };
+let appUser = null; // { id, name, phone } once signed in — in-memory only, resets on reload
+let myShareLinks = []; // [{id, page, code, clicks}]
+let pendingSignInAction = null; // callback to run right after a successful sign-in
 
 function t(key){ return translations[state.lang][key] ?? key; }
 
@@ -977,7 +1216,8 @@ async function fetchAndRenderListings(){
       bills: l.bills_included,
       desc: l.description,
       by: l.poster_role,
-      wa: l.whatsapp
+      wa: l.whatsapp,
+      video: l.video_url
     }));
 
     renderListings();
@@ -989,6 +1229,9 @@ async function fetchAndRenderListings(){
 
 const waIconSvg = '<svg viewBox="0 0 32 32"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.34.63 4.53 1.73 6.42L3 29l7.27-2.19a12.4 12.4 0 005.73 1.4c6.905 0 12.5-5.596 12.5-12.5S22.906 3 16.001 3zm7.28 17.7c-.31.87-1.53 1.6-2.51 1.81-.67.14-1.55.25-4.5-.97-3.78-1.57-6.22-5.4-6.4-5.65-.19-.25-1.53-2.04-1.53-3.89 0-1.85.97-2.76 1.31-3.14.34-.38.74-.47.98-.47.25 0 .49 0 .7.01.23.01.53-.09.83.63.31.74 1.06 2.56 1.15 2.74.09.19.15.4.03.65-.13.25-.19.4-.38.62-.19.22-.4.49-.57.66-.19.19-.39.4-.17.78.22.38.98 1.62 2.11 2.62 1.45 1.29 2.67 1.7 3.05 1.89.38.19.6.16.82-.1.22-.25.94-1.1 1.19-1.48.25-.38.5-.31.84-.19.34.13 2.16 1.02 2.53 1.2.37.19.62.28.71.44.09.15.09.85-.22 1.72z"/></svg>';
 
+const shareIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg>';
+const houseIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg>';
+
 function renderListings(){
   const wrap = document.getElementById('listingsGrid');
   const f = state.filters;
@@ -999,30 +1242,57 @@ function renderListings(){
     return true;
   });
   if(filtered.length===0){
-    wrap.innerHTML = `<p style="text-align:center;color:var(--ink-faint);font-size:13px;padding:30px 0;">—</p>`;
+    wrap.innerHTML = `<div class="feed-card"><div class="feed-placeholder">${houseIconSvg}</div><div class="feed-empty">—</div></div>`;
     return;
   }
-  wrap.innerHTML = filtered.map(l=>`
-    <div class="listing-card">
-      <div class="listing-main">
-        <div class="listing-top">
-          <div><h3>${l.type}</h3><div class="city">${l.city}</div></div>
-          <div class="price-tag">${l.rent} SAR<small>${t('perMonth')}</small></div>
-        </div>
-        <div class="tag-row">
-          <span class="tag">${l.gender}</span>
-          <span class="tag">${l.nat==='Any' ? t('natAny') : l.nat}</span>
-          <span class="tag alt">${l.bills ? t('billsIncluded') : t('billsShared')}</span>
-        </div>
-        <p class="listing-desc">${l.desc}</p>
+  wrap.innerHTML = filtered.map((l,i)=>`
+    <div class="feed-card" data-idx="${i}">
+      ${l.video ? `<video class="feed-media" src="${l.video}" muted loop playsinline></video>` : `<div class="feed-placeholder">${houseIconSvg}</div>`}
+      <div class="feed-scrim"></div>
+      ${l.video ? `<button class="feed-mute" data-mute-toggle="${i}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9v6h4l5 4V5l-5 4H5z"/><path d="M17 9a3 3 0 010 6" stroke-opacity="0.4"/></svg></button>` : ''}
+      <div class="feed-rail">
+        <div><button class="wa" data-wa="${l.wa}">${waIconSvg}</button><div class="lbl">${t('contactWA')}</div></div>
+        <div><button class="sh" data-listing-share="${i}">${shareIconSvg}</button><div class="lbl">${t('shareLabel')}</div></div>
       </div>
-      <div class="stub-divider"></div>
-      <div class="listing-footer">
-        <div class="poster"><span class="dot"></span>${t('postedBy')} ${l.by}</div>
-        <a class="wa-btn" href="https://wa.me/${l.wa}" target="_blank" rel="noopener">${waIconSvg}${t('contactWA')}</a>
+      <div class="feed-content">
+        <div class="feed-price">${l.rent} SAR${t('perMonth')}</div>
+        <h3>${l.type}</h3>
+        <div class="city">${l.city} · ${t('postedBy')} ${l.by}</div>
+        <div class="feed-tag-row">
+          <span class="feed-tag">${l.gender}</span>
+          <span class="feed-tag">${l.nat==='Any' ? t('natAny') : l.nat}</span>
+          <span class="feed-tag">${l.bills ? t('billsIncluded') : t('billsShared')}</span>
+        </div>
+        <p class="feed-desc">${l.desc}</p>
       </div>
     </div>
   `).join('');
+
+  wrap.querySelectorAll('[data-wa]').forEach(btn=>{
+    btn.addEventListener('click', ()=> window.open('https://wa.me/'+btn.getAttribute('data-wa'), '_blank'));
+  });
+  wrap.querySelectorAll('[data-mute-toggle]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const card = btn.closest('.feed-card');
+      const vid = card.querySelector('video');
+      if(vid){ vid.muted = !vid.muted; }
+    });
+  });
+  wrap.querySelectorAll('[data-listing-share]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openSharePanel('housing'));
+  });
+
+  // Autoplay the video currently in view, pause the rest — same feel as a short-video feed.
+  const videos = wrap.querySelectorAll('video');
+  if(videos.length){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.play().catch(()=>{}); }
+        else{ entry.target.pause(); }
+      });
+    }, { root: wrap, threshold: 0.6 });
+    videos.forEach(v=>io.observe(v));
+  }
 }
 
 /* ---- Forum render ---- */
@@ -1127,6 +1397,227 @@ function renderForum(){
   });
 }
 
+/* ============================= Sign-in (light accounts) ============================= */
+function openSignIn(onSuccess){
+  pendingSignInAction = onSuccess || null;
+  document.getElementById('si-name').value = appUser ? appUser.name : '';
+  document.getElementById('si-phone').value = appUser ? appUser.phone : '';
+  document.getElementById('signInModal').style.display = 'flex';
+}
+function closeSignIn(){
+  document.getElementById('signInModal').style.display = 'none';
+  pendingSignInAction = null;
+}
+function requireSignIn(onReady){
+  if(appUser){ onReady(); return; }
+  openSignIn(onReady);
+}
+
+async function submitSignIn(){
+  const name = document.getElementById('si-name').value.trim();
+  const phone = document.getElementById('si-phone').value.trim();
+  if(!name || !phone){ return; }
+
+  if(!SUPABASE_CONFIGURED){
+    appUser = { id: 'local-'+Date.now(), name, phone };
+  } else {
+    try{
+      // Reuse an existing account for this phone number if one already exists.
+      const { data: existing } = await supabaseClient.from('app_users').select('*').eq('phone', phone).limit(1);
+      if(existing && existing.length){
+        appUser = { id: existing[0].id, name: existing[0].name, phone: existing[0].phone };
+      } else {
+        const { data: created, error } = await supabaseClient.from('app_users').insert([{ name, phone }]).select();
+        if(error){ console.error('Sign-in error:', error); return; }
+        appUser = { id: created[0].id, name: created[0].name, phone: created[0].phone };
+      }
+    } catch(err){
+      console.error('Could not reach Supabase to sign in:', err);
+      appUser = { id: 'local-'+Date.now(), name, phone }; // fall back so the demo still works offline
+    }
+  }
+
+  document.getElementById('signInModal').style.display = 'none';
+  const action = pendingSignInAction;
+  pendingSignInAction = null;
+  renderProfile();
+  await fetchAndRenderShareLinks();
+  if(action) action();
+}
+
+function signOut(){
+  appUser = null;
+  myShareLinks = [];
+  renderProfile();
+}
+
+function renderProfile(){
+  const out = document.getElementById('profileSignedOut');
+  const inn = document.getElementById('profileSignedIn');
+  if(!appUser){
+    out.style.display = 'block';
+    inn.style.display = 'none';
+    return;
+  }
+  out.style.display = 'none';
+  inn.style.display = 'block';
+  document.getElementById('profileName').textContent = appUser.name;
+  document.getElementById('profilePhone').textContent = appUser.phone;
+
+  const pages = [
+    {key:'home', label: t('navHome')},
+    {key:'guide', label: t('navGuide')},
+    {key:'housing', label: t('navHousing')},
+    {key:'community', label: t('navCommunity')}
+  ];
+  const list = document.getElementById('myLinksList');
+  list.innerHTML = pages.map(p=>{
+    const existing = myShareLinks.find(l=>l.page===p.key);
+    if(existing){
+      return `<div class="buddy-card">
+        <div class="buddy-top"><h3>${p.label}</h3><span style="font-size:12px;color:var(--ink-faint);">${existing.clicks} ${t('clicksLabel')}</span></div>
+        <button class="wa-btn" style="background:var(--green);" data-open-share="${p.key}">${shareIconSvg}${t('shareLabel')}</button>
+      </div>`;
+    }
+    return `<div class="buddy-card">
+      <div class="buddy-top"><h3>${p.label}</h3></div>
+      <button class="wa-btn" style="background:var(--gold);" data-open-share="${p.key}">${shareIconSvg}${t('generateLinkBtn')}</button>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('[data-open-share]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openSharePanel(btn.getAttribute('data-open-share')));
+  });
+}
+
+/* ============================= Share links + click tracking ============================= */
+function randomShareCode(){
+  return Math.random().toString(36).slice(2, 9);
+}
+
+function baseShareUrl(){
+  return window.location.origin + window.location.pathname;
+}
+
+async function fetchAndRenderShareLinks(){
+  if(!appUser){ myShareLinks = []; return; }
+  if(!SUPABASE_CONFIGURED){ renderProfile(); return; }
+  try{
+    const { data, error } = await supabaseClient
+      .from('share_links')
+      .select('id, page, code, share_clicks(count)')
+      .eq('user_id', appUser.id);
+    if(error){ console.error('Error loading share links:', error); return; }
+    myShareLinks = data.map(l=>({ id:l.id, page:l.page, code:l.code, clicks: (l.share_clicks && l.share_clicks[0]) ? l.share_clicks[0].count : 0 }));
+    renderProfile();
+  } catch(err){
+    console.error('Could not reach Supabase to load share links:', err);
+  }
+}
+
+async function getOrCreateShareLink(page){
+  let existing = myShareLinks.find(l=>l.page===page);
+  if(existing) return existing;
+
+  const code = randomShareCode();
+  if(!SUPABASE_CONFIGURED){
+    existing = { id:'local-'+code, page, code, clicks:0 };
+    myShareLinks.push(existing);
+    return existing;
+  }
+  try{
+    const { data, error } = await supabaseClient.from('share_links').insert([{ user_id: appUser.id, page, code }]).select();
+    if(error){ console.error('Error creating share link:', error); return { id:null, page, code, clicks:0 }; }
+    existing = { id:data[0].id, page, code, clicks:0 };
+    myShareLinks.push(existing);
+    return existing;
+  } catch(err){
+    console.error('Could not reach Supabase to create share link:', err);
+    existing = { id:'local-'+code, page, code, clicks:0 };
+    myShareLinks.push(existing);
+    return existing;
+  }
+}
+
+async function openSharePanel(page){
+  requireSignIn(async ()=>{
+    const link = await getOrCreateShareLink(page);
+    const url = `${baseShareUrl()}?ref=${link.code}&page=${page}`;
+    document.getElementById('shareLinkInput').value = url;
+    document.getElementById('btnShareWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(url)}`;
+    document.getElementById('sharePanel').style.display = 'flex';
+    renderProfile();
+  });
+}
+
+async function trackIncomingShareCode(){
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('ref');
+  if(!code || !SUPABASE_CONFIGURED) return;
+  try{
+    const { data } = await supabaseClient.from('share_links').select('id').eq('code', code).limit(1);
+    if(data && data.length){
+      await supabaseClient.from('share_clicks').insert([{ share_link_id: data[0].id }]);
+    }
+  } catch(err){
+    console.error('Could not record share click:', err);
+  }
+}
+
+/* ============================= Buddies ============================= */
+function renderBuddies(){
+  const wrap = document.getElementById('buddyList');
+  if(!buddies.length){
+    wrap.innerHTML = `<p style="text-align:center;color:var(--ink-faint);font-size:13px;padding:20px 0;">${t('noBuddiesYet')}</p>`;
+    return;
+  }
+  const helpKeyMap = {Housing:'helpHousing', Paperwork:'helpPaperwork', Orientation:'helpOrientation'};
+  wrap.innerHTML = buddies.map(b=>`
+    <div class="buddy-card">
+      <div class="buddy-top"><h3>${b.name}</h3></div>
+      <div class="tag-row">${(b.help||[]).map(h=>`<span class="tag">${t(helpKeyMap[h]||h)}</span>`).join('')}</div>
+      <p class="buddy-desc">${b.bio}</p>
+      <a class="wa-btn" href="https://wa.me/${b.wa}" target="_blank" rel="noopener">${waIconSvg}${t('contactWA')}</a>
+    </div>
+  `).join('');
+}
+
+async function fetchAndRenderBuddies(){
+  if(!SUPABASE_CONFIGURED){ renderBuddies(); return; }
+  try{
+    const { data, error } = await supabaseClient.from('buddies').select('*, app_users(name)').order('created_at', { ascending:false });
+    if(error){ console.error('Error loading buddies:', error); renderBuddies(); return; }
+    buddies = data.map(b=>({ name: b.app_users ? b.app_users.name : 'Buddy', help: b.help_areas || [], bio: b.bio, wa: b.whatsapp }));
+    renderBuddies();
+  } catch(err){
+    console.error('Could not reach Supabase for buddies, showing local data instead:', err);
+    renderBuddies();
+  }
+}
+
+async function submitBuddy(){
+  const help = [...document.querySelectorAll('.buddy-help:checked')].map(c=>c.value);
+  const bio = document.getElementById('buddy-bio').value.trim() || '—';
+  const wa = (document.getElementById('buddy-wa').value || '966500000000').replace(/[^0-9]/g,'');
+  if(!help.length){ return; }
+
+  requireSignIn(async ()=>{
+    if(!SUPABASE_CONFIGURED){
+      buddies.unshift({ name: appUser.name, help, bio, wa });
+      document.getElementById('buddyForm').style.display = 'none';
+      renderBuddies();
+      return;
+    }
+    try{
+      const { error } = await supabaseClient.from('buddies').insert([{ user_id: appUser.id, help_areas: help, bio, whatsapp: wa }]);
+      if(error){ console.error('Error publishing buddy profile:', error); return; }
+      document.getElementById('buddyForm').style.display = 'none';
+      await fetchAndRenderBuddies();
+    } catch(err){
+      console.error('Could not reach Supabase to publish buddy profile:', err);
+    }
+  });
+}
+
 /* ---- Full re-render ---- */
 function renderAll(){
   applyI18n();
@@ -1135,6 +1626,8 @@ function renderAll(){
   renderListings();
   renderCatChips();
   renderForum();
+  renderBuddies();
+  renderProfile();
 }
 
 /* ============================= Events ============================= */
@@ -1159,6 +1652,45 @@ document.getElementById('btnOpenAsk').addEventListener('click', ()=>{
   const p = document.getElementById('askForm');
   p.style.display = p.style.display==='none' ? 'block' : 'none';
 });
+document.getElementById('btnOpenBuddy').addEventListener('click', ()=>{
+  const p = document.getElementById('buddyForm');
+  p.style.display = p.style.display==='none' ? 'block' : 'none';
+});
+
+/* ---- Sign-in modal ---- */
+document.getElementById('btnProfileSignIn').addEventListener('click', ()=> openSignIn());
+document.getElementById('btnSignInSubmit').addEventListener('click', submitSignIn);
+document.getElementById('btnSignInCancel').addEventListener('click', closeSignIn);
+document.getElementById('btnSignOut').addEventListener('click', signOut);
+
+/* ---- Share panel ---- */
+document.querySelectorAll('[data-share-page]').forEach(btn=>{
+  btn.addEventListener('click', ()=> openSharePanel(btn.getAttribute('data-share-page')));
+});
+document.getElementById('btnShareClose').addEventListener('click', ()=>{
+  document.getElementById('sharePanel').style.display = 'none';
+});
+document.getElementById('btnCopyShareLink').addEventListener('click', ()=>{
+  const input = document.getElementById('shareLinkInput');
+  input.select();
+  navigator.clipboard?.writeText(input.value).catch(()=>{});
+  const btn = document.getElementById('btnCopyShareLink');
+  const original = btn.textContent;
+  btn.textContent = t('linkCopied');
+  setTimeout(()=>{ btn.textContent = original; }, 1800);
+});
+
+/* ---- Community sub-tabs (Q&A / Buddies) ---- */
+document.querySelectorAll('[data-subtab]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    state.communitySubTab = btn.getAttribute('data-subtab');
+    document.querySelectorAll('[data-subtab]').forEach(b=>b.classList.toggle('active', b===btn));
+    document.getElementById('communityQA').style.display = state.communitySubTab==='qa' ? 'block' : 'none';
+    document.getElementById('communityBuddies').style.display = state.communitySubTab==='buddies' ? 'block' : 'none';
+  });
+});
+
+document.getElementById('btnSubmitBuddy').addEventListener('click', submitBuddy);
 
 document.getElementById('filterCity').addEventListener('change', e=>{ state.filters.city = e.target.value; renderListings(); });
 document.getElementById('filterBudget').addEventListener('change', e=>{ state.filters.budget = e.target.value; renderListings(); });
@@ -1173,6 +1705,7 @@ document.getElementById('btnSubmitListing').addEventListener('click', async ()=>
   const bills_included = document.getElementById('f-bills').checked;
   const description = document.getElementById('f-desc').value || '—';
   const whatsapp = (document.getElementById('f-wa').value || '966500000000').replace(/[^0-9]/g, '');
+  const videoFile = document.getElementById('f-video').files[0];
 
   if (!rent) {
     document.getElementById('f-rent').focus();
@@ -1184,34 +1717,54 @@ document.getElementById('btnSubmitListing').addEventListener('click', async ()=>
     document.getElementById('f-rent').value = '';
     document.getElementById('f-desc').value = '';
     document.getElementById('f-wa').value = '';
+    document.getElementById('f-video').value = '';
+    document.getElementById('videoUploadStatus').style.display = 'none';
   };
 
-  if (!SUPABASE_CONFIGURED) {
-    // No backend configured yet — keep the listing in this tab so the form still works.
-    listings.unshift({ city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: description, by: 'You', wa: whatsapp });
-    clearFormAndClose();
-    setTab('housing');
-    renderListings();
-    return;
-  }
-
-  try {
-    const { error } = await supabaseClient.from('housing_listings').insert([{
-      city, rent, room_type, gender_pref, nationality_pref, bills_included, description,
-      poster_role: 'You', whatsapp
-    }]);
-
-    if (error) {
-      console.error('Error publishing listing:', error);
+  requireSignIn(async ()=>{
+    if (!SUPABASE_CONFIGURED) {
+      // No backend configured yet — keep the listing in this tab so the form still works.
+      // A locally-picked video plays fine for this session via an object URL, but won't persist across reloads.
+      const localVideoUrl = videoFile ? URL.createObjectURL(videoFile) : null;
+      listings.unshift({ city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: description, by: appUser.name, wa: whatsapp, video: localVideoUrl });
+      clearFormAndClose();
+      setTab('housing');
+      renderListings();
       return;
     }
 
-    clearFormAndClose();
-    await fetchAndRenderListings();
-    setTab('housing');
-  } catch (err) {
-    console.error('Could not reach Supabase to publish listing:', err);
-  }
+    try {
+      let video_url = null;
+      if (videoFile) {
+        const statusEl = document.getElementById('videoUploadStatus');
+        statusEl.style.display = 'block';
+        const path = `${Date.now()}_${videoFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
+        const { error: uploadError } = await supabaseClient.storage.from('listing-videos').upload(path, videoFile);
+        statusEl.style.display = 'none';
+        if (uploadError) {
+          console.error('Error uploading video:', uploadError);
+        } else {
+          video_url = supabaseClient.storage.from('listing-videos').getPublicUrl(path).data.publicUrl;
+        }
+      }
+
+      const { error } = await supabaseClient.from('housing_listings').insert([{
+        city, rent, room_type, gender_pref, nationality_pref, bills_included, description,
+        poster_role: appUser.name, whatsapp, video_url, poster_user_id: appUser.id
+      }]);
+
+      if (error) {
+        console.error('Error publishing listing:', error);
+        return;
+      }
+
+      clearFormAndClose();
+      await fetchAndRenderListings();
+      setTab('housing');
+    } catch (err) {
+      console.error('Could not reach Supabase to publish listing:', err);
+    }
+  });
 });
 
 document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=>{
@@ -1229,35 +1782,38 @@ document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=
     renderCatChips();
   };
 
-  if (!SUPABASE_CONFIGURED) {
-    // No backend configured yet — keep the question in this tab so the form still works.
-    forumPosts.unshift({ cat: category, q: question, by: 'You', votes: 0, replies: [] });
-    clearFormAndClose();
-    renderForum();
-    return;
-  }
-
-  try {
-    const { error } = await supabaseClient.from('forum_posts').insert([{
-      category, question, posted_by: 'You', votes: 0
-    }]);
-
-    if (error) {
-      console.error('Error posting question:', error);
+  requireSignIn(async ()=>{
+    if (!SUPABASE_CONFIGURED) {
+      // No backend configured yet — keep the question in this tab so the form still works.
+      forumPosts.unshift({ cat: category, q: question, by: appUser.name, votes: 0, replies: [] });
+      clearFormAndClose();
+      renderForum();
       return;
     }
 
-    clearFormAndClose();
-    await fetchAndRenderForum();
-  } catch (err) {
-    console.error('Could not reach Supabase to post question:', err);
-  }
+    try {
+      const { error } = await supabaseClient.from('forum_posts').insert([{
+        category, question, posted_by: appUser.name, votes: 0, poster_user_id: appUser.id
+      }]);
+
+      if (error) {
+        console.error('Error posting question:', error);
+        return;
+      }
+
+      clearFormAndClose();
+      await fetchAndRenderForum();
+    } catch (err) {
+      console.error('Could not reach Supabase to post question:', err);
+    }
+  });
 });
 
 /* ============================= Initial load ============================= */
 async function initApp(){
   renderAll();
-  await Promise.all([fetchAndRenderListings(), fetchAndRenderForum()]);
+  await trackIncomingShareCode();
+  await Promise.all([fetchAndRenderListings(), fetchAndRenderForum(), fetchAndRenderBuddies()]);
 }
 
 initApp();
