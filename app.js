@@ -90,7 +90,9 @@ en: {
   generateLinkBtn:"Get link", clicksLabel:"clicks",
   filterAnyGender:"Any gender", filterMaleOnly:"Men only", filterFemaleOnly:"Women only",
   filterAnyRoom:"Any room type", filterShared:"Shared room", filterPrivate:"Private room", filterBed:"Bed space",
-  filtersLabel:"Filters"
+  filtersLabel:"Filters", filtersReset:"Reset", filtersShow:"Show results",
+  lblBudget:"Budget", lblNatShort:"Nationality", lblGenderShort:"Gender",
+  noListingsTitle:"No rooms match these filters", noListingsSub:"Try a wider budget, or clear a filter or two."
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
@@ -142,7 +144,9 @@ ar: {
   generateLinkBtn:"احصل على الرابط", clicksLabel:"نقرات",
   filterAnyGender:"أي جنس", filterMaleOnly:"رجال فقط", filterFemaleOnly:"نساء فقط",
   filterAnyRoom:"أي نوع غرفة", filterShared:"غرفة مشتركة", filterPrivate:"غرفة خاصة", filterBed:"سرير فقط",
-  filtersLabel:"الفلاتر"
+  filtersLabel:"الفلاتر", filtersReset:"إعادة ضبط", filtersShow:"عرض النتائج",
+  lblBudget:"الميزانية", lblNatShort:"الجنسية", lblGenderShort:"الجنس",
+  noListingsTitle:"لا توجد غرف مطابقة لهذه الفلاتر", noListingsSub:"جرّب ميزانية أوسع أو أزل فلتراً أو اثنين."
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
@@ -194,7 +198,9 @@ ur: {
   generateLinkBtn:"لنک حاصل کریں", clicksLabel:"کلکس",
   filterAnyGender:"کوئی بھی صنف", filterMaleOnly:"صرف مرد", filterFemaleOnly:"صرف خواتین",
   filterAnyRoom:"کوئی بھی کمرہ", filterShared:"مشترکہ کمرہ", filterPrivate:"نجی کمرہ", filterBed:"صرف بیڈ",
-  filtersLabel:"فلٹرز"
+  filtersLabel:"فلٹرز", filtersReset:"ری سیٹ", filtersShow:"نتائج دیکھیں",
+  lblBudget:"بجٹ", lblNatShort:"قومیت", lblGenderShort:"صنف",
+  noListingsTitle:"ان فلٹرز سے کوئی کمرہ نہیں ملا", noListingsSub:"بجٹ بڑھائیں یا ایک دو فلٹر ہٹا دیں۔"
 }
 };
 
@@ -432,23 +438,18 @@ function setTab(tab){
   document.getElementById('view-'+tab).classList.add('active');
   document.querySelectorAll('nav.tabbar button').forEach(b=>b.classList.toggle('active', b.getAttribute('data-tab')===tab));
   window.scrollTo({top:0, behavior:'instant'});
-  
-  // Hide header and adjust layout on mobile for housing page
-  const app = document.querySelector('.app');
-  const topbar = document.querySelector('header.topbar');
-  const filterBtn = document.getElementById('btnToggleFilters');
-  const filterBar = document.querySelector('#view-housing .filter-bar');
-  if(window.innerWidth < 760){
-    topbar.style.display = tab === 'housing' ? 'none' : 'flex';
-    app.style.paddingBottom = tab === 'housing' ? '0' : '84px';
-    if(filterBtn) filterBtn.style.display = tab === 'housing' ? 'flex' : 'none';
-    if(filterBar) filterBar.classList.remove('open');
-  } else {
-    topbar.style.display = 'flex';
-    app.style.paddingBottom = '40px';
-    if(filterBtn) filterBtn.style.display = 'none';
-  }
+  applyFeedMode();
+  closeFilters();
+  setPostFormOpen(false);
 }
+
+/* On mobile the housing tab is a full-bleed feed: no header, no page scroll.
+   Everything else is CSS — this only flips the flag. */
+function applyFeedMode(){
+  const feedMode = state.tab === 'housing' && window.innerWidth < 760;
+  document.body.classList.toggle('feed-mode', feedMode);
+}
+window.addEventListener('resize', ()=>{ applyFeedMode(); if(window.innerWidth >= 760) closeFilters(); });
 
 /* ---- Guide render ---- */
 function renderGuide(){
@@ -554,12 +555,9 @@ const waIconSvg = '<svg viewBox="0 0 32 32"><path d="M16.001 3C9.096 3 3.5 8.596
 const shareIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg>';
 const houseIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg>';
 
-function renderListings(){
-  const wrap = document.getElementById('listingsGrid');
+function filterListings(){
   const f = state.filters;
-  const genderLabelKey = {any:'genAny', male:'genMale', female:'genFemale'};
-  const roomTypeLabelKey = {shared:'rtShared', private:'rtPrivate', bed:'rtBed'};
-  const filtered = listings.filter(l=>{
+  return listings.filter(l=>{
     if(f.city!=='all' && l.city!==f.city) return false;
     if(f.budget!=='all' && l.rent > parseInt(f.budget)) return false;
     if(f.nat!=='all' && l.nat!==f.nat) return false;
@@ -567,8 +565,34 @@ function renderListings(){
     if(f.roomType!=='all' && l.type!==f.roomType) return false;
     return true;
   });
+}
+
+/* Keeps the filter FAB badge and the sheet's "Show results" count honest. */
+function updateFilterUI(){
+  const active = Object.values(state.filters).filter(v=>v!=='all').length;
+  const badge = document.getElementById('filterBadge');
+  if(badge){ badge.textContent = active; badge.classList.toggle('on', active>0); }
+  const count = document.getElementById('filterCount');
+  if(count) count.textContent = '(' + filterListings().length + ')';
+}
+
+function renderListings(){
+  const wrap = document.getElementById('listingsGrid');
+  const genderLabelKey = {any:'genAny', male:'genMale', female:'genFemale'};
+  const roomTypeLabelKey = {shared:'rtShared', private:'rtPrivate', bed:'rtBed'};
+  const filtered = filterListings();
+  updateFilterUI();
   if(filtered.length===0){
-    wrap.innerHTML = `<div class="feed-card"><div class="feed-placeholder">${houseIconSvg}</div><div class="feed-empty">—</div></div>`;
+    wrap.innerHTML = `
+      <div class="feed-card feed-card--empty">
+        <div class="feed-placeholder">${houseIconSvg}</div>
+        <div class="feed-empty">
+          <strong>${t('noListingsTitle')}</strong>
+          <p>${t('noListingsSub')}</p>
+          <button id="btnEmptyReset">${t('filtersReset')}</button>
+        </div>
+      </div>`;
+    wrap.querySelector('#btnEmptyReset').addEventListener('click', resetFilters);
     return;
   }
   wrap.innerHTML = filtered.map((l,i)=>`
@@ -970,14 +994,53 @@ document.querySelectorAll('[data-goto]').forEach(btn=>{
   btn.addEventListener('click', ()=> setTab(btn.getAttribute('data-goto')));
 });
 
+function setPostFormOpen(open){
+  document.getElementById('postForm').style.display = open ? 'block' : 'none';
+}
 document.getElementById('btnOpenPost').addEventListener('click', ()=>{
-  const p = document.getElementById('postForm');
-  p.style.display = p.style.display==='none' ? 'block' : 'none';
+  const open = document.getElementById('postForm').style.display === 'none';
+  setPostFormOpen(open);
+  if(open) closeFilters(); // only one sheet at a time
 });
+document.getElementById('btnClosePost').addEventListener('click', ()=> setPostFormOpen(false));
+
+/* ---- Filter bottom sheet (mobile) ---- */
+function setFiltersOpen(open){
+  const sheet = document.getElementById('filterSheet');
+  const btn = document.getElementById('btnToggleFilters');
+  if(!sheet) return;
+  sheet.classList.toggle('open', open);
+  if(btn) btn.setAttribute('aria-expanded', String(open));
+  // Only a modal dialog while it's actually a sheet — on desktop it's a static panel.
+  const box = sheet.querySelector('.filter-bar');
+  if(open){ box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); }
+  else{ box.removeAttribute('role'); box.removeAttribute('aria-modal'); }
+  if(open) updateFilterUI();
+}
+function closeFilters(){ setFiltersOpen(false); }
+
+function resetFilters(){
+  state.filters = {city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'};
+  ['filterCity','filterBudget','filterNat','filterGender','filterRoomType'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value = 'all';
+  });
+  renderListings();
+}
 
 document.getElementById('btnToggleFilters').addEventListener('click', ()=>{
-  const filterBar = document.querySelector('#view-housing .filter-bar');
-  if(filterBar) filterBar.classList.toggle('open');
+  const open = !document.getElementById('filterSheet').classList.contains('open');
+  setFiltersOpen(open);
+  if(open) setPostFormOpen(false); // only one sheet at a time
+});
+document.querySelectorAll('[data-close-filters]').forEach(el=>{
+  el.addEventListener('click', closeFilters);
+});
+document.getElementById('btnResetFilters').addEventListener('click', resetFilters);
+document.addEventListener('keydown', e=>{
+  if(e.key !== 'Escape') return;
+  closeFilters();
+  setPostFormOpen(false);
 });
 document.getElementById('btnOpenAsk').addEventListener('click', ()=>{
   const p = document.getElementById('askForm');
@@ -1145,6 +1208,7 @@ document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=
 /* ============================= Initial load ============================= */
 async function initApp(){
   renderAll();
+  applyFeedMode();
   await trackIncomingShareCode();
   await Promise.all([fetchAndRenderListings(), fetchAndRenderForum(), fetchAndRenderBuddies()]);
 }

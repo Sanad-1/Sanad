@@ -108,16 +108,21 @@
       <h1 class="page-title" data-i18n="housingTitle">Find your next room</h1>
       <p class="page-sub" data-i18n="housingSub">Real listings from tenants and property owners. Contact directly on WhatsApp — no middleman.</p>
 
-      <button class="toggle-open" id="btnOpenPost" aria-label="Post a listing">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        <span class="fab-label" data-i18n="housingPostBtn">Post a room or list a spare bed</span>
-      </button>
-      <button class="toggle-open" id="btnToggleFilters" aria-label="Filters">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
-        <span class="fab-label" data-i18n="filtersLabel">Filters</span>
-      </button>
+      <div class="feed-actions">
+        <button class="toggle-open" id="btnOpenPost" aria-label="Post a listing">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="fab-label" data-i18n="housingPostBtn">Post a room or list a spare bed</span>
+        </button>
+        <button class="toggle-open" id="btnToggleFilters" aria-label="Filters" aria-expanded="false" aria-controls="filterSheet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
+          <span class="fab-label" data-i18n="filtersLabel">Filters</span>
+          <span class="fab-badge" id="filterBadge">0</span>
+        </button>
+      </div>
 
       <div class="panel" id="postForm" style="display:none;">
+        <span class="sheet-grabber" aria-hidden="true"></span>
+        <button class="sheet-close" id="btnClosePost" aria-label="Close">✕</button>
         <h3 data-i18n="postFormTitle">Post a listing</h3>
         <p class="hint" data-i18n="postFormHint">This is a demo form — submissions are shown below but not saved.</p>
         <div class="field">
@@ -187,26 +192,57 @@
         <button class="btn-primary" id="btnSubmitListing" data-i18n="postFormSubmit">Publish listing</button>
       </div>
 
-      <div class="filter-bar">
-        <select id="filterCity"><option value="all" data-i18n="filterAllCities">All cities</option></select>
-        <select id="filterBudget">
-          <option value="all" data-i18n="filterAnyBudget">Any budget</option>
-          <option value="500" data-i18n="filterUnder500">Under 500 SAR</option>
-          <option value="800" data-i18n="filterUnder800">Under 800 SAR</option>
-          <option value="1200" data-i18n="filterUnder1200">Under 1,200 SAR</option>
-        </select>
-        <select id="filterNat"><option value="all" data-i18n="filterAnyNat">Any nationality pref.</option></select>
-        <select id="filterGender">
-          <option value="all" data-i18n="filterAnyGender">Any gender</option>
-          <option value="male" data-i18n="filterMaleOnly">Men only</option>
-          <option value="female" data-i18n="filterFemaleOnly">Women only</option>
-        </select>
-        <select id="filterRoomType">
-          <option value="all" data-i18n="filterAnyRoom">Any room type</option>
-          <option value="shared" data-i18n="filterShared">Shared room</option>
-          <option value="private" data-i18n="filterPrivate">Private room</option>
-          <option value="bed" data-i18n="filterBed">Bed space</option>
-        </select>
+      <div class="filter-sheet" id="filterSheet">
+        <div class="filter-scrim" data-close-filters></div>
+        <div class="filter-bar" aria-labelledby="filterSheetTitle">
+          <div class="filter-sheet-head">
+            <span class="sheet-grabber" aria-hidden="true"></span>
+            <h3 id="filterSheetTitle" data-i18n="filtersLabel">Filters</h3>
+            <button class="filter-reset" id="btnResetFilters" data-i18n="filtersReset">Reset</button>
+          </div>
+
+          <div class="filter-grid">
+            <label class="filter-field">
+              <span data-i18n="lblCity">City</span>
+              <select id="filterCity"><option value="all" data-i18n="filterAllCities">All cities</option></select>
+            </label>
+            <label class="filter-field">
+              <span data-i18n="lblBudget">Budget</span>
+              <select id="filterBudget">
+                <option value="all" data-i18n="filterAnyBudget">Any budget</option>
+                <option value="500" data-i18n="filterUnder500">Under 500 SAR</option>
+                <option value="800" data-i18n="filterUnder800">Under 800 SAR</option>
+                <option value="1200" data-i18n="filterUnder1200">Under 1,200 SAR</option>
+              </select>
+            </label>
+            <label class="filter-field">
+              <span data-i18n="lblNatShort">Nationality</span>
+              <select id="filterNat"><option value="all" data-i18n="filterAnyNat">Any nationality pref.</option></select>
+            </label>
+            <label class="filter-field">
+              <span data-i18n="lblGenderShort">Gender</span>
+              <select id="filterGender">
+                <option value="all" data-i18n="filterAnyGender">Any gender</option>
+                <option value="male" data-i18n="filterMaleOnly">Men only</option>
+                <option value="female" data-i18n="filterFemaleOnly">Women only</option>
+              </select>
+            </label>
+            <label class="filter-field wide">
+              <span data-i18n="lblRoomType">Room type</span>
+              <select id="filterRoomType">
+                <option value="all" data-i18n="filterAnyRoom">Any room type</option>
+                <option value="shared" data-i18n="filterShared">Shared room</option>
+                <option value="private" data-i18n="filterPrivate">Private room</option>
+                <option value="bed" data-i18n="filterBed">Bed space</option>
+              </select>
+            </label>
+          </div>
+
+          <button class="btn-primary filter-apply" id="btnApplyFilters" data-close-filters>
+            <span data-i18n="filtersShow">Show results</span>
+            <span class="filter-count" id="filterCount"></span>
+          </button>
+        </div>
       </div>
 
       <div class="feed-scroll" id="listingsGrid"></div>
