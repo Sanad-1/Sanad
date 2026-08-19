@@ -95,11 +95,18 @@
   nav.tabbar button{
     flex:1;border:none;background:transparent;padding:10px 4px 12px;
     display:flex;flex-direction:column;align-items:center;gap:4px;
-    color:var(--ink-faint);font-size:10.5px;font-weight:600;
+    color:var(--ink-faint);font-size:10.5px;font-weight:600;line-height:1.15;
   }
   nav.tabbar button svg{width:20px;height:20px;stroke:var(--ink-faint);transition:stroke .15s;}
   nav.tabbar button.active{color:var(--green);}
   nav.tabbar button.active svg{stroke:var(--green);}
+  /* Noto Sans/Kufi Arabic and especially Noto Nastaliq Urdu sit much smaller than
+     Inter at the same font-size — their x-height and glyph weight both run lighter,
+     so equal px reads as visibly smaller. Bump per-script rather than globally. */
+  html[dir="rtl"] nav.tabbar button{font-size:12.5px;}
+  html[dir="rtl"][data-lang="ur"] nav.tabbar button{font-size:14.5px;font-weight:700;line-height:1.3;}
+  html[dir="rtl"]{--tabbar-h:64px;}
+  html[dir="rtl"][data-lang="ur"]{--tabbar-h:70px;}
 
   main{padding:20px 18px 8px;}
   @media (max-width:759px){
@@ -495,28 +502,83 @@
     display:flex;align-items:center;justify-content:center;color:#fff;
   }
   .feed-mute svg{width:16px;height:16px;}
+  /* ---- Action rail: avatar · like · WhatsApp · share, TikTok's right-edge stack ---- */
   .feed-rail{
-    position:absolute;inset-inline-end:12px;bottom:110px;display:flex;flex-direction:column;gap:16px;align-items:center;z-index:3;
+    position:absolute;inset-inline-end:12px;bottom:128px;display:flex;flex-direction:column;gap:15px;align-items:center;z-index:3;
+  }
+  .feed-avatar-wrap{margin-bottom:2px;}
+  .feed-avatar{
+    width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(145deg, var(--feed-cyan), var(--green));
+    color:#0A0A0C;font-family:var(--font-display);font-weight:700;font-size:16px;
+    border:2px solid var(--feed-ink);
   }
   .feed-rail button{
     width:46px;height:46px;border-radius:50%;border:none;
     display:flex;align-items:center;justify-content:center;color:#fff;
+    transition:transform .12s ease;
   }
+  .feed-rail button:active{transform:scale(0.88);}
   .feed-rail button svg{width:21px;height:21px;}
+  .feed-rail .lk{background:rgba(255,255,255,0.14);backdrop-filter:blur(6px);}
+  .feed-rail .lk svg{fill:none;stroke:#fff;stroke-width:1.6;transition:fill .15s,stroke .15s;}
+  .feed-rail .lk.active{background:rgba(254,44,85,0.18);}
+  .feed-rail .lk.active svg{fill:var(--feed-pink);stroke:var(--feed-pink);animation:likePop .35s ease;}
   .feed-rail .wa{background:linear-gradient(145deg, var(--feed-pink), #C21F41);}
   .feed-rail .sh{background:linear-gradient(145deg, var(--feed-cyan), #0FBDB6);}
-  .feed-rail .lbl{font-size:9px;color:var(--feed-ink-soft);text-align:center;margin-top:-8px;font-weight:600;}
+  .feed-rail .lbl{font-size:9px;color:var(--feed-ink-soft);text-align:center;margin-top:-7px;font-weight:600;}
+  @keyframes likePop{0%{transform:scale(1);}35%{transform:scale(1.35);}100%{transform:scale(1);}}
+
+  /* ---- Double-tap heart burst, dead center over the card ---- */
+  .feed-heart-burst{
+    position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;
+    pointer-events:none; opacity:0;
+  }
+  .feed-heart-burst svg{width:96px;height:96px;fill:#fff;filter:drop-shadow(0 4px 18px rgba(0,0,0,0.35));transform:scale(0.5);}
+  .feed-heart-burst.play{animation:heartBurst .7s ease forwards;}
+  .feed-heart-burst.play svg{animation:heartBurstScale .7s cubic-bezier(.17,.89,.32,1.49) forwards;}
+  @keyframes heartBurst{0%{opacity:0;}12%{opacity:1;}70%{opacity:1;}100%{opacity:0;}}
+  @keyframes heartBurstScale{0%{transform:scale(0.4);}45%{transform:scale(1.15);}70%{transform:scale(0.95);}100%{transform:scale(1);}}
+
   .feed-content{
     position:relative;z-index:2;width:100%;color:var(--feed-ink);
     padding:18px 18px 20px;
     padding-inline-end:76px; /* clears the action rail — flips correctly in RTL */
   }
-  .feed-price{font-family:var(--font-display);font-weight:700;color:var(--feed-cyan);font-size:15px;margin-bottom:4px;}
-  .feed-content h3{margin:0 0 4px;font-size:16px;color:#fff;}
-  .feed-content .city{font-size:11.5px;color:var(--feed-ink-soft);margin-bottom:8px;}
-  .feed-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
-  .feed-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.14);color:#fff;backdrop-filter:blur(4px);}
-  .feed-desc{font-size:12px;color:var(--feed-ink-soft);line-height:1.5;max-width:90%;}
+  /* ---- Handle row: avatar + "Posted by X" + price, styled like a TikTok @username line ---- */
+  .feed-handle{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+  .feed-avatar-sm{
+    width:24px;height:24px;border-radius:50%;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(145deg, var(--feed-cyan), var(--green));
+    color:#0A0A0C;font-family:var(--font-display);font-weight:700;font-size:11px;
+  }
+  .handle-name{font-size:12.5px;font-weight:700;color:#fff;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .feed-price-pill{
+    flex:none;font-family:var(--font-display);font-weight:700;color:#0A0A0C;font-size:11.5px;
+    background:var(--feed-cyan);padding:3px 10px;border-radius:999px;
+  }
+  .feed-content h3{margin:0 0 6px;font-size:16px;color:#fff;font-weight:700;}
+  .feed-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;}
+  .feed-tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.14);color:var(--feed-cyan);backdrop-filter:blur(4px);}
+  .feed-desc{font-size:12.5px;color:var(--feed-ink-soft);line-height:1.5;max-width:90%;}
+
+  /* ---- Sound ticker: the little scrolling attribution TikTok always shows ---- */
+  .feed-sound{
+    display:flex;align-items:center;gap:7px;margin-top:11px;
+    max-width:220px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent);
+  }
+  .feed-sound-ic{flex:none;display:flex;color:#fff;opacity:0.85;}
+  .feed-sound-ic svg{width:13px;height:13px;}
+  .feed-sound-track{
+    display:flex;gap:28px;white-space:nowrap;font-size:11px;color:var(--feed-ink-soft);font-weight:600;
+    animation:soundScroll 9s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .feed-sound-track{animation:none;} }
+  @keyframes soundScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  html[dir="rtl"] .feed-sound-track{animation-name:soundScrollRtl;}
+  @keyframes soundScrollRtl{from{transform:translateX(0);}to{transform:translateX(50%);}}
   .feed-card--empty{align-items:center;justify-content:center;}
   .feed-empty{
     position:relative;z-index:2;

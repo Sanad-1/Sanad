@@ -92,7 +92,8 @@ en: {
   filterAnyRoom:"Any room type", filterShared:"Shared room", filterPrivate:"Private room", filterBed:"Bed space",
   filtersLabel:"Filters", filtersReset:"Reset", filtersShow:"Show results",
   lblBudget:"Budget", lblNatShort:"Nationality", lblGenderShort:"Gender",
-  noListingsTitle:"No rooms match these filters", noListingsSub:"Try a wider budget, or clear a filter or two."
+  noListingsTitle:"No rooms match these filters", noListingsSub:"Try a wider budget, or clear a filter or two.",
+  soundTicker:"Original sound · Sanad Housing", likeLabel:"Like",
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
@@ -146,7 +147,8 @@ ar: {
   filterAnyRoom:"أي نوع غرفة", filterShared:"غرفة مشتركة", filterPrivate:"غرفة خاصة", filterBed:"سرير فقط",
   filtersLabel:"الفلاتر", filtersReset:"إعادة ضبط", filtersShow:"عرض النتائج",
   lblBudget:"الميزانية", lblNatShort:"الجنسية", lblGenderShort:"الجنس",
-  noListingsTitle:"لا توجد غرف مطابقة لهذه الفلاتر", noListingsSub:"جرّب ميزانية أوسع أو أزل فلتراً أو اثنين."
+  noListingsTitle:"لا توجد غرف مطابقة لهذه الفلاتر", noListingsSub:"جرّب ميزانية أوسع أو أزل فلتراً أو اثنين.",
+  soundTicker:"صوت أصلي · سند للإسكان", likeLabel:"إعجاب",
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
@@ -200,7 +202,8 @@ ur: {
   filterAnyRoom:"کوئی بھی کمرہ", filterShared:"مشترکہ کمرہ", filterPrivate:"نجی کمرہ", filterBed:"صرف بیڈ",
   filtersLabel:"فلٹرز", filtersReset:"ری سیٹ", filtersShow:"نتائج دیکھیں",
   lblBudget:"بجٹ", lblNatShort:"قومیت", lblGenderShort:"صنف",
-  noListingsTitle:"ان فلٹرز سے کوئی کمرہ نہیں ملا", noListingsSub:"بجٹ بڑھائیں یا ایک دو فلٹر ہٹا دیں۔"
+  noListingsTitle:"ان فلٹرز سے کوئی کمرہ نہیں ملا", noListingsSub:"بجٹ بڑھائیں یا ایک دو فلٹر ہٹا دیں۔",
+  soundTicker:"اصل آواز · سند ہاؤسنگ", likeLabel:"پسند",
 }
 };
 
@@ -407,7 +410,7 @@ let buddies = [
 ];
 
 /* ============================= State & render ============================= */
-let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa' };
+let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa', feedLikes:{} };
 let appUser = null; // { id, name, phone } once signed in — in-memory only, resets on reload
 let myShareLinks = []; // [{id, page, code, clicks}]
 let pendingSignInAction = null; // callback to run right after a successful sign-in
@@ -554,6 +557,22 @@ const waIconSvg = '<svg viewBox="0 0 32 32"><path d="M16.001 3C9.096 3 3.5 8.596
 
 const shareIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg>';
 const houseIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg>';
+const heartIconSvg = '<svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.6-10-9.1C.5 8.6 1.8 5 5.3 4.1c2-.5 4 .3 5.2 2 .4.5.7 1 1 1.6.3-.6.6-1.1 1-1.6 1.2-1.7 3.2-2.5 5.2-2 3.5.9 4.8 4.5 3.3 7.8-2.8 4.5-10 9.1-10 9.1z"/></svg>';
+const noteIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>';
+
+/* Deterministic "since forever" like counts so a listing's number doesn't jump on
+   every re-render — same feel as TikTok's counter without needing a backend. */
+function seedFromString(str){
+  let h = 0;
+  for(let i=0;i<str.length;i++){ h = (h*31 + str.charCodeAt(i)) >>> 0; }
+  return h;
+}
+function baseLikeCount(l){
+  return 40 + (seedFromString(l.city + l.rent + l.desc) % 260);
+}
+function formatCount(n){
+  return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : String(n);
+}
 
 function filterListings(){
   const f = state.filters;
@@ -595,28 +614,40 @@ function renderListings(){
     wrap.querySelector('#btnEmptyReset').addEventListener('click', resetFilters);
     return;
   }
-  wrap.innerHTML = filtered.map((l,i)=>`
-    <div class="feed-card" data-idx="${i}">
+  wrap.innerHTML = filtered.map((l,i)=>{
+    const key = l.city + '|' + l.rent + '|' + l.wa;
+    const liked = !!state.feedLikes[key];
+    const count = baseLikeCount(l) + (liked ? 1 : 0);
+    return `
+    <div class="feed-card" data-idx="${i}" data-like-key="${key}">
       ${l.video ? `<video class="feed-media" src="${l.video}" muted loop playsinline></video>` : `<div class="feed-placeholder">${houseIconSvg}</div>`}
       <div class="feed-scrim"></div>
+      <div class="feed-heart-burst" data-heart-burst></div>
       ${l.video ? `<button class="feed-mute" data-mute-toggle="${i}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9v6h4l5 4V5l-5 4H5z"/><path d="M17 9a3 3 0 010 6" stroke-opacity="0.4"/></svg></button>` : ''}
       <div class="feed-rail">
+        <div class="feed-avatar-wrap"><div class="feed-avatar">${l.city.charAt(0)}</div></div>
+        <div><button class="lk ${liked?'active':''}" data-like="${key}" aria-pressed="${liked}">${heartIconSvg}</button><div class="lbl" data-like-count="${key}">${formatCount(count)}</div></div>
         <div><button class="wa" data-wa="${l.wa}">${waIconSvg}</button><div class="lbl">${t('contactWA')}</div></div>
         <div><button class="sh" data-listing-share="${i}">${shareIconSvg}</button><div class="lbl">${t('shareLabel')}</div></div>
       </div>
       <div class="feed-content">
-        <div class="feed-price">${l.rent} SAR${t('perMonth')}</div>
-        <h3>${t(roomTypeLabelKey[l.type] || l.type)}</h3>
-        <div class="city">${l.city} · ${t('postedBy')} ${l.by}</div>
-        <div class="feed-tag-row">
-          <span class="feed-tag">${t(genderLabelKey[l.gender] || l.gender)}</span>
-          <span class="feed-tag">${l.nat==='Any' ? t('natAny') : l.nat}</span>
-          <span class="feed-tag">${l.bills ? t('billsIncluded') : t('billsShared')}</span>
+        <div class="feed-handle">
+          <span class="feed-avatar-sm">${l.city.charAt(0)}</span>
+          <span class="handle-name">${t('postedBy')} ${l.by}</span>
+          <span class="feed-price-pill">${l.rent} SAR${t('perMonth')}</span>
         </div>
+        <h3>${t(roomTypeLabelKey[l.type] || l.type)} · ${l.city}</h3>
         <p class="feed-desc">${l.desc}</p>
+        <div class="feed-tag-row">
+          <span class="feed-tag">#${t(genderLabelKey[l.gender] || l.gender).replace(/\s+/g,'')}</span>
+          <span class="feed-tag">#${(l.nat==='Any' ? t('natAny') : l.nat).replace(/\s+/g,'')}</span>
+          <span class="feed-tag">#${(l.bills ? t('billsIncluded') : t('billsShared')).replace(/\s+/g,'')}</span>
+        </div>
+        <div class="feed-sound"><span class="feed-sound-ic">${noteIconSvg}</span><span class="feed-sound-track"><span>${t('soundTicker')}</span><span>${t('soundTicker')}</span></span></div>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   wrap.querySelectorAll('[data-wa]').forEach(btn=>{
     btn.addEventListener('click', ()=> window.open('https://wa.me/'+btn.getAttribute('data-wa'), '_blank'));
@@ -630,6 +661,46 @@ function renderListings(){
   });
   wrap.querySelectorAll('[data-listing-share]').forEach(btn=>{
     btn.addEventListener('click', ()=> openSharePanel('housing'));
+  });
+
+  /* ---- Likes: tap the heart, or double-tap the card (TikTok's classic gesture) ---- */
+  function setLiked(card, key, liked){
+    state.feedLikes[key] = liked;
+    const btn = card.querySelector('[data-like="'+CSS.escape(key)+'"]');
+    const lbl = card.querySelector('[data-like-count="'+CSS.escape(key)+'"]');
+    if(btn){ btn.classList.toggle('active', liked); btn.setAttribute('aria-pressed', String(liked)); }
+    if(lbl){
+      const listing = filtered.find(l=> (l.city+'|'+l.rent+'|'+l.wa) === key);
+      if(listing) lbl.textContent = formatCount(baseLikeCount(listing) + (liked?1:0));
+    }
+  }
+  function burstHeart(card){
+    const burst = card.querySelector('[data-heart-burst]');
+    if(!burst) return;
+    burst.innerHTML = heartIconSvg;
+    burst.classList.remove('play'); void burst.offsetWidth; burst.classList.add('play');
+  }
+  wrap.querySelectorAll('[data-like]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const key = btn.getAttribute('data-like');
+      const card = btn.closest('.feed-card');
+      const nowLiked = !state.feedLikes[key];
+      setLiked(card, key, nowLiked);
+      if(nowLiked) burstHeart(card);
+    });
+  });
+  let lastTap = 0;
+  wrap.querySelectorAll('.feed-card[data-like-key]').forEach(card=>{
+    card.addEventListener('click', (e)=>{
+      if(e.target.closest('button')) return; // real controls handle their own taps
+      const now = Date.now();
+      if(now - lastTap < 320){
+        const key = card.getAttribute('data-like-key');
+        setLiked(card, key, true);
+        burstHeart(card);
+      }
+      lastTap = now;
+    });
   });
 
   // Autoplay the video currently in view, pause the rest — same feel as a short-video feed.
