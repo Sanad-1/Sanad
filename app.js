@@ -14,29 +14,23 @@ if (!SUPABASE_CONFIGURED) {
   console.warn("Sanad: Supabase isn't configured yet (still using the placeholder URL/key). Housing and forum posts will only live in this browser tab until you add your real project credentials at the top of the script.");
 }
 
-/* Expected tables (create these in the Supabase SQL editor):
+/* Expected schema — see schema.sql in the project root for the full,
+   copy-pasteable version (tables, RLS, and the signup_user/login_user
+   functions that back the username+password sign-in below). Summary:
 
-create table housing_listings (
-  id uuid primary key default gen_random_uuid(),
-  created_at timestamptz default now(),
-  city text, rent int, room_type text, gender_pref text,
-  nationality_pref text, bills_included boolean,
-  description text, poster_role text, whatsapp text
-);
+   app_users(id, username, password_hash, name, phone, created_at)
+   housing_listings(..., poster_user_id references app_users)
+   forum_posts(..., poster_user_id references app_users)
+   forum_replies(id, post_id references forum_posts, reply_text)
+   share_links(id, user_id references app_users, page, code)
+   share_clicks(id, share_link_id references share_links)
+   buddies(id, user_id references app_users, help_areas, bio, whatsapp)
 
-create table forum_posts (
-  id uuid primary key default gen_random_uuid(),
-  created_at timestamptz default now(),
-  category text, question text, posted_by text, votes int default 0
-);
-
-create table forum_replies (
-  id uuid primary key default gen_random_uuid(),
-  post_id uuid references forum_posts(id) on delete cascade,
-  reply_text text
-);
-   Enable Row Level Security with policies that allow public select/insert
-   if you want anonymous visitors to read and post without logging in. */
+   housing_listings, forum_posts/forum_replies, share_links/share_clicks,
+   and buddies stay publicly readable via RLS (this is a public board).
+   app_users is the one exception: it's locked down (no direct anon
+   access at all) because password_hash lives there — every read/write
+   to it goes through the two SECURITY DEFINER functions instead. */
 
 /* ============================= i18n ============================= */
 const translations = {
@@ -77,15 +71,20 @@ en: {
   footNote:"Sanad is a community platform. Always verify official procedures on government portals such as Qiwa, Absher, and Muqeem.",
   emergencyTitle:"Emergency contacts", em911:"Emergency (Police)", em998:"Civil Defense (Fire)", em997:"Ambulance (Red Crescent)", em19911:"Ministry of HR — Labor Inquiries",
   navProfile:"Profile", shareLabel:"Share", copyLink:"Copy link", linkCopied:"Link copied!", shareViaWhatsapp:"Share via WhatsApp", shareThisPage:"Share this page",
-  signInTitle:"Quick sign-in", signInHint:"Just your name and phone — no password needed. This lets us credit your posts and track your shared links.",
-  lblName:"Your name", lblPhone:"Phone number", signInSubmit:"Continue", signedInAs:"Signed in as", signOutBtn:"Sign out",
+  loginTabLabel:"Log in", signupTabLabel:"Sign up",
+  loginHint:"Log in with your username and password.", signupHint:"Pick a username and password — that's all you need.",
+  lblName:"Your name", lblUsername:"Username", lblPassword:"Password",
+  signInSubmit:"Log in", signInBtnShort:"Log in / Sign up", signOutBtn:"Sign out",
+  authErrorMissing:"Enter a username and password.", authErrorShort:"Password must be at least 6 characters.",
+  authErrorTaken:"That username is already taken.", authErrorInvalid:"Wrong username or password.",
+  authErrorNetwork:"Couldn't reach the server — try again.",
   communityTabQA:"Q&A", communityTabBuddies:"Buddies", becomeBuddyBtn:"Become a buddy — help newcomers",
   buddyFormTitle:"Sign up as a buddy", buddyFormHint:"Newcomers will be able to see your profile and reach you on WhatsApp.",
   lblHelpAreas:"What can you help with?", helpHousing:"Finding housing", helpPaperwork:"Paperwork & procedures", helpOrientation:"General orientation",
   lblBio:"Short bio", bioPh:"e.g. Lived in Riyadh for 3 years, happy to help with Absher/Nafath setup...",
   buddyFormSubmit:"Publish my buddy profile", noBuddiesYet:"No buddies listed yet — be the first!", helpsWith:"Can help with",
   videoLabel:"Room video (optional)", videoHint:"A short walkthrough gets far more replies than photos alone.", uploadingVideo:"Uploading video...",
-  profileEyebrow:"Your account", profileTitleSignedOut:"Sign in to unlock more", profileSubSignedOut:"Posting, becoming a buddy, and sharing links all use the same quick sign-in.",
+  profileEyebrow:"Your account", profileTitleSignedOut:"Sign in to unlock more", profileSubSignedOut:"Posting, becoming a buddy, and sharing links all use the same account.",
   myLinksTitle:"My share links", myLinksHint:"Generate a personal link for any section — you'll see how many times each one gets clicked.",
   generateLinkBtn:"Get link", clicksLabel:"clicks",
   filterAnyGender:"Any gender", filterMaleOnly:"Men only", filterFemaleOnly:"Women only",
@@ -94,6 +93,9 @@ en: {
   lblBudget:"Budget", lblNatShort:"Nationality", lblGenderShort:"Gender",
   noListingsTitle:"No rooms match these filters", noListingsSub:"Try a wider budget, or clear a filter or two.",
   soundTicker:"Original sound · Sanad Housing", likeLabel:"Like",
+  statMyListings:"Listings", statMyQuestions:"Questions", statMyClicks:"Link clicks",
+  tabMyPosts:"Posts", tabLiked:"Liked", memberSince:"Member since",
+  noPostsYet:"No listings posted yet", noLikedYet:"Rooms you like will show up here",
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
@@ -132,15 +134,20 @@ ar: {
   footNote:"سند منصة مجتمعية. تأكد دائماً من الإجراءات الرسمية عبر البوابات الحكومية مثل قوى وأبشر ومقيم.",
   emergencyTitle:"أرقام الطوارئ", em911:"الطوارئ (الشرطة)", em998:"الدفاع المدني (الإطفاء)", em997:"الإسعاف (الهلال الأحمر)", em19911:"وزارة الموارد البشرية — استفسارات العمل",
   navProfile:"الملف الشخصي", shareLabel:"مشاركة", copyLink:"نسخ الرابط", linkCopied:"تم نسخ الرابط!", shareViaWhatsapp:"مشاركة عبر واتساب", shareThisPage:"شارك هذه الصفحة",
-  signInTitle:"تسجيل دخول سريع", signInHint:"فقط اسمك ورقم جوالك — بدون كلمة مرور. هذا يساعدنا على نسب مشاركاتك وتتبع روابطك.",
-  lblName:"اسمك", lblPhone:"رقم الجوال", signInSubmit:"متابعة", signedInAs:"مسجل الدخول باسم", signOutBtn:"تسجيل الخروج",
+  loginTabLabel:"تسجيل الدخول", signupTabLabel:"إنشاء حساب",
+  loginHint:"سجّل الدخول باسم المستخدم وكلمة المرور.", signupHint:"اختر اسم مستخدم وكلمة مرور — هذا كل ما تحتاجه.",
+  lblName:"اسمك", lblUsername:"اسم المستخدم", lblPassword:"كلمة المرور",
+  signInSubmit:"تسجيل الدخول", signInBtnShort:"تسجيل الدخول / إنشاء حساب", signOutBtn:"تسجيل الخروج",
+  authErrorMissing:"أدخل اسم المستخدم وكلمة المرور.", authErrorShort:"يجب أن تتكون كلمة المرور من ٦ أحرف على الأقل.",
+  authErrorTaken:"اسم المستخدم هذا مُستخدم بالفعل.", authErrorInvalid:"اسم المستخدم أو كلمة المرور غير صحيحة.",
+  authErrorNetwork:"تعذر الوصول إلى الخادم — حاول مرة أخرى.",
   communityTabQA:"أسئلة وأجوبة", communityTabBuddies:"الرفقاء", becomeBuddyBtn:"كن رفيقاً — ساعد الوافدين الجدد",
   buddyFormTitle:"سجّل كرفيق", buddyFormHint:"سيتمكن الوافدون الجدد من رؤية ملفك الشخصي والتواصل معك عبر واتساب.",
   lblHelpAreas:"بماذا يمكنك المساعدة؟", helpHousing:"إيجاد السكن", helpPaperwork:"الأوراق والإجراءات", helpOrientation:"التوجيه العام",
   lblBio:"نبذة قصيرة", bioPh:"مثال: أعيش في الرياض منذ 3 سنوات، يسعدني المساعدة في إعداد أبشر ونفاذ...",
   buddyFormSubmit:"نشر ملفي كرفيق", noBuddiesYet:"لا يوجد رفقاء بعد — كن الأول!", helpsWith:"يمكنه المساعدة في",
   videoLabel:"فيديو الغرفة (اختياري)", videoHint:"جولة قصيرة بالفيديو تحصل على ردود أكثر بكثير من الصور فقط.", uploadingVideo:"جارٍ رفع الفيديو...",
-  profileEyebrow:"حسابك", profileTitleSignedOut:"سجّل الدخول لفتح المزيد", profileSubSignedOut:"النشر والانضمام كرفيق ومشاركة الروابط، كلها تستخدم نفس تسجيل الدخول السريع.",
+  profileEyebrow:"حسابك", profileTitleSignedOut:"سجّل الدخول لفتح المزيد", profileSubSignedOut:"النشر والانضمام كرفيق ومشاركة الروابط، كلها تستخدم نفس الحساب.",
   myLinksTitle:"روابط المشاركة الخاصة بي", myLinksHint:"أنشئ رابطاً شخصياً لأي قسم — ستشاهد عدد مرات النقر على كل رابط.",
   generateLinkBtn:"احصل على الرابط", clicksLabel:"نقرات",
   filterAnyGender:"أي جنس", filterMaleOnly:"رجال فقط", filterFemaleOnly:"نساء فقط",
@@ -149,6 +156,9 @@ ar: {
   lblBudget:"الميزانية", lblNatShort:"الجنسية", lblGenderShort:"الجنس",
   noListingsTitle:"لا توجد غرف مطابقة لهذه الفلاتر", noListingsSub:"جرّب ميزانية أوسع أو أزل فلتراً أو اثنين.",
   soundTicker:"صوت أصلي · سند للإسكان", likeLabel:"إعجاب",
+  statMyListings:"الإعلانات", statMyQuestions:"الأسئلة", statMyClicks:"نقرات الروابط",
+  tabMyPosts:"إعلاناتي", tabLiked:"أعجبني", memberSince:"عضو منذ",
+  noPostsYet:"لم تنشر أي إعلان بعد", noLikedYet:"الغرف التي تعجبك ستظهر هنا",
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
@@ -187,15 +197,20 @@ ur: {
   footNote:"سند ایک کمیونٹی پلیٹ فارم ہے۔ ہمیشہ سرکاری طریقہ کار کی تصدیق قویٰ، ابشر اور مقیم جیسے سرکاری پورٹلز سے کریں۔",
   emergencyTitle:"ہنگامی نمبرز", em911:"ایمرجنسی (پولیس)", em998:"سول ڈیفنس (فائر)", em997:"ایمبولینس (ریڈ کریسنٹ)", em19911:"وزارت انسانی وسائل — لیبر انکوائریز",
   navProfile:"پروفائل", shareLabel:"شیئر", copyLink:"لنک کاپی کریں", linkCopied:"لنک کاپی ہو گیا!", shareViaWhatsapp:"واٹس ایپ پر شیئر کریں", shareThisPage:"یہ صفحہ شیئر کریں",
-  signInTitle:"فوری سائن ان", signInHint:"صرف آپ کا نام اور فون نمبر — پاس ورڈ کی ضرورت نہیں۔ یہ ہمیں آپ کی پوسٹس کا سہرا دینے اور آپ کے شیئر کردہ لنکس ٹریک کرنے میں مدد دیتا ہے۔",
-  lblName:"آپ کا نام", lblPhone:"فون نمبر", signInSubmit:"جاری رکھیں", signedInAs:"بطور سائن ان", signOutBtn:"سائن آؤٹ",
+  loginTabLabel:"لاگ ان", signupTabLabel:"اکاؤنٹ بنائیں",
+  loginHint:"اپنے یوزرنیم اور پاس ورڈ سے لاگ ان کریں۔", signupHint:"ایک یوزرنیم اور پاس ورڈ منتخب کریں — بس اتنا ہی چاہیے۔",
+  lblName:"آپ کا نام", lblUsername:"یوزرنیم", lblPassword:"پاس ورڈ",
+  signInSubmit:"لاگ ان", signInBtnShort:"لاگ ان / اکاؤنٹ بنائیں", signOutBtn:"سائن آؤٹ",
+  authErrorMissing:"یوزرنیم اور پاس ورڈ درج کریں۔", authErrorShort:"پاس ورڈ کم از کم ۶ حروف کا ہونا چاہیے۔",
+  authErrorTaken:"یہ یوزرنیم پہلے سے لیا جا چکا ہے۔", authErrorInvalid:"غلط یوزرنیم یا پاس ورڈ۔",
+  authErrorNetwork:"سرور تک رسائی نہیں ہو سکی — دوبارہ کوشش کریں۔",
   communityTabQA:"سوال و جواب", communityTabBuddies:"ساتھی", becomeBuddyBtn:"ساتھی بنیں — نئے آنے والوں کی مدد کریں",
   buddyFormTitle:"بطور ساتھی سائن اپ کریں", buddyFormHint:"نئے آنے والے آپ کی پروفائل دیکھ سکیں گے اور واٹس ایپ پر آپ سے رابطہ کر سکیں گے۔",
   lblHelpAreas:"آپ کس چیز میں مدد کر سکتے ہیں؟", helpHousing:"رہائش تلاش کرنا", helpPaperwork:"کاغذی کارروائی اور طریقہ کار", helpOrientation:"عمومی رہنمائی",
   lblBio:"مختصر تعارف", bioPh:"مثلاً: 3 سال سے ریاض میں مقیم ہوں، ابشر/نفاذ سیٹ اپ میں مدد کے لیے تیار ہوں...",
   buddyFormSubmit:"میری ساتھی پروفائل شائع کریں", noBuddiesYet:"ابھی تک کوئی ساتھی نہیں — پہلے آپ بنیں!", helpsWith:"مدد کر سکتا ہے",
   videoLabel:"کمرے کی ویڈیو (اختیاری)", videoHint:"ایک مختصر ویڈیو صرف تصاویر کے مقابلے میں کہیں زیادہ جوابات لاتی ہے۔", uploadingVideo:"ویڈیو اپ لوڈ ہو رہی ہے...",
-  profileEyebrow:"آپ کا اکاؤنٹ", profileTitleSignedOut:"مزید کے لیے سائن ان کریں", profileSubSignedOut:"پوسٹ کرنا، ساتھی بننا، اور لنکس شیئر کرنا سب ایک ہی فوری سائن ان استعمال کرتے ہیں۔",
+  profileEyebrow:"آپ کا اکاؤنٹ", profileTitleSignedOut:"مزید کے لیے سائن ان کریں", profileSubSignedOut:"پوسٹ کرنا، ساتھی بننا، اور لنکس شیئر کرنا سب ایک ہی اکاؤنٹ استعمال کرتے ہیں۔",
   myLinksTitle:"میرے شیئر لنکس", myLinksHint:"کسی بھی سیکشن کے لیے ذاتی لنک بنائیں — آپ دیکھ سکیں گے کہ ہر لنک پر کتنی بار کلک ہوا۔",
   generateLinkBtn:"لنک حاصل کریں", clicksLabel:"کلکس",
   filterAnyGender:"کوئی بھی صنف", filterMaleOnly:"صرف مرد", filterFemaleOnly:"صرف خواتین",
@@ -204,6 +219,9 @@ ur: {
   lblBudget:"بجٹ", lblNatShort:"قومیت", lblGenderShort:"صنف",
   noListingsTitle:"ان فلٹرز سے کوئی کمرہ نہیں ملا", noListingsSub:"بجٹ بڑھائیں یا ایک دو فلٹر ہٹا دیں۔",
   soundTicker:"اصل آواز · سند ہاؤسنگ", likeLabel:"پسند",
+  statMyListings:"لسٹنگز", statMyQuestions:"سوالات", statMyClicks:"لنک کلکس",
+  tabMyPosts:"پوسٹس", tabLiked:"پسندیدہ", memberSince:"رکن بننے کی تاریخ",
+  noPostsYet:"ابھی تک کوئی لسٹنگ پوسٹ نہیں کی گئی", noLikedYet:"آپ کے پسندیدہ کمرے یہاں نظر آئیں گے",
 }
 };
 
@@ -411,7 +429,7 @@ let buddies = [
 
 /* ============================= State & render ============================= */
 let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa', feedLikes:{} };
-let appUser = null; // { id, name, phone } once signed in — in-memory only, resets on reload
+let appUser = null; // { id, username, name, createdAt } once signed in — persisted to localStorage so a reload keeps the session
 let myShareLinks = []; // [{id, page, code, clicks}]
 let pendingSignInAction = null; // callback to run right after a successful sign-in
 
@@ -429,6 +447,13 @@ function applyI18n(){
     const k = el.getAttribute('data-i18n-ph');
     if(translations[state.lang][k] !== undefined) el.setAttribute('placeholder', translations[state.lang][k]);
   });
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-title');
+    if(translations[state.lang][k] !== undefined){
+      el.setAttribute('title', translations[state.lang][k]);
+      el.setAttribute('aria-label', translations[state.lang][k]);
+    }
+  });
   document.querySelectorAll('[data-lang-btn]').forEach(b=>{
     b.classList.toggle('active', b.getAttribute('data-lang-btn')===state.lang);
   });
@@ -444,6 +469,8 @@ function setTab(tab){
   applyFeedMode();
   closeFilters();
   setPostFormOpen(false);
+  // Liked rooms come from the feed's in-memory like state, so refresh that grid on every visit.
+  if(tab==='profile' && appUser) renderProfileGrids();
 }
 
 /* On mobile the housing tab is a full-bleed feed: no header, no page scroll.
@@ -818,11 +845,34 @@ function renderForum(){
   });
 }
 
-/* ============================= Sign-in (light accounts) ============================= */
+/* ============================= Sign-in (username + password) ============================= */
+const AUTH_STORAGE_KEY = 'sanad_user';
+let authMode = 'login'; // 'login' | 'signup'
+
+function setAuthMode(mode){
+  authMode = mode;
+  document.getElementById('authTabLogin').classList.toggle('active', mode==='login');
+  document.getElementById('authTabSignup').classList.toggle('active', mode==='signup');
+  document.getElementById('signupNameField').style.display = mode==='signup' ? 'block' : 'none';
+  document.getElementById('authHint').textContent = t(mode==='signup' ? 'signupHint' : 'loginHint');
+  document.getElementById('btnSignInSubmit').textContent = t(mode==='signup' ? 'signupTabLabel' : 'signInSubmit');
+  hideAuthError();
+}
+function showAuthError(msg){
+  const el = document.getElementById('authError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function hideAuthError(){
+  document.getElementById('authError').style.display = 'none';
+}
+
 function openSignIn(onSuccess){
   pendingSignInAction = onSuccess || null;
-  document.getElementById('si-name').value = appUser ? appUser.name : '';
-  document.getElementById('si-phone').value = appUser ? appUser.phone : '';
+  document.getElementById('si-name').value = '';
+  document.getElementById('si-username').value = '';
+  document.getElementById('si-password').value = '';
+  setAuthMode('login');
   document.getElementById('signInModal').style.display = 'flex';
 }
 function closeSignIn(){
@@ -834,43 +884,134 @@ function requireSignIn(onReady){
   openSignIn(onReady);
 }
 
+function persistAppUser(){
+  if(appUser) localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(appUser));
+  else localStorage.removeItem(AUTH_STORAGE_KEY);
+}
+function restoreAppUser(){
+  try{
+    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+    if(raw) appUser = JSON.parse(raw);
+  } catch(err){ appUser = null; }
+}
+
 async function submitSignIn(){
+  const username = document.getElementById('si-username').value.trim();
+  const password = document.getElementById('si-password').value;
   const name = document.getElementById('si-name').value.trim();
-  const phone = document.getElementById('si-phone').value.trim();
-  if(!name || !phone){ return; }
+  hideAuthError();
+
+  if(!username || !password){ showAuthError(t('authErrorMissing')); return; }
+  if(authMode==='signup' && password.length < 6){ showAuthError(t('authErrorShort')); return; }
 
   if(!SUPABASE_CONFIGURED){
-    appUser = { id: 'local-'+Date.now(), name, phone };
+    // No backend configured yet — accept anything so the demo still works offline.
+    appUser = { id:'local-'+username.toLowerCase(), username: username.toLowerCase(), name: name || username, createdAt: new Date().toISOString() };
   } else {
     try{
-      // Reuse an existing account for this phone number if one already exists.
-      const { data: existing } = await supabaseClient.from('app_users').select('*').eq('phone', phone).limit(1);
-      if(existing && existing.length){
-        appUser = { id: existing[0].id, name: existing[0].name, phone: existing[0].phone };
-      } else {
-        const { data: created, error } = await supabaseClient.from('app_users').insert([{ name, phone }]).select();
-        if(error){ console.error('Sign-in error:', error); return; }
-        appUser = { id: created[0].id, name: created[0].name, phone: created[0].phone };
+      const fn = authMode==='signup' ? 'signup_user' : 'login_user';
+      const params = authMode==='signup'
+        ? { p_username: username, p_password: password, p_name: name || username }
+        : { p_username: username, p_password: password };
+      const { data, error } = await supabaseClient.rpc(fn, params);
+      if(error){
+        const msg = (error.message||'').toLowerCase();
+        if(msg.includes('taken')) showAuthError(t('authErrorTaken'));
+        else if(msg.includes('least 6')) showAuthError(t('authErrorShort'));
+        else if(msg.includes('invalid')) showAuthError(t('authErrorInvalid'));
+        else showAuthError(t('authErrorNetwork'));
+        return;
       }
+      const row = Array.isArray(data) ? data[0] : data;
+      if(!row){ showAuthError(t('authErrorInvalid')); return; }
+      appUser = { id: row.id, username: row.username, name: row.name, createdAt: row.created_at };
     } catch(err){
       console.error('Could not reach Supabase to sign in:', err);
-      appUser = { id: 'local-'+Date.now(), name, phone }; // fall back so the demo still works offline
+      showAuthError(t('authErrorNetwork'));
+      return;
     }
   }
 
+  persistAppUser();
   document.getElementById('signInModal').style.display = 'none';
   const action = pendingSignInAction;
   pendingSignInAction = null;
   renderProfile();
-  await fetchAndRenderShareLinks();
+  await Promise.all([fetchAndRenderShareLinks(), fetchAndRenderProfileStats()]);
   if(action) action();
 }
 
 function signOut(){
   appUser = null;
   myShareLinks = [];
+  persistAppUser();
   renderProfile();
 }
+
+/* ---- Profile stats + "Posts"/"Liked" grids ---- */
+let profileTab = 'posts';
+let myListingsCache = [];
+
+async function fetchAndRenderProfileStats(){
+  if(!appUser) return;
+  let listingsCount = 0, questionsCount = 0;
+  myListingsCache = [];
+  if(SUPABASE_CONFIGURED && !String(appUser.id).startsWith('local-')){
+    try{
+      const [{ count: lc }, { count: qc }, { data: myListings }] = await Promise.all([
+        supabaseClient.from('housing_listings').select('id', { count:'exact', head:true }).eq('poster_user_id', appUser.id),
+        supabaseClient.from('forum_posts').select('id', { count:'exact', head:true }).eq('poster_user_id', appUser.id),
+        supabaseClient.from('housing_listings').select('*').eq('poster_user_id', appUser.id).order('created_at', { ascending:false })
+      ]);
+      listingsCount = lc || 0;
+      questionsCount = qc || 0;
+      myListingsCache = myListings || [];
+    } catch(err){
+      console.error('Could not load profile stats:', err);
+    }
+  }
+  const clicksTotal = myShareLinks.reduce((sum,l)=> sum + (l.clicks||0), 0);
+  document.getElementById('statListings').textContent = listingsCount;
+  document.getElementById('statQuestions').textContent = questionsCount;
+  document.getElementById('statClicks').textContent = clicksTotal;
+  renderProfileGrids();
+}
+
+function likedListings(){
+  return listings.filter(l => state.feedLikes[l.city+'|'+l.rent+'|'+l.wa]);
+}
+
+function profileGridTile(l){
+  return `<div class="pf-tile">
+    <div class="pf-tile-media">${houseIconSvg}</div>
+    <div class="pf-tile-scrim"></div>
+    <div class="pf-tile-info">
+      <strong>${l.rent} SAR</strong>
+      <span>${l.city}</span>
+    </div>
+  </div>`;
+}
+
+function renderProfileGrids(){
+  const postsGrid = document.getElementById('profilePostsGrid');
+  const likedGrid = document.getElementById('profileLikedGrid');
+  postsGrid.innerHTML = myListingsCache.length
+    ? myListingsCache.map(l=> profileGridTile({rent:l.rent, city:l.city})).join('')
+    : `<div class="pf-grid-empty">${t('noPostsYet')}</div>`;
+  const liked = likedListings();
+  likedGrid.innerHTML = liked.length
+    ? liked.map(l=> profileGridTile(l)).join('')
+    : `<div class="pf-grid-empty">${t('noLikedYet')}</div>`;
+}
+
+document.querySelectorAll('[data-ptab]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    profileTab = btn.getAttribute('data-ptab');
+    document.querySelectorAll('[data-ptab]').forEach(b=> b.classList.toggle('active', b===btn));
+    document.getElementById('profilePostsGrid').style.display = profileTab==='posts' ? 'grid' : 'none';
+    document.getElementById('profileLikedGrid').style.display = profileTab==='liked' ? 'grid' : 'none';
+  });
+});
 
 function renderProfile(){
   const out = document.getElementById('profileSignedOut');
@@ -882,8 +1023,12 @@ function renderProfile(){
   }
   out.style.display = 'none';
   inn.style.display = 'block';
-  document.getElementById('profileName').textContent = appUser.name;
-  document.getElementById('profilePhone').textContent = appUser.phone;
+  document.getElementById('profileAvatar').textContent = (appUser.name || appUser.username || '?').charAt(0).toUpperCase();
+  document.getElementById('profileName').textContent = appUser.name || appUser.username;
+  document.getElementById('profileHandle').textContent = '@' + appUser.username;
+  const year = appUser.createdAt ? new Date(appUser.createdAt).getFullYear() : new Date().getFullYear();
+  document.getElementById('profileMemberSince').textContent = t('memberSince') + ' ' + year;
+  renderProfileGrids();
 
   const pages = [
     {key:'home', label: t('navHome')},
@@ -1127,6 +1272,9 @@ document.getElementById('btnProfileSignIn').addEventListener('click', ()=> openS
 document.getElementById('btnSignInSubmit').addEventListener('click', submitSignIn);
 document.getElementById('btnSignInCancel').addEventListener('click', closeSignIn);
 document.getElementById('btnSignOut').addEventListener('click', signOut);
+document.querySelectorAll('[data-auth-tab]').forEach(btn=>{
+  btn.addEventListener('click', ()=> setAuthMode(btn.getAttribute('data-auth-tab')));
+});
 
 /* ---- Share panel ---- */
 document.querySelectorAll('[data-share-page]').forEach(btn=>{
@@ -1278,10 +1426,12 @@ document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=
 
 /* ============================= Initial load ============================= */
 async function initApp(){
+  restoreAppUser();
   renderAll();
   applyFeedMode();
   await trackIncomingShareCode();
   await Promise.all([fetchAndRenderListings(), fetchAndRenderForum(), fetchAndRenderBuddies()]);
+  if(appUser){ await Promise.all([fetchAndRenderShareLinks(), fetchAndRenderProfileStats()]); }
 }
 
 initApp();

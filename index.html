@@ -325,19 +325,44 @@
 
     <!-- PROFILE -->
     <section class="view" id="view-profile">
-      <p class="eyebrow" data-i18n="profileEyebrow">Your account</p>
       <div id="profileSignedOut">
+        <p class="eyebrow" data-i18n="profileEyebrow">Your account</p>
         <h1 class="page-title" data-i18n="profileTitleSignedOut">Sign in to unlock more</h1>
         <p class="page-sub" data-i18n="profileSubSignedOut">Posting, becoming a buddy, and sharing links all use the same quick sign-in.</p>
-        <button class="btn-primary" id="btnProfileSignIn" style="width:auto;padding:12px 22px;" data-i18n="signInTitle">Quick sign-in</button>
+        <button class="btn-primary" id="btnProfileSignIn" style="width:auto;padding:12px 22px;" data-i18n="signInBtnShort">Log in / Sign up</button>
       </div>
+
       <div id="profileSignedIn" style="display:none;">
-        <div class="panel">
-          <h3><span data-i18n="signedInAs">Signed in as</span> <span id="profileName"></span></h3>
-          <p class="hint" id="profilePhone"></p>
-          <button class="toggle-open" id="btnSignOut" style="margin-top:10px;margin-bottom:0;" data-i18n="signOutBtn">Sign out</button>
+        <div class="pf-head">
+          <button class="pf-signout" id="btnSignOut" data-i18n-title="signOutBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+          </button>
+          <div class="pf-avatar-ring"><div class="pf-avatar" id="profileAvatar"></div></div>
+          <h1 class="pf-name" id="profileName"></h1>
+          <p class="pf-handle" id="profileHandle"></p>
+          <p class="pf-since" id="profileMemberSince"></p>
         </div>
-        <div class="panel">
+
+        <div class="pf-stats-row">
+          <div class="pf-stat"><div class="n" id="statListings">0</div><div class="lbl" data-i18n="statMyListings">Listings</div></div>
+          <div class="pf-stat"><div class="n" id="statQuestions">0</div><div class="lbl" data-i18n="statMyQuestions">Questions</div></div>
+          <div class="pf-stat"><div class="n" id="statClicks">0</div><div class="lbl" data-i18n="statMyClicks">Link clicks</div></div>
+        </div>
+
+        <div class="pf-tabs" id="profileTabs">
+          <button class="pf-tab active" data-ptab="posts">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg>
+            <span data-i18n="tabMyPosts">Posts</span>
+          </button>
+          <button class="pf-tab" data-ptab="liked">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.2-4.6-10-9.1C.5 8.6 1.8 5 5.3 4.1c2-.5 4 .3 5.2 2 .4.5.7 1 1 1.6.3-.6.6-1.1 1-1.6 1.2-1.7 3.2-2.5 5.2-2 3.5.9 4.8 4.5 3.3 7.8-2.8 4.5-10 9.1-10 9.1z"/></svg>
+            <span data-i18n="tabLiked">Liked</span>
+          </button>
+        </div>
+        <div class="pf-grid" id="profilePostsGrid"></div>
+        <div class="pf-grid" id="profileLikedGrid" style="display:none;"></div>
+
+        <div class="panel" style="margin-top:20px;">
           <h3 data-i18n="myLinksTitle">My share links</h3>
           <p class="hint" data-i18n="myLinksHint">Generate a personal link for any section — you'll see how many times each one gets clicked.</p>
           <div id="myLinksList"></div>
@@ -349,17 +374,27 @@
   <!-- SIGN-IN MODAL -->
   <div class="modal-overlay" id="signInModal" style="display:none;">
     <div class="modal-box">
-      <h3 data-i18n="signInTitle">Quick sign-in</h3>
-      <p class="hint" data-i18n="signInHint">Just your name and phone — no password needed. This lets us credit your posts and track your shared links.</p>
-      <div class="field">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="authTabLogin" data-auth-tab="login" data-i18n="loginTabLabel">Log in</button>
+        <button class="auth-tab" id="authTabSignup" data-auth-tab="signup" data-i18n="signupTabLabel">Sign up</button>
+      </div>
+      <p class="hint" id="authHint" data-i18n="loginHint">Log in with your username and password.</p>
+
+      <p class="auth-error" id="authError" style="display:none;"></p>
+
+      <div class="field" id="signupNameField" style="display:none;">
         <label data-i18n="lblName">Your name</label>
-        <input type="text" id="si-name">
+        <input type="text" id="si-name" autocomplete="name">
       </div>
       <div class="field">
-        <label data-i18n="lblPhone">Phone number</label>
-        <input type="text" id="si-phone" placeholder="+966 5x xxx xxxx">
+        <label data-i18n="lblUsername">Username</label>
+        <input type="text" id="si-username" autocomplete="username" autocapitalize="off" spellcheck="false">
       </div>
-      <button class="btn-primary" id="btnSignInSubmit" data-i18n="signInSubmit">Continue</button>
+      <div class="field">
+        <label data-i18n="lblPassword">Password</label>
+        <input type="password" id="si-password" autocomplete="current-password">
+      </div>
+      <button class="btn-primary" id="btnSignInSubmit" data-i18n="signInSubmit">Log in</button>
       <button class="toggle-open" id="btnSignInCancel" style="margin-top:10px;margin-bottom:0;border-style:solid;">✕</button>
     </div>
   </div>
