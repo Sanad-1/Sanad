@@ -1021,6 +1021,15 @@ function closeSignIn(){
   pendingSignInAction = null;
 }
 function requireSignIn(onReady){
+  // A session saved before session tokens existed (or one Supabase has since
+  // rotated via a fresh login elsewhere) has no sessionToken — every
+  // server-verified action would silently fail, so treat it as signed out
+  // and ask for a fresh login instead of surfacing a confusing RPC error.
+  if(appUser && SUPABASE_CONFIGURED && !String(appUser.id).startsWith('local-') && !appUser.sessionToken){
+    appUser = null;
+    persistAppUser();
+    renderProfile();
+  }
   if(appUser){ onReady(); return; }
   openSignIn(onReady);
 }
