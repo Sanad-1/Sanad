@@ -68,6 +68,7 @@ en: {
   lblCategory:"Category", catHousing:"Housing", catLegal:"Legal", catJobs:"Jobs", catLife:"General life",
   lblQuestion:"Your question", questionPh:"Type your question here...", askFormSubmit:"Post question",
   catAll:"All", replies:"replies", viewReplies:"View replies", hideReplies:"Hide replies",
+  repliedBy:"Replied by", replyPh:"Write a helpful answer...", replySubmit:"Reply", replySignInHint:"Sign in to answer this question.",
   footNote:"Sanad is a community platform. Always verify official procedures on government portals such as Qiwa, Absher, and Muqeem.",
   emergencyTitle:"Emergency contacts", em911:"Emergency (Police)", em998:"Civil Defense (Fire)", em997:"Ambulance (Red Crescent)", em19911:"Ministry of HR — Labor Inquiries",
   navProfile:"Profile", shareLabel:"Share", copyLink:"Copy link", linkCopied:"Link copied!", shareViaWhatsapp:"Share via WhatsApp", shareThisPage:"Share this page",
@@ -97,6 +98,13 @@ en: {
   tabMyPosts:"Posts", tabLiked:"Liked", memberSince:"Member since",
   noPostsYet:"No listings posted yet", noLikedYet:"Rooms you like will show up here",
   backBtn:"Back", loadingProfile:"Loading…", publicProfileUnavailable:"Profile not available",
+  communityTabLeaderboard:"Top Helpers", leaderboardMonthLabel:"Top Helpers —",
+  lbFilterAll:"Everyone", lbFilterOpenToWork:"Open to work", lbStatReplies:"replies", lbStatVotes:"upvotes",
+  noHelpersYet:"No one's earned this yet this month — answer a question to be the first!",
+  badgeTopHelper:"Top Helper this month", shareMyRank:"Share my rank",
+  openToWorkToggleLabel:"Visible to employers looking to hire",
+  openToWorkHint:"Turning this on shows your name and lets employers message you on WhatsApp from the Top Helpers list.",
+  openToWorkWhatsappLabel:"WhatsApp number to show employers", saveBtn:"Save",
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
@@ -132,6 +140,7 @@ ar: {
   lblCategory:"التصنيف", catHousing:"السكن", catLegal:"قانوني", catJobs:"وظائف", catLife:"حياة عامة",
   lblQuestion:"سؤالك", questionPh:"اكتب سؤالك هنا...", askFormSubmit:"نشر السؤال",
   catAll:"الكل", replies:"ردود", viewReplies:"عرض الردود", hideReplies:"إخفاء الردود",
+  repliedBy:"ردّ عليه", replyPh:"اكتب إجابة مفيدة...", replySubmit:"رد", replySignInHint:"سجّل الدخول للإجابة على هذا السؤال.",
   footNote:"سند منصة مجتمعية. تأكد دائماً من الإجراءات الرسمية عبر البوابات الحكومية مثل قوى وأبشر ومقيم.",
   emergencyTitle:"أرقام الطوارئ", em911:"الطوارئ (الشرطة)", em998:"الدفاع المدني (الإطفاء)", em997:"الإسعاف (الهلال الأحمر)", em19911:"وزارة الموارد البشرية — استفسارات العمل",
   navProfile:"الملف الشخصي", shareLabel:"مشاركة", copyLink:"نسخ الرابط", linkCopied:"تم نسخ الرابط!", shareViaWhatsapp:"مشاركة عبر واتساب", shareThisPage:"شارك هذه الصفحة",
@@ -161,6 +170,13 @@ ar: {
   tabMyPosts:"إعلاناتي", tabLiked:"أعجبني", memberSince:"عضو منذ",
   noPostsYet:"لم تنشر أي إعلان بعد", noLikedYet:"الغرف التي تعجبك ستظهر هنا",
   backBtn:"رجوع", loadingProfile:"جارٍ التحميل…", publicProfileUnavailable:"الملف الشخصي غير متاح",
+  communityTabLeaderboard:"الأكثر مساعدة", leaderboardMonthLabel:"الأكثر مساعدة —",
+  lbFilterAll:"الجميع", lbFilterOpenToWork:"متاح للعمل", lbStatReplies:"ردود", lbStatVotes:"إعجابات",
+  noHelpersYet:"لم يحقق أحد هذا بعد هذا الشهر — أجب عن سؤال لتكون الأول!",
+  badgeTopHelper:"الأكثر مساعدة هذا الشهر", shareMyRank:"شارك ترتيبي",
+  openToWorkToggleLabel:"مرئي لأصحاب العمل الباحثين عن موظفين",
+  openToWorkHint:"تفعيل هذا يُظهر اسمك ويسمح لأصحاب العمل بمراسلتك عبر واتساب من قائمة الأكثر مساعدة.",
+  openToWorkWhatsappLabel:"رقم واتساب لعرضه على أصحاب العمل", saveBtn:"حفظ",
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
@@ -196,6 +212,7 @@ ur: {
   lblCategory:"زمرہ", catHousing:"رہائش", catLegal:"قانونی", catJobs:"ملازمتیں", catLife:"عمومی زندگی",
   lblQuestion:"آپ کا سوال", questionPh:"اپنا سوال یہاں لکھیں...", askFormSubmit:"سوال پوسٹ کریں",
   catAll:"تمام", replies:"جوابات", viewReplies:"جوابات دیکھیں", hideReplies:"جوابات چھپائیں",
+  repliedBy:"جواب دہندہ", replyPh:"ایک مددگار جواب لکھیں...", replySubmit:"جواب دیں", replySignInHint:"اس سوال کا جواب دینے کے لیے سائن ان کریں۔",
   footNote:"سند ایک کمیونٹی پلیٹ فارم ہے۔ ہمیشہ سرکاری طریقہ کار کی تصدیق قویٰ، ابشر اور مقیم جیسے سرکاری پورٹلز سے کریں۔",
   emergencyTitle:"ہنگامی نمبرز", em911:"ایمرجنسی (پولیس)", em998:"سول ڈیفنس (فائر)", em997:"ایمبولینس (ریڈ کریسنٹ)", em19911:"وزارت انسانی وسائل — لیبر انکوائریز",
   navProfile:"پروفائل", shareLabel:"شیئر", copyLink:"لنک کاپی کریں", linkCopied:"لنک کاپی ہو گیا!", shareViaWhatsapp:"واٹس ایپ پر شیئر کریں", shareThisPage:"یہ صفحہ شیئر کریں",
@@ -225,6 +242,13 @@ ur: {
   tabMyPosts:"پوسٹس", tabLiked:"پسندیدہ", memberSince:"رکن بننے کی تاریخ",
   noPostsYet:"ابھی تک کوئی لسٹنگ پوسٹ نہیں کی گئی", noLikedYet:"آپ کے پسندیدہ کمرے یہاں نظر آئیں گے",
   backBtn:"واپس", loadingProfile:"لوڈ ہو رہا ہے…", publicProfileUnavailable:"پروفائل دستیاب نہیں",
+  communityTabLeaderboard:"ٹاپ ہیلپرز", leaderboardMonthLabel:"ٹاپ ہیلپرز —",
+  lbFilterAll:"سب", lbFilterOpenToWork:"کام کے لیے دستیاب", lbStatReplies:"جوابات", lbStatVotes:"اپووٹس",
+  noHelpersYet:"اس مہینے ابھی تک کسی نے یہ حاصل نہیں کیا — پہلا بننے کے لیے کسی سوال کا جواب دیں!",
+  badgeTopHelper:"اس مہینے کا ٹاپ ہیلپر", shareMyRank:"میری رینک شیئر کریں",
+  openToWorkToggleLabel:"ملازمت دینے والوں کو نظر آئیں",
+  openToWorkHint:"اسے آن کرنے سے آپ کا نام نظر آئے گا اور آجر ٹاپ ہیلپرز لسٹ سے آپ کو واٹس ایپ پر پیغام بھیج سکیں گے۔",
+  openToWorkWhatsappLabel:"آجروں کو دکھانے کے لیے واٹس ایپ نمبر", saveBtn:"محفوظ کریں",
 }
 };
 
@@ -422,6 +446,8 @@ let forumPosts = [
  {cat:"General life", q:"Which is cheaper for a first month — hotel or shared bed space?", by:"JustLanded", votes:15,
   replies:["Bed space, by far, if you can find one through a trusted contact — hotels add up fast in the first two weeks."]}
 ];
+/* Reply ids the signed-in user has already upvoted this session (see fetchAndRenderForum). */
+let myReplyVotes = new Set();
 
 /* ============================= Buddies ============================= */
 /* Placeholder data shown briefly while the real rows load from Supabase (see fetchAndRenderBuddies). */
@@ -431,7 +457,7 @@ let buddies = [
 ];
 
 /* ============================= State & render ============================= */
-let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa', feedLikes:{} };
+let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa', feedLikes:{}, lbFilter:'all' };
 let appUser = null; // { id, username, name, createdAt } once signed in — persisted to localStorage so a reload keeps the session
 let myShareLinks = []; // [{id, page, code, clicks}]
 let pendingSignInAction = null; // callback to run right after a successful sign-in
@@ -591,6 +617,8 @@ const shareIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 const houseIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg>';
 const heartIconSvg = '<svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.6-10-9.1C.5 8.6 1.8 5 5.3 4.1c2-.5 4 .3 5.2 2 .4.5.7 1 1 1.6.3-.6.6-1.1 1-1.6 1.2-1.7 3.2-2.5 5.2-2 3.5.9 4.8 4.5 3.3 7.8-2.8 4.5-10 9.1-10 9.1z"/></svg>';
 const noteIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>';
+const upvoteIconSvg = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5l7 8H5l7-8z"/></svg>';
+const badgeIconSvg = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 5.6L21 8.5l-4.5 4.2L17.6 19 12 15.8 6.4 19l1.1-6.3L3 8.5l6.4-.9L12 2z"/></svg>';
 
 /* Deterministic "since forever" like counts so a listing's number doesn't jump on
    every re-render — same feel as TikTok's counter without needing a backend. */
@@ -760,7 +788,7 @@ async function fetchAndRenderForum(){
   try {
     const { data, error } = await supabaseClient
       .from('forum_posts')
-      .select('*, forum_replies(*)')
+      .select('*, forum_replies(*, app_users(name))')
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -775,8 +803,24 @@ async function fetchAndRenderForum(){
       q: p.question,
       by: p.posted_by,
       votes: p.votes,
-      replies: p.forum_replies ? p.forum_replies.map(r => r.reply_text) : []
+      replies: (p.forum_replies || [])
+        .slice()
+        .sort((a,b)=> new Date(a.created_at) - new Date(b.created_at))
+        .map(r => ({
+          id: r.id,
+          text: r.reply_text,
+          by: r.app_users ? r.app_users.name : null,
+          votes: r.votes || 0,
+          posterUserId: r.poster_user_id
+        }))
     }));
+
+    if(appUser && !String(appUser.id).startsWith('local-')){
+      const { data: myVotes } = await supabaseClient.from('forum_reply_votes').select('reply_id').eq('user_id', appUser.id);
+      myReplyVotes = new Set((myVotes||[]).map(v=>v.reply_id));
+    } else {
+      myReplyVotes = new Set();
+    }
 
     renderForum();
   } catch (err) {
@@ -796,6 +840,27 @@ function renderCatChips(){
       renderCatChips(); renderForum();
     });
   });
+}
+
+/* A reply is either a plain string (old seeded demo data — no author, no
+   voting) or an object from Supabase ({id, text, by, votes, posterUserId}).
+   Render both without the demo ones looking broken. */
+function renderReply(r){
+  const isReal = typeof r === 'object' && r !== null;
+  const text = isReal ? r.text : r;
+  const by = isReal ? r.by : null;
+  const canVote = isReal && !!r.id;
+  const voted = canVote && myReplyVotes.has(r.id);
+  return `<div class="reply">
+    <span class="who">↳</span>
+    <div class="reply-body">
+      <p>${text}</p>
+      <div class="reply-meta">
+        ${by ? `<button class="reply-by" ${r.posterUserId?`data-view-profile="${r.posterUserId}"`:'disabled'}>${t('repliedBy')} ${by}</button>` : ''}
+        ${canVote ? `<button class="reply-vote ${voted?'voted':''}" data-vote-reply="${r.id}" ${voted?'disabled':''}>${upvoteIconSvg}<span>${r.votes||0}</span></button>` : ''}
+      </div>
+    </div>
+  </div>`;
 }
 
 function renderForum(){
@@ -822,7 +887,13 @@ function renderForum(){
             <button data-toggle-reply="${idx}">${p.replies.length} ${t('replies')} · ${open ? t('hideReplies') : t('viewReplies')}</button>
           </div>
           <div class="replies ${open?'open':''}" id="replies-${idx}">
-            ${p.replies.map(r=>`<div class="reply"><span class="who">↳</span>${r}</div>`).join('')}
+            ${p.replies.map(r=> renderReply(r)).join('')}
+            ${appUser
+              ? `<div class="reply-compose">
+                  <input type="text" data-reply-input="${idx}" placeholder="${t('replyPh')}">
+                  <button data-submit-reply="${idx}">${t('replySubmit')}</button>
+                </div>`
+              : `<p class="hint reply-signin-hint" data-reply-signin="${idx}">${t('replySignInHint')}</p>`}
           </div>
         </div>
       </div>
@@ -853,6 +924,65 @@ function renderForum(){
       state.openReplies[idx] = !state.openReplies[idx];
       renderForum();
     });
+  });
+  list.querySelectorAll('[data-submit-reply]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = btn.getAttribute('data-submit-reply');
+      const input = list.querySelector('[data-reply-input="'+idx+'"]');
+      const text = input.value.trim();
+      if(!text) return;
+      submitReply(forumPosts[idx], text);
+    });
+  });
+  list.querySelectorAll('[data-reply-signin]').forEach(el=>{
+    el.addEventListener('click', ()=> requireSignIn(()=>{}));
+  });
+  list.querySelectorAll('[data-vote-reply]').forEach(btn=>{
+    btn.addEventListener('click', ()=> voteOnReply(btn.getAttribute('data-vote-reply')));
+  });
+  list.querySelectorAll('[data-view-profile]').forEach(btn=>{
+    btn.addEventListener('click', ()=> showPublicProfile(btn.getAttribute('data-view-profile')));
+  });
+}
+
+async function submitReply(post, text){
+  requireSignIn(async ()=>{
+    if(!SUPABASE_CONFIGURED || !post.id){
+      post.replies.push({ id:null, text, by: appUser.name, votes:0, posterUserId: appUser.id });
+      renderForum();
+      return;
+    }
+    try{
+      const { error } = await supabaseClient.from('forum_replies').insert([{
+        post_id: post.id, reply_text: text, poster_user_id: appUser.id
+      }]);
+      if(error){ console.error('Error posting reply:', error); return; }
+      await fetchAndRenderForum();
+    } catch(err){
+      console.error('Could not reach Supabase to post reply:', err);
+    }
+  });
+}
+
+async function voteOnReply(replyId){
+  requireSignIn(async ()=>{
+    if(myReplyVotes.has(replyId)) return; // UI already disables this, but don't trust it blindly
+    if(!SUPABASE_CONFIGURED || String(appUser.id).startsWith('local-')){
+      myReplyVotes.add(replyId);
+      renderForum();
+      return;
+    }
+    try{
+      const { error } = await supabaseClient.rpc('vote_on_reply', {
+        p_session_token: appUser.sessionToken, p_reply_id: replyId
+      });
+      if(error) console.error('Error voting on reply:', error);
+      await fetchAndRenderForum();
+      await fetchLeaderboardData();
+      renderLeaderboard();
+    } catch(err){
+      console.error('Could not reach Supabase to vote on reply:', err);
+    }
   });
 }
 
@@ -917,7 +1047,7 @@ async function submitSignIn(){
 
   if(!SUPABASE_CONFIGURED){
     // No backend configured yet — accept anything so the demo still works offline.
-    appUser = { id:'local-'+username.toLowerCase(), username: username.toLowerCase(), name: name || username, createdAt: new Date().toISOString() };
+    appUser = { id:'local-'+username.toLowerCase(), username: username.toLowerCase(), name: name || username, createdAt: new Date().toISOString(), sessionToken:'local-session-'+Date.now() };
   } else {
     try{
       const fn = authMode==='signup' ? 'signup_user' : 'login_user';
@@ -943,7 +1073,7 @@ async function submitSignIn(){
       }
       const row = Array.isArray(data) ? data[0] : data;
       if(!row){ showAuthError(t('authErrorInvalid')); return; }
-      appUser = { id: row.id, username: row.username, name: row.name, createdAt: row.created_at };
+      appUser = { id: row.id, username: row.username, name: row.name, createdAt: row.created_at, sessionToken: row.session_token };
     } catch(err){
       console.error('Sanad: could not reach Supabase to sign in:', err);
       showAuthError(t('authErrorNetwork') + ' (' + (err && err.message ? err.message : String(err)) + ')');
@@ -956,7 +1086,12 @@ async function submitSignIn(){
   const action = pendingSignInAction;
   pendingSignInAction = null;
   renderProfile();
-  await Promise.all([fetchAndRenderShareLinks(), fetchAndRenderProfileStats()]);
+  // Refetch anything that depends on "who's signed in" — forum vote state,
+  // leaderboard/open-to-work status, share links — so it isn't stale from
+  // whatever it looked like before this login (e.g. signed-out placeholders).
+  await Promise.all([fetchAndRenderShareLinks(), fetchAndRenderProfileStats(), fetchAndRenderForum(), fetchLeaderboardData()]);
+  renderProfile();
+  renderLeaderboard();
   if(action) action();
 }
 
@@ -1031,10 +1166,16 @@ async function showPublicProfile(userId){
   const nameEl = document.getElementById('ppName');
   const countEl = document.getElementById('ppListingCount');
   const gridEl = document.getElementById('ppGrid');
+  const badgeEl = document.getElementById('ppTopHelperBadge');
+  const contactEl = document.getElementById('ppContactWA');
+  const shareBtn = document.getElementById('btnPublicProfileShare');
   avatarEl.textContent = '';
   nameEl.textContent = t('loadingProfile');
   countEl.textContent = '';
   gridEl.innerHTML = '';
+  if(badgeEl) badgeEl.style.display = 'none';
+  if(contactEl) contactEl.style.display = 'none';
+  if(shareBtn) shareBtn.onclick = ()=> openProfileSharePanel(userId);
 
   const renderInto = (name, theirListings) => {
     avatarEl.textContent = (name || '?').charAt(0).toUpperCase();
@@ -1043,6 +1184,12 @@ async function showPublicProfile(userId){
     gridEl.innerHTML = theirListings.length
       ? theirListings.map(l=> profileGridTile(l)).join('')
       : `<div class="pf-grid-empty">${t('noPostsYet')}</div>`;
+    if(badgeEl) badgeEl.style.display = isTopHelper(userId) ? 'inline-flex' : 'none';
+    if(contactEl){
+      const wa = openToWorkMap[userId];
+      contactEl.style.display = wa ? 'flex' : 'none';
+      contactEl.href = wa ? 'https://wa.me/'+wa : '#';
+    }
   };
 
   if(!SUPABASE_CONFIGURED || String(userId).startsWith('local-')){
@@ -1094,6 +1241,26 @@ function renderProfile(){
   const year = appUser.createdAt ? new Date(appUser.createdAt).getFullYear() : new Date().getFullYear();
   document.getElementById('profileMemberSince').textContent = t('memberSince') + ' ' + year;
   renderProfileGrids();
+
+  const badgeEl = document.getElementById('profileTopHelperBadge');
+  const shareRankBtn = document.getElementById('btnShareMyRank');
+  const amTopHelper = isTopHelper(appUser.id);
+  if(badgeEl) badgeEl.style.display = amTopHelper ? 'inline-flex' : 'none';
+  if(shareRankBtn){
+    shareRankBtn.style.display = amTopHelper ? 'flex' : 'none';
+    shareRankBtn.onclick = ()=> openProfileSharePanel(appUser.id);
+  }
+
+  const isOpen = SUPABASE_CONFIGURED ? !!openToWorkMap[appUser.id] : !!appUser.openToWork;
+  const currentWa = SUPABASE_CONFIGURED ? openToWorkMap[appUser.id] : appUser.employerContactWhatsapp;
+  const otwToggle = document.getElementById('openToWorkToggle');
+  const otwWaField = document.getElementById('openToWorkWaField');
+  const otwWaInput = document.getElementById('openToWorkWa');
+  if(otwToggle){
+    otwToggle.checked = isOpen;
+    if(otwWaField) otwWaField.style.display = isOpen ? 'block' : 'none';
+    if(otwWaInput && currentWa) otwWaInput.value = currentWa;
+  }
 
   const pages = [
     {key:'home', label: t('navHome')},
@@ -1201,6 +1368,23 @@ function openDeepLinkedListing(){
   if(card) card.scrollIntoView({ behavior:'instant', block:'start' });
 }
 
+/* Same no-sign-in permalink pattern as openListingSharePanel, but for a
+   profile — this is what makes "Share my rank" land a friend on the
+   exact profile rather than just the general leaderboard. */
+function openProfileSharePanel(userId){
+  if(!userId) return;
+  const url = `${baseShareUrl()}?profile=${encodeURIComponent(userId)}`;
+  document.getElementById('shareLinkInput').value = url;
+  document.getElementById('btnShareWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(url)}`;
+  document.getElementById('sharePanel').style.display = 'flex';
+}
+
+function openDeepLinkedProfile(){
+  const userId = new URLSearchParams(window.location.search).get('profile');
+  if(!userId) return;
+  showPublicProfile(userId);
+}
+
 async function trackIncomingShareCode(){
   const params = new URLSearchParams(window.location.search);
   const code = params.get('ref');
@@ -1238,7 +1422,7 @@ async function fetchAndRenderBuddies(){
   try{
     const { data, error } = await supabaseClient.from('buddies').select('*, app_users(name)').order('created_at', { ascending:false });
     if(error){ console.error('Error loading buddies:', error); renderBuddies(); return; }
-    buddies = data.map(b=>({ name: b.app_users ? b.app_users.name : 'Buddy', help: b.help_areas || [], bio: b.bio, wa: b.whatsapp }));
+    buddies = data.map(b=>({ userId: b.user_id, name: b.app_users ? b.app_users.name : 'Buddy', help: b.help_areas || [], bio: b.bio, wa: b.whatsapp }));
     renderBuddies();
   } catch(err){
     console.error('Could not reach Supabase for buddies, showing local data instead:', err);
@@ -1254,7 +1438,7 @@ async function submitBuddy(){
 
   requireSignIn(async ()=>{
     if(!SUPABASE_CONFIGURED){
-      buddies.unshift({ name: appUser.name, help, bio, wa });
+      buddies.unshift({ userId: appUser.id, name: appUser.name, help, bio, wa });
       document.getElementById('buddyForm').style.display = 'none';
       renderBuddies();
       return;
@@ -1266,6 +1450,121 @@ async function submitBuddy(){
       await fetchAndRenderBuddies();
     } catch(err){
       console.error('Could not reach Supabase to publish buddy profile:', err);
+    }
+  });
+}
+
+/* ============================= Leaderboard ============================= */
+const LEADERBOARD_WEIGHTS = { votes: 3, replies: 1, buddy: 5 };
+const TOP_HELPER_BADGE_COUNT = 3;
+let leaderboardCache = []; // [{userId, name, replies, votes, isBuddy, score}], sorted best-first
+let openToWorkMap = {}; // userId -> whatsapp number, only for opted-in members
+
+function currentMonthLabel(){
+  const months = {
+    en:["January","February","March","April","May","June","July","August","September","October","November","December"],
+    ar:["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+    ur:["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"]
+  };
+  const now = new Date();
+  return months[state.lang][now.getMonth()] + ' ' + now.getFullYear();
+}
+
+async function fetchLeaderboardData(){
+  if(!SUPABASE_CONFIGURED){ leaderboardCache = []; openToWorkMap = {}; return; }
+  try{
+    const [{ data: components, error: compError }, { data: openRows, error: openError }] = await Promise.all([
+      supabaseClient.from('leaderboard_components').select('*, app_users(name)'),
+      supabaseClient.from('open_to_work_directory').select('*')
+    ]);
+    if(compError){ console.error('Error loading leaderboard:', compError); return; }
+    if(openError){ console.error('Error loading open-to-work directory:', openError); }
+
+    const buddyIds = new Set(buddies.map(b=>b.userId).filter(Boolean));
+    openToWorkMap = {};
+    (openRows||[]).forEach(r=>{ openToWorkMap[r.id] = r.employer_contact_whatsapp; });
+
+    leaderboardCache = (components||[])
+      .filter(c=> c.app_users) // the name join can miss if a poster account was deleted
+      .map(c=>{
+        const replies = c.reply_count_month || 0;
+        const votes = c.vote_count_month || 0;
+        const isBuddy = buddyIds.has(c.user_id);
+        const score = votes*LEADERBOARD_WEIGHTS.votes + replies*LEADERBOARD_WEIGHTS.replies + (isBuddy ? LEADERBOARD_WEIGHTS.buddy : 0);
+        return { userId: c.user_id, name: c.app_users.name, replies, votes, isBuddy, score };
+      })
+      .filter(row=> row.score > 0)
+      .sort((a,b)=> b.score - a.score);
+  } catch(err){
+    console.error('Could not reach Supabase to load the leaderboard:', err);
+  }
+}
+
+function isTopHelper(userId){
+  const idx = leaderboardCache.findIndex(r=> r.userId === userId);
+  return idx > -1 && idx < TOP_HELPER_BADGE_COUNT;
+}
+
+function renderLeaderboard(){
+  const list = document.getElementById('leaderboardList');
+  if(!list) return;
+  const monthLabel = document.getElementById('leaderboardMonthLabel');
+  if(monthLabel) monthLabel.textContent = t('leaderboardMonthLabel') + ' ' + currentMonthLabel();
+
+  const filter = state.lbFilter || 'all';
+  const rows = filter==='open' ? leaderboardCache.filter(r=> openToWorkMap[r.userId]) : leaderboardCache;
+
+  if(!rows.length){
+    list.innerHTML = `<p style="text-align:center;color:var(--ink-faint);font-size:13px;padding:20px 0;">${t('noHelpersYet')}</p>`;
+    return;
+  }
+  list.innerHTML = rows.map((r,i)=>`
+    <div class="lb-row">
+      <div class="lb-rank">${i+1}</div>
+      <button class="lb-identity" data-view-profile="${r.userId}">
+        <span class="lb-avatar">${(r.name||'?').charAt(0).toUpperCase()}</span>
+        <span class="lb-name">${r.name}${i<TOP_HELPER_BADGE_COUNT?` <span class="lb-badge">${badgeIconSvg}</span>`:''}</span>
+      </button>
+      <div class="lb-stats">${r.replies} ${t('lbStatReplies')} · ${r.votes} ${t('lbStatVotes')}</div>
+      ${openToWorkMap[r.userId] ? `<a class="wa-btn lb-contact" href="https://wa.me/${openToWorkMap[r.userId]}" target="_blank" rel="noopener">${waIconSvg}</a>` : ''}
+    </div>
+  `).join('');
+
+  list.querySelectorAll('[data-view-profile]').forEach(btn=>{
+    btn.addEventListener('click', ()=> showPublicProfile(btn.getAttribute('data-view-profile')));
+  });
+}
+
+/* ---- Employer opt-in ---- */
+async function submitOpenToWorkToggle(enabled){
+  requireSignIn(async ()=>{
+    const waInput = document.getElementById('openToWorkWa');
+    const wa = waInput ? waInput.value.replace(/[^0-9]/g,'') : '';
+    const errEl = document.getElementById('openToWorkError');
+    if(errEl) errEl.style.display = 'none';
+
+    if(!SUPABASE_CONFIGURED || String(appUser.id).startsWith('local-')){
+      appUser.openToWork = enabled;
+      appUser.employerContactWhatsapp = enabled ? wa : null;
+      renderProfile();
+      return;
+    }
+    try{
+      const { error } = await supabaseClient.rpc('set_open_to_work', {
+        p_session_token: appUser.sessionToken, p_enabled: enabled, p_whatsapp: enabled ? wa : null
+      });
+      if(error){
+        console.error('Error updating open-to-work status:', error);
+        if(errEl){ errEl.textContent = error.message; errEl.style.display = 'block'; }
+        document.getElementById('openToWorkToggle').checked = !enabled;
+        return;
+      }
+      appUser.openToWork = enabled;
+      await fetchLeaderboardData();
+      renderLeaderboard();
+      renderProfile();
+    } catch(err){
+      console.error('Could not reach Supabase to update open-to-work status:', err);
     }
   });
 }
@@ -1363,6 +1662,14 @@ document.querySelectorAll('[data-auth-tab]').forEach(btn=>{
 });
 document.getElementById('btnPublicProfileBack').addEventListener('click', ()=> setTab('housing'));
 
+/* ---- Open-to-work opt-in ---- */
+document.getElementById('openToWorkToggle').addEventListener('change', (e)=>{
+  const enabled = e.target.checked;
+  document.getElementById('openToWorkWaField').style.display = enabled ? 'block' : 'none';
+  if(!enabled) submitOpenToWorkToggle(false);
+});
+document.getElementById('btnSaveOpenToWork').addEventListener('click', ()=> submitOpenToWorkToggle(true));
+
 /* ---- Share panel ---- */
 document.querySelectorAll('[data-share-page]').forEach(btn=>{
   btn.addEventListener('click', ()=> openSharePanel(btn.getAttribute('data-share-page')));
@@ -1380,13 +1687,23 @@ document.getElementById('btnCopyShareLink').addEventListener('click', ()=>{
   setTimeout(()=>{ btn.textContent = original; }, 1800);
 });
 
-/* ---- Community sub-tabs (Q&A / Buddies) ---- */
+/* ---- Community sub-tabs (Q&A / Buddies / Top Helpers) ---- */
 document.querySelectorAll('[data-subtab]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     state.communitySubTab = btn.getAttribute('data-subtab');
     document.querySelectorAll('[data-subtab]').forEach(b=>b.classList.toggle('active', b===btn));
     document.getElementById('communityQA').style.display = state.communitySubTab==='qa' ? 'block' : 'none';
     document.getElementById('communityBuddies').style.display = state.communitySubTab==='buddies' ? 'block' : 'none';
+    document.getElementById('communityLeaderboard').style.display = state.communitySubTab==='leaderboard' ? 'block' : 'none';
+    if(state.communitySubTab==='leaderboard') renderLeaderboard();
+  });
+});
+
+document.querySelectorAll('[data-lb-filter]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    state.lbFilter = btn.getAttribute('data-lb-filter');
+    document.querySelectorAll('[data-lb-filter]').forEach(b=> b.classList.toggle('active', b===btn));
+    renderLeaderboard();
   });
 });
 
@@ -1518,8 +1835,13 @@ async function initApp(){
   applyFeedMode();
   await trackIncomingShareCode();
   await Promise.all([fetchAndRenderListings(), fetchAndRenderForum(), fetchAndRenderBuddies()]);
+  // Depends on buddies (isBuddy bonus) being loaded above, so it runs after.
+  await fetchLeaderboardData();
+  renderLeaderboard();
+  renderProfile();
   if(appUser){ await Promise.all([fetchAndRenderShareLinks(), fetchAndRenderProfileStats()]); }
   openDeepLinkedListing();
+  openDeepLinkedProfile();
 }
 
 initApp();
