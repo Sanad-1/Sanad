@@ -915,19 +915,27 @@ async function submitSignIn(){
         : { p_username: username, p_password: password };
       const { data, error } = await supabaseClient.rpc(fn, params);
       if(error){
+        // Always log the raw error — the banner below only shows a translated
+        // summary, and "couldn't reach the server" hides very different causes
+        // (schema.sql not run yet, RLS blocking the call, a real network drop).
+        console.error(`Sanad: ${fn} failed:`, error);
         const msg = (error.message||'').toLowerCase();
         if(msg.includes('taken')) showAuthError(t('authErrorTaken'));
-        else if(msg.includes('least 6')) showAuthError(t('authErrorShort'));
-        else if(msg.includes('invalid')) showAuthError(t('authErrorInvalid'));
-        else showAuthError(t('authErrorNetwork'));
+        else if(msg.includes('least') || msg.includes('at least 3')) showAuthError(t('authErrorShort'));
+        else if(msg.includes('invalid username or password')) showAuthError(t('authErrorInvalid'));
+        else if(error.code === 'PGRST202' || msg.includes('could not find the function')){
+          showAuthError('Sign-in isn\'t set up on the database yet — run schema.sql in the Supabase SQL editor (see console for details).');
+        } else {
+          showAuthError(t('authErrorNetwork') + ' (' + (error.message || error.code || 'unknown error') + ')');
+        }
         return;
       }
       const row = Array.isArray(data) ? data[0] : data;
       if(!row){ showAuthError(t('authErrorInvalid')); return; }
       appUser = { id: row.id, username: row.username, name: row.name, createdAt: row.created_at };
     } catch(err){
-      console.error('Could not reach Supabase to sign in:', err);
-      showAuthError(t('authErrorNetwork'));
+      console.error('Sanad: could not reach Supabase to sign in:', err);
+      showAuthError(t('authErrorNetwork') + ' (' + (err && err.message ? err.message : String(err)) + ')');
       return;
     }
   }

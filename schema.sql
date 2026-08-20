@@ -128,7 +128,7 @@ create or replace function signup_user(
 returns table(id uuid, username text, name text, created_at timestamptz)
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if p_username is null or length(trim(p_username)) < 3 then
@@ -160,7 +160,7 @@ create or replace function login_user(
 returns table(id uuid, username text, name text, created_at timestamptz)
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   return query
