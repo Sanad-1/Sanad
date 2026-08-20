@@ -96,6 +96,7 @@ en: {
   statMyListings:"Listings", statMyQuestions:"Questions", statMyClicks:"Link clicks",
   tabMyPosts:"Posts", tabLiked:"Liked", memberSince:"Member since",
   noPostsYet:"No listings posted yet", noLikedYet:"Rooms you like will show up here",
+  backBtn:"Back", loadingProfile:"Loading…", publicProfileUnavailable:"Profile not available",
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
@@ -159,6 +160,7 @@ ar: {
   statMyListings:"الإعلانات", statMyQuestions:"الأسئلة", statMyClicks:"نقرات الروابط",
   tabMyPosts:"إعلاناتي", tabLiked:"أعجبني", memberSince:"عضو منذ",
   noPostsYet:"لم تنشر أي إعلان بعد", noLikedYet:"الغرف التي تعجبك ستظهر هنا",
+  backBtn:"رجوع", loadingProfile:"جارٍ التحميل…", publicProfileUnavailable:"الملف الشخصي غير متاح",
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
@@ -222,6 +224,7 @@ ur: {
   statMyListings:"لسٹنگز", statMyQuestions:"سوالات", statMyClicks:"لنک کلکس",
   tabMyPosts:"پوسٹس", tabLiked:"پسندیدہ", memberSince:"رکن بننے کی تاریخ",
   noPostsYet:"ابھی تک کوئی لسٹنگ پوسٹ نہیں کی گئی", noLikedYet:"آپ کے پسندیدہ کمرے یہاں نظر آئیں گے",
+  backBtn:"واپس", loadingProfile:"لوڈ ہو رہا ہے…", publicProfileUnavailable:"پروفائل دستیاب نہیں",
 }
 };
 
@@ -371,28 +374,28 @@ ur: [
 /* ============================= Housing listings ============================= */
 /* Placeholder data shown briefly while the real rows load from Supabase (see fetchAndRenderListings). */
 let listings = [
- {city:"Riyadh", rent:550, type:"shared", gender:"male", nat:"Any", bills:true,
+ {id:"demo-1", city:"Riyadh", rent:550, type:"shared", gender:"male", nat:"Any", bills:true,
   desc:"3-bedroom flat near Olaya, 15 min walk to metro. 2 flatmates already, both Pakistani. Kitchen shared, AC in every room.",
   by:"Owner", wa:"966501234567"},
- {city:"Jeddah", rent:700, type:"private", gender:"any", nat:"Filipino", bills:false,
+ {id:"demo-2", city:"Jeddah", rent:700, type:"private", gender:"any", nat:"Filipino", bills:false,
   desc:"Private room in Al Rawdah, close to Corniche. Bills split evenly between 4 tenants. Prefer Filipino or Southeast Asian tenant.",
   by:"Tenant", wa:"966502345678"},
- {city:"Dammam/Khobar", rent:450, type:"bed", gender:"male", nat:"Indian", bills:true,
+ {id:"demo-3", city:"Dammam/Khobar", rent:450, type:"bed", gender:"male", nat:"Indian", bills:true,
   desc:"Bed space in shared labor accommodation near Khobar Corniche, 6 beds total, cleaning rota in place, water and electricity included.",
   by:"Tenant", wa:"966503456789"},
- {city:"Makkah", rent:900, type:"private", gender:"female", nat:"Arab", bills:true,
+ {id:"demo-4", city:"Makkah", rent:900, type:"private", gender:"female", nat:"Arab", bills:true,
   desc:"Furnished private room for a working woman, close to Haram bus route. Quiet building, Arabic-speaking flatmates preferred.",
   by:"Owner", wa:"966504567890"},
- {city:"Madinah", rent:600, type:"shared", gender:"any", nat:"Any", bills:false,
+ {id:"demo-5", city:"Madinah", rent:600, type:"shared", gender:"any", nat:"Any", bills:false,
   desc:"Shared room available near King Fahd road, 2 people currently, open to any nationality. Bills split monthly by usage.",
   by:"Tenant", wa:"966505678901"},
- {city:"Hail", rent:400, type:"bed", gender:"male", nat:"Bangladeshi", bills:true,
+ {id:"demo-6", city:"Hail", rent:400, type:"bed", gender:"male", nat:"Bangladeshi", bills:true,
   desc:"Simple bed space, factory workers' housing block, walking distance to industrial area. All utilities included in rent.",
   by:"Owner", wa:"966506789012"},
- {city:"Riyadh", rent:1100, type:"private", gender:"any", nat:"Any", bills:true,
+ {id:"demo-7", city:"Riyadh", rent:1100, type:"private", gender:"any", nat:"Any", bills:true,
   desc:"Modern private room in a new building near King Fahd Road, gym access included, professional flatmates, all bills covered.",
   by:"Owner", wa:"966507890123"},
- {city:"Jeddah", rent:520, type:"shared", gender:"male", nat:"Indian", bills:true,
+ {id:"demo-8", city:"Jeddah", rent:520, type:"shared", gender:"male", nat:"Indian", bills:true,
   desc:"Shared room close to Al Balad, 3 Indian flatmates, walking distance to bus stop, water and electricity included in rent.",
   by:"Tenant", wa:"966508901234"}
 ];
@@ -561,6 +564,8 @@ async function fetchAndRenderListings(){
     }
 
     listings = data.map(l => ({
+      id: l.id,
+      posterUserId: l.poster_user_id,
       city: l.city,
       rent: l.rent,
       type: l.room_type,
@@ -645,22 +650,25 @@ function renderListings(){
     const key = l.city + '|' + l.rent + '|' + l.wa;
     const liked = !!state.feedLikes[key];
     const count = baseLikeCount(l) + (liked ? 1 : 0);
+    const hasProfile = !!l.posterUserId;
     return `
-    <div class="feed-card" data-idx="${i}" data-like-key="${key}">
+    <div class="feed-card" data-idx="${i}" data-like-key="${key}" data-listing-id="${l.id||''}">
       ${l.video ? `<video class="feed-media" src="${l.video}" muted loop playsinline></video>` : `<div class="feed-placeholder">${houseIconSvg}</div>`}
       <div class="feed-scrim"></div>
       <div class="feed-heart-burst" data-heart-burst></div>
       ${l.video ? `<button class="feed-mute" data-mute-toggle="${i}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9v6h4l5 4V5l-5 4H5z"/><path d="M17 9a3 3 0 010 6" stroke-opacity="0.4"/></svg></button>` : ''}
       <div class="feed-rail">
-        <div class="feed-avatar-wrap"><div class="feed-avatar">${l.city.charAt(0)}</div></div>
+        <button class="feed-avatar-wrap" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}><div class="feed-avatar">${l.city.charAt(0)}</div></button>
         <div><button class="lk ${liked?'active':''}" data-like="${key}" aria-pressed="${liked}">${heartIconSvg}</button><div class="lbl" data-like-count="${key}">${formatCount(count)}</div></div>
         <div><button class="wa" data-wa="${l.wa}">${waIconSvg}</button><div class="lbl">${t('contactWA')}</div></div>
-        <div><button class="sh" data-listing-share="${i}">${shareIconSvg}</button><div class="lbl">${t('shareLabel')}</div></div>
+        <div><button class="sh" data-share-listing-id="${l.id||''}">${shareIconSvg}</button><div class="lbl">${t('shareLabel')}</div></div>
       </div>
       <div class="feed-content">
         <div class="feed-handle">
-          <span class="feed-avatar-sm">${l.city.charAt(0)}</span>
-          <span class="handle-name">${t('postedBy')} ${l.by}</span>
+          <button class="feed-handle-link" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}>
+            <span class="feed-avatar-sm">${l.city.charAt(0)}</span>
+            <span class="handle-name">${t('postedBy')} ${l.by}</span>
+          </button>
           <span class="feed-price-pill">${l.rent} SAR${t('perMonth')}</span>
         </div>
         <h3>${t(roomTypeLabelKey[l.type] || l.type)} · ${l.city}</h3>
@@ -686,8 +694,11 @@ function renderListings(){
       if(vid){ vid.muted = !vid.muted; }
     });
   });
-  wrap.querySelectorAll('[data-listing-share]').forEach(btn=>{
-    btn.addEventListener('click', ()=> openSharePanel('housing'));
+  wrap.querySelectorAll('[data-share-listing-id]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openListingSharePanel(btn.getAttribute('data-share-listing-id')));
+  });
+  wrap.querySelectorAll('[data-view-profile]').forEach(btn=>{
+    btn.addEventListener('click', ()=> showPublicProfile(btn.getAttribute('data-view-profile')));
   });
 
   /* ---- Likes: tap the heart, or double-tap the card (TikTok's classic gesture) ---- */
@@ -1012,6 +1023,52 @@ function renderProfileGrids(){
     : `<div class="pf-grid-empty">${t('noLikedYet')}</div>`;
 }
 
+/* ---- Public profile (tapping a poster's avatar/handle in the feed) ---- */
+async function showPublicProfile(userId){
+  if(!userId) return;
+  setTab('public-profile');
+  const avatarEl = document.getElementById('ppAvatar');
+  const nameEl = document.getElementById('ppName');
+  const countEl = document.getElementById('ppListingCount');
+  const gridEl = document.getElementById('ppGrid');
+  avatarEl.textContent = '';
+  nameEl.textContent = t('loadingProfile');
+  countEl.textContent = '';
+  gridEl.innerHTML = '';
+
+  const renderInto = (name, theirListings) => {
+    avatarEl.textContent = (name || '?').charAt(0).toUpperCase();
+    nameEl.textContent = name || t('publicProfileUnavailable');
+    countEl.textContent = theirListings.length + ' ' + t('statMyListings').toLowerCase();
+    gridEl.innerHTML = theirListings.length
+      ? theirListings.map(l=> profileGridTile(l)).join('')
+      : `<div class="pf-grid-empty">${t('noPostsYet')}</div>`;
+  };
+
+  if(!SUPABASE_CONFIGURED || String(userId).startsWith('local-')){
+    // Nothing to look up outside this tab's own memory — only meaningful for yourself.
+    if(appUser && userId === appUser.id){
+      renderInto(appUser.name, listings.filter(l=> l.posterUserId === appUser.id));
+    } else {
+      nameEl.textContent = t('publicProfileUnavailable');
+    }
+    return;
+  }
+
+  try{
+    const [{ data: userRows }, { data: theirListings, error }] = await Promise.all([
+      supabaseClient.from('app_users').select('id,name').eq('id', userId).limit(1),
+      supabaseClient.from('housing_listings').select('*').eq('poster_user_id', userId).order('created_at', { ascending:false })
+    ]);
+    if(error) console.error('Could not load public profile listings:', error);
+    const user = userRows && userRows[0];
+    renderInto(user && user.name, (theirListings || []).map(l=>({ rent:l.rent, city:l.city })));
+  } catch(err){
+    console.error('Could not load public profile:', err);
+    nameEl.textContent = t('publicProfileUnavailable');
+  }
+}
+
 document.querySelectorAll('[data-ptab]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     profileTab = btn.getAttribute('data-ptab');
@@ -1121,6 +1178,27 @@ async function openSharePanel(page){
     document.getElementById('sharePanel').style.display = 'flex';
     renderProfile();
   });
+}
+
+/* A listing's share link is just a permalink (?listing=<id>) — no sign-in
+   needed, unlike the profile-linked page shares above, since anyone
+   should be able to pass along a specific room without an account. */
+function openListingSharePanel(listingId){
+  if(!listingId) return;
+  const url = `${baseShareUrl()}?listing=${encodeURIComponent(listingId)}`;
+  document.getElementById('shareLinkInput').value = url;
+  document.getElementById('btnShareWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(url)}`;
+  document.getElementById('sharePanel').style.display = 'flex';
+}
+
+/* Jumps straight to a listing that was opened via a ?listing=<id> link —
+   same idea as tapping a shared TikTok link and landing on that exact video. */
+function openDeepLinkedListing(){
+  const listingId = new URLSearchParams(window.location.search).get('listing');
+  if(!listingId) return;
+  setTab('housing');
+  const card = document.querySelector('.feed-card[data-listing-id="'+CSS.escape(listingId)+'"]');
+  if(card) card.scrollIntoView({ behavior:'instant', block:'start' });
 }
 
 async function trackIncomingShareCode(){
@@ -1283,6 +1361,7 @@ document.getElementById('btnSignOut').addEventListener('click', signOut);
 document.querySelectorAll('[data-auth-tab]').forEach(btn=>{
   btn.addEventListener('click', ()=> setAuthMode(btn.getAttribute('data-auth-tab')));
 });
+document.getElementById('btnPublicProfileBack').addEventListener('click', ()=> setTab('housing'));
 
 /* ---- Share panel ---- */
 document.querySelectorAll('[data-share-page]').forEach(btn=>{
@@ -1349,7 +1428,7 @@ document.getElementById('btnSubmitListing').addEventListener('click', async ()=>
       // No backend configured yet — keep the listing in this tab so the form still works.
       // A locally-picked video plays fine for this session via an object URL, but won't persist across reloads.
       const localVideoUrl = videoFile ? URL.createObjectURL(videoFile) : null;
-      listings.unshift({ city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: description, by: appUser.name, wa: whatsapp, video: localVideoUrl });
+      listings.unshift({ id:'local-'+Date.now(), posterUserId: appUser.id, city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: description, by: appUser.name, wa: whatsapp, video: localVideoUrl });
       clearFormAndClose();
       setTab('housing');
       renderListings();
@@ -1440,6 +1519,7 @@ async function initApp(){
   await trackIncomingShareCode();
   await Promise.all([fetchAndRenderListings(), fetchAndRenderForum(), fetchAndRenderBuddies()]);
   if(appUser){ await Promise.all([fetchAndRenderShareLinks(), fetchAndRenderProfileStats()]); }
+  openDeepLinkedListing();
 }
 
 initApp();

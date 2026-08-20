@@ -58,6 +58,12 @@ create table if not exists buddies (
   help_areas text[], bio text, whatsapp text
 );
 
+-- create table if not exists is a no-op on a table that already existed
+-- before poster_user_id was added to it here, so add it explicitly too —
+-- this is what lets tapping a listing's avatar open the poster's profile.
+alter table housing_listings add column if not exists poster_user_id uuid references app_users(id) on delete set null;
+alter table forum_posts add column if not exists poster_user_id uuid references app_users(id) on delete set null;
+
 -- ============================================================
 -- 2. Username + password login
 -- ============================================================
@@ -65,6 +71,10 @@ create table if not exists buddies (
 alter table app_users
   add column if not exists username text,
   add column if not exists password_hash text;
+
+-- The old quick sign-in required a phone number; the new username+password
+-- flow doesn't collect one, so it can no longer be mandatory.
+alter table app_users alter column phone drop not null;
 
 -- Backfill: any accounts created by the old "name + phone, no password"
 -- quick sign-in won't have a username yet. Give them a placeholder so
