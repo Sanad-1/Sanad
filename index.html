@@ -113,11 +113,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
           <span class="fab-label" data-i18n="housingPostBtn">Post a room or list a spare bed</span>
         </button>
-        <button class="toggle-open" id="btnToggleFilters" aria-label="Filters" aria-expanded="false" aria-controls="filterSheet">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
-          <span class="fab-label" data-i18n="filtersLabel">Filters</span>
-          <span class="fab-badge" id="filterBadge">0</span>
-        </button>
       </div>
 
       <div class="panel" id="postForm" style="display:none;">
@@ -192,6 +187,98 @@
         <button class="btn-primary" id="btnSubmitListing" data-i18n="postFormSubmit">Publish listing</button>
       </div>
 
+      <div class="quick-composer-scrim" id="quickComposerScrim"></div>
+      <div class="panel" id="quickComposer">
+        <span class="sheet-grabber" aria-hidden="true"></span>
+        <button class="sheet-close" id="btnCloseQuickComposer" aria-label="Close">✕</button>
+        <h3 data-i18n="qcTitle">New post</h3>
+
+        <div class="qc-cat-row" id="qcCatRow">
+          <button class="qc-cat-btn" data-qc-cat="housing" data-i18n="chipHousing">Housing</button>
+          <button class="qc-cat-btn active" data-qc-cat="guide" data-i18n="chipGuides">Tips</button>
+        </div>
+        <p class="hint" data-i18n="qcAskHint">Got a question instead? Ask it in Community — it'll also show up here for others to discover.</p>
+
+        <div id="qcHousingFields" style="display:none;">
+          <div class="field-row">
+            <div class="field">
+              <div class="field-label-row"><label data-i18n="lblRent">Monthly rent (SAR)</label><span class="field-req-tag field-req-tag--required" data-i18n="requiredTag">(required)</span></div>
+              <input type="number" id="qc-rent" placeholder="600">
+            </div>
+            <div class="field">
+              <div class="field-label-row"><label data-i18n="lblWhatsapp">WhatsApp number</label><span class="field-req-tag field-req-tag--required" data-i18n="requiredTag">(required)</span></div>
+              <input type="text" id="qc-wa" placeholder="+966 5x xxx xxxx">
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label-row"><label data-i18n="lblCity">City</label><span class="field-req-tag" data-i18n="optionalTag">(optional)</span></div>
+            <select id="qc-city">
+              <option value="Riyadh">Riyadh</option>
+              <option value="Jeddah">Jeddah</option>
+              <option value="Dammam/Khobar">Dammam / Khobar</option>
+              <option value="Makkah">Makkah</option>
+              <option value="Madinah">Madinah</option>
+              <option value="Hail">Hail</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <div class="field-label-row"><label data-i18n="lblRoomType">Room type</label><span class="field-req-tag" data-i18n="optionalTag">(optional)</span></div>
+              <select id="qc-roomtype">
+                <option value="shared" data-i18n="rtShared">Shared room</option>
+                <option value="private" data-i18n="rtPrivate">Private room</option>
+                <option value="bed" data-i18n="rtBed">Bed space</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="field-label-row"><label data-i18n="lblGender">Gender preference</label><span class="field-req-tag" data-i18n="optionalTag">(optional)</span></div>
+              <select id="qc-gender">
+                <option value="any" data-i18n="genAny">Any</option>
+                <option value="male" data-i18n="genMale">Men only</option>
+                <option value="female" data-i18n="genFemale">Women only</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label-row"><label data-i18n="lblNationality">Nationality / language preference</label><span class="field-req-tag" data-i18n="optionalTag">(optional)</span></div>
+            <select id="qc-nat">
+              <option value="all" data-i18n="natAny">Any</option>
+              <option value="Indian">Indian</option>
+              <option value="Pakistani">Pakistani</option>
+              <option value="Filipino">Filipino</option>
+              <option value="Arab" data-i18n="natArab">Arab</option>
+              <option value="Bangladeshi">Bangladeshi</option>
+              <option value="other" data-i18n="natOther">Other</option>
+            </select>
+          </div>
+          <div class="field" id="qcNatOtherField" style="display:none;">
+            <label data-i18n="lblNatOther">Specify nationality / language</label>
+            <input type="text" id="qc-nat-other" placeholder="e.g. Nepali">
+          </div>
+          <div class="toggle-row">
+            <span data-i18n="lblBills">Electricity &amp; water included</span>
+            <label class="switch"><input type="checkbox" id="qc-bills" checked><span class="track"></span></label>
+          </div>
+          <div class="field">
+            <label data-i18n="videoLabel">Room video (optional)</label>
+            <p class="hint" style="margin:0 0 8px;" data-i18n="videoHint">A short walkthrough gets far more replies than photos alone.</p>
+            <input type="file" id="qc-video" accept="video/*">
+            <p class="hint" id="qcVideoUploadStatus" style="margin:6px 0 0;display:none;" data-i18n="uploadingVideo">Uploading video...</p>
+          </div>
+        </div>
+
+        <div class="field" id="qcTextField">
+          <label id="qcTextLabelEl">What's on your mind?</label>
+          <textarea id="qc-text" data-i18n-ph="qcTextPh"></textarea>
+        </div>
+        <div class="field" id="qcImageField">
+          <label data-i18n="qcImageLabel">Add a photo (optional)</label>
+          <input type="file" id="qc-image" accept="image/*">
+          <p class="hint" id="qcImageUploadStatus" style="margin:6px 0 0;display:none;" data-i18n="uploadingImage">Uploading image...</p>
+        </div>
+        <button class="btn-primary" id="btnSubmitQuickPost" data-i18n="qcSubmit">Post</button>
+      </div>
+
       <div class="filter-sheet" id="filterSheet">
         <div class="filter-scrim" data-close-filters></div>
         <div class="filter-bar" aria-labelledby="filterSheetTitle">
@@ -243,6 +330,19 @@
             <span class="filter-count" id="filterCount"></span>
           </button>
         </div>
+      </div>
+
+      <div class="explore-chip-bar">
+        <div class="cat-chip-row explore-chip-row" id="feedTypeChips">
+          <button class="cat-chip active" data-feed-type="all" data-i18n="chipAll">All</button>
+          <button class="cat-chip" data-feed-type="housing" data-i18n="chipHousing">Housing</button>
+          <button class="cat-chip" data-feed-type="inquiry" data-i18n="chipInquiries">Inquiries</button>
+          <button class="cat-chip" data-feed-type="guide" data-i18n="chipGuides">Guides</button>
+        </div>
+        <button class="explore-nat-filter" id="btnChipFilter" aria-label="Filters" aria-expanded="false" aria-controls="filterSheet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
+          <span class="fab-badge" id="filterBadge">0</span>
+        </button>
       </div>
 
       <div class="feed-scroll" id="listingsGrid"></div>

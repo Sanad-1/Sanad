@@ -36,7 +36,8 @@ if (!SUPABASE_CONFIGURED) {
 const translations = {
 en: {
   brandName:"Sanad · سند", brandTag:"Your support system in Saudi Arabia",
-  navHome:"Home", navGuide:"Guide", navHousing:"Housing", navCommunity:"Community",
+  navHome:"Home", navGuide:"Guide", navHousing:"Explore", navCommunity:"Community",
+  chipAll:"All", chipHousing:"Housing", chipInquiries:"Inquiries", chipGuides:"Tips",
   heroTitle:"One place for housing, guidance, and community.",
   heroSub:"Skip the confusing Facebook groups. Find a room, understand your rights, and ask people who've been there.",
   statCities:"Cities covered", statListings:"Rooms shared this month", statLangs:"Languages",
@@ -49,7 +50,7 @@ en: {
   guideSub:"Short, plain-language explainers on the things every worker eventually needs.",
   housingEyebrow:"Roommate & shared housing board", housingTitle:"Find your next room",
   housingSub:"Real listings from tenants and property owners. Contact directly on WhatsApp — no middleman.",
-  housingPostBtn:"Post a room or list a spare bed",
+  housingPostBtn:"New post",
   postFormTitle:"Post a listing", postFormHint:"This is a demo form — submissions are shown below but not saved.",
   lblCity:"City", lblRent:"Monthly rent (SAR)", lblRoomType:"Room type",
   rtShared:"Shared room", rtPrivate:"Private room", rtBed:"Bed space",
@@ -85,6 +86,12 @@ en: {
   lblBio:"Short bio", bioPh:"e.g. Lived in Riyadh for 3 years, happy to help with Absher/Nafath setup...",
   buddyFormSubmit:"Publish my buddy profile", noBuddiesYet:"No buddies listed yet — be the first!", helpsWith:"Can help with",
   videoLabel:"Room video (optional)", videoHint:"A short walkthrough gets far more replies than photos alone.", uploadingVideo:"Uploading video...",
+  qcTitle:"New post", qcHousingHint:"Housing posts need a few extra details — opening the full form…",
+  qcTextLabel:"What's on your mind?", qcTextPh:"Ask something, share a tip, or post an update...",
+  qcImageLabel:"Add a photo (optional)", uploadingImage:"Uploading image...", qcSubmit:"Post",
+  qcAskHint:"Got a question instead? Ask it in Community — it'll also show up here for others to discover.",
+  viewAndAnswer:"View & answer", fromCommunity:"From Community",
+  requiredTag:"(required)", optionalTag:"(optional)", natOther:"Other", lblNatOther:"Specify nationality / language",
   profileEyebrow:"Your account", profileTitleSignedOut:"Sign in to unlock more", profileSubSignedOut:"Posting, becoming a buddy, and sharing links all use the same account.",
   myLinksTitle:"My share links", myLinksHint:"Generate a personal link for any section — you'll see how many times each one gets clicked.",
   generateLinkBtn:"Get link", clicksLabel:"clicks",
@@ -108,7 +115,8 @@ en: {
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
-  navHome:"الرئيسية", navGuide:"الدليل", navHousing:"السكن", navCommunity:"المجتمع",
+  navHome:"الرئيسية", navGuide:"الدليل", navHousing:"استكشف", navCommunity:"المجتمع",
+  chipAll:"الكل", chipHousing:"سكن", chipInquiries:"استفسارات", chipGuides:"نصائح",
   heroTitle:"مكان واحد للسكن والإرشاد والمجتمع",
   heroSub:"تجاوز مجموعات فيسبوك المربكة. اعثر على غرفة، افهم حقوقك، واسأل من سبقوك بالتجربة.",
   statCities:"مدن مغطاة", statListings:"غرف تم مشاركتها هذا الشهر", statLangs:"لغات",
@@ -121,7 +129,7 @@ ar: {
   guideSub:"شروحات قصيرة وبلغة بسيطة لكل ما يحتاجه العامل عاجلاً أم آجلاً.",
   housingEyebrow:"لوحة السكن المشترك والزملاء", housingTitle:"ابحث عن غرفتك القادمة",
   housingSub:"إعلانات حقيقية من مستأجرين وملاك عقارات. تواصل مباشرة عبر واتساب — بدون وسيط.",
-  housingPostBtn:"أضف إعلان غرفة أو سرير شاغر",
+  housingPostBtn:"منشور جديد",
   postFormTitle:"نشر إعلان", postFormHint:"هذا نموذج تجريبي — تظهر الإعلانات أدناه ولا يتم حفظها.",
   lblCity:"المدينة", lblRent:"الإيجار الشهري (ريال)", lblRoomType:"نوع الغرفة",
   rtShared:"غرفة مشتركة", rtPrivate:"غرفة خاصة", rtBed:"سرير فقط",
@@ -157,6 +165,12 @@ ar: {
   lblBio:"نبذة قصيرة", bioPh:"مثال: أعيش في الرياض منذ 3 سنوات، يسعدني المساعدة في إعداد أبشر ونفاذ...",
   buddyFormSubmit:"نشر ملفي كرفيق", noBuddiesYet:"لا يوجد رفقاء بعد — كن الأول!", helpsWith:"يمكنه المساعدة في",
   videoLabel:"فيديو الغرفة (اختياري)", videoHint:"جولة قصيرة بالفيديو تحصل على ردود أكثر بكثير من الصور فقط.", uploadingVideo:"جارٍ رفع الفيديو...",
+  qcTitle:"منشور جديد", qcHousingHint:"منشورات السكن تحتاج بعض التفاصيل الإضافية — يتم فتح النموذج الكامل…",
+  qcTextLabel:"ما الذي يدور في ذهنك؟", qcTextPh:"اسأل شيئًا، شارك نصيحة، أو انشر تحديثًا...",
+  qcImageLabel:"أضف صورة (اختياري)", uploadingImage:"جارٍ رفع الصورة...", qcSubmit:"نشر",
+  qcAskHint:"عندك سؤال بدل ذلك؟ اسأله في المجتمع — بيظهر هنا بردو عشان الكل يشوفه.",
+  viewAndAnswer:"عرض والإجابة", fromCommunity:"من المجتمع",
+  requiredTag:"(مطلوب)", optionalTag:"(اختياري)", natOther:"أخرى", lblNatOther:"حدد الجنسية / اللغة",
   profileEyebrow:"حسابك", profileTitleSignedOut:"سجّل الدخول لفتح المزيد", profileSubSignedOut:"النشر والانضمام كرفيق ومشاركة الروابط، كلها تستخدم نفس الحساب.",
   myLinksTitle:"روابط المشاركة الخاصة بي", myLinksHint:"أنشئ رابطاً شخصياً لأي قسم — ستشاهد عدد مرات النقر على كل رابط.",
   generateLinkBtn:"احصل على الرابط", clicksLabel:"نقرات",
@@ -180,7 +194,8 @@ ar: {
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
-  navHome:"ہوم", navGuide:"گائیڈ", navHousing:"رہائش", navCommunity:"کمیونٹی",
+  navHome:"ہوم", navGuide:"گائیڈ", navHousing:"دریافت کریں", navCommunity:"کمیونٹی",
+  chipAll:"تمام", chipHousing:"رہائش", chipInquiries:"سوالات", chipGuides:"تجاویز",
   heroTitle:"رہائش، رہنمائی اور کمیونٹی — سب ایک جگہ",
   heroSub:"الجھی ہوئی فیس بک گروپس کو چھوڑیں۔ کمرہ ڈھونڈیں، اپنے حقوق سمجھیں، اور تجربہ کار لوگوں سے سوال کریں۔",
   statCities:"شہر شامل ہیں", statListings:"اس مہینے شیئر ہونے والے کمرے", statLangs:"زبانیں",
@@ -193,7 +208,7 @@ ur: {
   guideSub:"ہر ورکر کو بالآخر درکار چیزوں کی مختصر، آسان وضاحتیں۔",
   housingEyebrow:"روم میٹ اور مشترکہ رہائش بورڈ", housingTitle:"اپنا اگلا کمرہ تلاش کریں",
   housingSub:"کرایہ داروں اور مالکان کی حقیقی لسٹنگز۔ براہ راست واٹس ایپ پر رابطہ کریں — کوئی بیچ والا نہیں۔",
-  housingPostBtn:"کمرہ یا خالی بیڈ کی پوسٹ لگائیں",
+  housingPostBtn:"نئی پوسٹ",
   postFormTitle:"لسٹنگ پوسٹ کریں", postFormHint:"یہ ایک ڈیمو فارم ہے — اندراجات نیچے دکھائے جائیں گے مگر محفوظ نہیں ہوں گے۔",
   lblCity:"شہر", lblRent:"ماہانہ کرایہ (SAR)", lblRoomType:"کمرے کی قسم",
   rtShared:"مشترکہ کمرہ", rtPrivate:"نجی کمرہ", rtBed:"صرف بیڈ",
@@ -229,6 +244,12 @@ ur: {
   lblBio:"مختصر تعارف", bioPh:"مثلاً: 3 سال سے ریاض میں مقیم ہوں، ابشر/نفاذ سیٹ اپ میں مدد کے لیے تیار ہوں...",
   buddyFormSubmit:"میری ساتھی پروفائل شائع کریں", noBuddiesYet:"ابھی تک کوئی ساتھی نہیں — پہلے آپ بنیں!", helpsWith:"مدد کر سکتا ہے",
   videoLabel:"کمرے کی ویڈیو (اختیاری)", videoHint:"ایک مختصر ویڈیو صرف تصاویر کے مقابلے میں کہیں زیادہ جوابات لاتی ہے۔", uploadingVideo:"ویڈیو اپ لوڈ ہو رہی ہے...",
+  qcTitle:"نئی پوسٹ", qcHousingHint:"رہائشی پوسٹس کے لیے مزید تفصیلات درکار ہیں — مکمل فارم کھولا جا رہا ہے…",
+  qcTextLabel:"آپ کے ذہن میں کیا ہے؟", qcTextPh:"کچھ پوچھیں، کوئی مشورہ شیئر کریں، یا اپڈیٹ پوسٹ کریں...",
+  qcImageLabel:"تصویر شامل کریں (اختیاری)", uploadingImage:"تصویر اپ لوڈ ہو رہی ہے...", qcSubmit:"پوسٹ کریں",
+  qcAskHint:"اس کے بجائے کوئی سوال ہے؟ کمیونٹی میں پوچھیں — یہ یہاں بھی نظر آئے گا تاکہ دوسرے دیکھ سکیں۔",
+  viewAndAnswer:"دیکھیں اور جواب دیں", fromCommunity:"کمیونٹی سے",
+  requiredTag:"(ضروری)", optionalTag:"(اختیاری)", natOther:"دیگر", lblNatOther:"قومیت / زبان بتائیں",
   profileEyebrow:"آپ کا اکاؤنٹ", profileTitleSignedOut:"مزید کے لیے سائن ان کریں", profileSubSignedOut:"پوسٹ کرنا، ساتھی بننا، اور لنکس شیئر کرنا سب ایک ہی اکاؤنٹ استعمال کرتے ہیں۔",
   myLinksTitle:"میرے شیئر لنکس", myLinksHint:"کسی بھی سیکشن کے لیے ذاتی لنک بنائیں — آپ دیکھ سکیں گے کہ ہر لنک پر کتنی بار کلک ہوا۔",
   generateLinkBtn:"لنک حاصل کریں", clicksLabel:"کلکس",
@@ -457,7 +478,7 @@ let buddies = [
 ];
 
 /* ============================= State & render ============================= */
-let state = { lang:'en', tab:'home', guideOpen:{}, filters:{city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa', feedLikes:{}, lbFilter:'all' };
+let state = { lang:'en', tab:'home', guideOpen:{}, filters:{postType:'all', city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa', feedLikes:{}, lbFilter:'all' };
 let appUser = null; // { id, username, name, createdAt } once signed in — persisted to localStorage so a reload keeps the session
 let myShareLinks = []; // [{id, page, code, clicks}]
 let pendingSignInAction = null; // callback to run right after a successful sign-in
@@ -498,6 +519,7 @@ function setTab(tab){
   applyFeedMode();
   closeFilters();
   setPostFormOpen(false);
+  setQuickComposerOpen(false);
   // Liked rooms come from the feed's in-memory like state, so refresh that grid on every visit.
   if(tab==='profile' && appUser) renderProfileGrids();
 }
@@ -592,16 +614,19 @@ async function fetchAndRenderListings(){
     listings = data.map(l => ({
       id: l.id,
       posterUserId: l.poster_user_id,
+      postType: l.post_type || 'housing',
       city: l.city,
       rent: l.rent,
       type: l.room_type,
       gender: l.gender_pref,
       nat: l.nationality_pref,
+      natTarget: l.nationality_target,
       bills: l.bills_included,
       desc: l.description,
       by: l.poster_role,
       wa: l.whatsapp,
-      video: l.video_url
+      video: l.video_url,
+      media: l.media_url
     }));
 
     renderListings();
@@ -617,6 +642,8 @@ const shareIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 const houseIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg>';
 const heartIconSvg = '<svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.6-10-9.1C.5 8.6 1.8 5 5.3 4.1c2-.5 4 .3 5.2 2 .4.5.7 1 1 1.6.3-.6.6-1.1 1-1.6 1.2-1.7 3.2-2.5 5.2-2 3.5.9 4.8 4.5 3.3 7.8-2.8 4.5-10 9.1-10 9.1z"/></svg>';
 const noteIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>';
+const chatIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 01-8.5 8.5c-1.35 0-2.61-.34-3.7-.94L3 21l1.94-5.8A8.5 8.5 0 1121 11.5z"/></svg>';
+const bulbIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a6 6 0 00-3.5 10.9c.5.4.8 1 .8 1.6V16h5.4v-1.5c0-.6.3-1.2.8-1.6A6 6 0 0012 2z"/></svg>';
 const upvoteIconSvg = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5l7 8H5l7-8z"/></svg>';
 const badgeIconSvg = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 5.6L21 8.5l-4.5 4.2L17.6 19 12 15.8 6.4 19l1.1-6.3L3 8.5l6.4-.9L12 2z"/></svg>';
 
@@ -634,9 +661,28 @@ function formatCount(n){
   return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : String(n);
 }
 
+/* Community questions aren't a separate thing to post from Explore — Community stays
+   the one place to ask (with real replies/voting) — but every question posted there
+   is pulled into the feed here too, so browsing Explore can surface one by chance. */
+function forumFeedItems(){
+  return forumPosts.map((p,i)=>({
+    id: p.id || ('forum-'+i),
+    forumIndex: i,
+    posterUserId: p.posterUserId || null,
+    postType: 'inquiry',
+    desc: p.q,
+    by: p.by,
+    repliesCount: (p.replies||[]).length
+  }));
+}
+
 function filterListings(){
   const f = state.filters;
-  return listings.filter(l=>{
+  const pool = listings.concat(forumFeedItems());
+  return pool.filter(l=>{
+    const type = l.postType || 'housing';
+    if(f.postType!=='all' && type!==f.postType) return false;
+    if(type!=='housing') return true; // budget/city/gender/room-type only make sense for housing rows
     if(f.city!=='all' && l.city!==f.city) return false;
     if(f.budget!=='all' && l.rent > parseInt(f.budget)) return false;
     if(f.nat!=='all' && l.nat!==f.nat) return false;
@@ -646,9 +692,11 @@ function filterListings(){
   });
 }
 
-/* Keeps the filter FAB badge and the sheet's "Show results" count honest. */
+/* Keeps the filter FAB badge and the sheet's "Show results" count honest.
+   postType is the top chip row, not a sheet field, so it's excluded here —
+   the badge only reflects filters the bottom sheet itself can reset. */
 function updateFilterUI(){
-  const active = Object.values(state.filters).filter(v=>v!=='all').length;
+  const active = Object.entries(state.filters).filter(([k,v])=>k!=='postType' && v!=='all').length;
   const badge = document.getElementById('filterBadge');
   if(badge){ badge.textContent = active; badge.classList.toggle('on', active>0); }
   const count = document.getElementById('filterCount');
@@ -675,42 +723,66 @@ function renderListings(){
     return;
   }
   wrap.innerHTML = filtered.map((l,i)=>{
-    const key = l.city + '|' + l.rent + '|' + l.wa;
+    const postType = l.postType || 'housing';
+    // A 'housing' row only gets the rent/room-type/city card layout if it actually
+    // has that structured data — a post made through the quick composer (text +
+    // image + WhatsApp only) falls back to the generic card instead of showing "undefined".
+    const isHousing = postType === 'housing' && l.city != null && l.rent != null;
+    const isForumInquiry = postType === 'inquiry';
+    const key = l.id;
     const liked = !!state.feedLikes[key];
     const count = baseLikeCount(l) + (liked ? 1 : 0);
     const hasProfile = !!l.posterUserId;
+    const avatarLetter = (isHousing ? l.city : (l.by || l.city || '?')).charAt(0).toUpperCase();
+    const typeTagKey = postType==='inquiry' ? 'chipInquiries' : postType==='guide' ? 'chipGuides' : 'chipHousing';
+    const typeIcon = postType==='inquiry' ? chatIconSvg : postType==='guide' ? bulbIconSvg : houseIconSvg;
+    const mediaHtml = l.video
+      ? `<video class="feed-media" src="${l.video}" muted loop playsinline></video>`
+      : (l.media ? `<img class="feed-media" src="${l.media}" alt="">` : `<div class="feed-placeholder feed-placeholder--${postType}">${typeIcon}</div>`);
     return `
     <div class="feed-card" data-idx="${i}" data-like-key="${key}" data-listing-id="${l.id||''}">
-      ${l.video ? `<video class="feed-media" src="${l.video}" muted loop playsinline></video>` : `<div class="feed-placeholder">${houseIconSvg}</div>`}
+      ${mediaHtml}
       <div class="feed-scrim"></div>
       <div class="feed-heart-burst" data-heart-burst></div>
       ${l.video ? `<button class="feed-mute" data-mute-toggle="${i}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9v6h4l5 4V5l-5 4H5z"/><path d="M17 9a3 3 0 010 6" stroke-opacity="0.4"/></svg></button>` : ''}
       <div class="feed-rail">
-        <button class="feed-avatar-wrap" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}><div class="feed-avatar">${l.city.charAt(0)}</div></button>
+        <button class="feed-avatar-wrap" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}><div class="feed-avatar">${avatarLetter}</div></button>
         <div><button class="lk ${liked?'active':''}" data-like="${key}" aria-pressed="${liked}">${heartIconSvg}</button><div class="lbl" data-like-count="${key}">${formatCount(count)}</div></div>
-        <div><button class="wa" data-wa="${l.wa}">${waIconSvg}</button><div class="lbl">${t('contactWA')}</div></div>
+        ${l.wa ? `<div><button class="wa" data-wa="${l.wa}">${waIconSvg}</button><div class="lbl">${t('contactWA')}</div></div>` : ''}
+        ${isForumInquiry ? `<div><button class="ans" data-view-forum-post="${l.forumIndex}">${chatIconSvg}</button><div class="lbl">${t('viewAndAnswer')}</div></div>` : ''}
         <div><button class="sh" data-share-listing-id="${l.id||''}">${shareIconSvg}</button><div class="lbl">${t('shareLabel')}</div></div>
       </div>
       <div class="feed-content">
         <div class="feed-handle">
           <button class="feed-handle-link" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}>
-            <span class="feed-avatar-sm">${l.city.charAt(0)}</span>
+            <span class="feed-avatar-sm">${avatarLetter}</span>
             <span class="handle-name">${t('postedBy')} ${l.by}</span>
           </button>
-          <span class="feed-price-pill">${l.rent} SAR${t('perMonth')}</span>
+          ${isHousing
+            ? `<span class="feed-price-pill">${l.rent} SAR${t('perMonth')}</span>`
+            : isForumInquiry
+              ? `<span class="feed-price-pill feed-price-pill--muted">${chatIconSvg}${l.repliesCount}</span>`
+              : `<span class="feed-tag">${t(typeTagKey)}</span>`}
         </div>
-        <h3>${t(roomTypeLabelKey[l.type] || l.type)} · ${l.city}</h3>
-        <p class="feed-desc">${l.desc}</p>
+        ${isHousing ? `<h3>${t(roomTypeLabelKey[l.type] || l.type)} · ${l.city}</h3>` : ''}
+        <p class="feed-desc${isHousing ? '' : ' feed-desc--quote'}">${l.desc}</p>
+        ${isHousing ? `
         <div class="feed-tag-row">
           <span class="feed-tag">#${t(genderLabelKey[l.gender] || l.gender).replace(/\s+/g,'')}</span>
           <span class="feed-tag">#${(l.nat==='Any' ? t('natAny') : l.nat).replace(/\s+/g,'')}</span>
           <span class="feed-tag">#${(l.bills ? t('billsIncluded') : t('billsShared')).replace(/\s+/g,'')}</span>
-        </div>
+        </div>` : isForumInquiry
+          ? `<div class="feed-tag-row"><span class="feed-tag">${t('fromCommunity')}</span></div>`
+          : (l.natTarget ? `<div class="feed-tag-row"><span class="feed-tag">#${l.natTarget.replace(/\s+/g,'')}</span></div>` : '')}
         <div class="feed-sound"><span class="feed-sound-ic">${noteIconSvg}</span><span class="feed-sound-track"><span>${t('soundTicker')}</span><span>${t('soundTicker')}</span></span></div>
       </div>
     </div>
   `;
   }).join('');
+
+  wrap.querySelectorAll('[data-view-forum-post]').forEach(btn=>{
+    btn.addEventListener('click', ()=> jumpToForumPost(parseInt(btn.getAttribute('data-view-forum-post'))));
+  });
 
   wrap.querySelectorAll('[data-wa]').forEach(btn=>{
     btn.addEventListener('click', ()=> window.open('https://wa.me/'+btn.getAttribute('data-wa'), '_blank'));
@@ -736,7 +808,7 @@ function renderListings(){
     const lbl = card.querySelector('[data-like-count="'+CSS.escape(key)+'"]');
     if(btn){ btn.classList.toggle('active', liked); btn.setAttribute('aria-pressed', String(liked)); }
     if(lbl){
-      const listing = filtered.find(l=> (l.city+'|'+l.rent+'|'+l.wa) === key);
+      const listing = filtered.find(l=> l.id === key);
       if(listing) lbl.textContent = formatCount(baseLikeCount(listing) + (liked?1:0));
     }
   }
@@ -943,6 +1015,28 @@ function renderForum(){
   list.querySelectorAll('[data-view-profile]').forEach(btn=>{
     btn.addEventListener('click', ()=> showPublicProfile(btn.getAttribute('data-view-profile')));
   });
+  // Community questions are mirrored into the Explore feed (see forumFeedItems),
+  // so any change here — a new question, a new reply count — needs to reach it too.
+  renderListings();
+}
+
+/* Jumps from an Explore "View & answer" tap to the actual question in Community,
+   expanding its replies and scrolling it into view. */
+function jumpToForumPost(idx){
+  const post = forumPosts[idx];
+  if(!post) return;
+  setTab('community');
+  state.communitySubTab = 'qa';
+  document.querySelectorAll('[data-subtab]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-subtab')==='qa'));
+  document.getElementById('communityQA').style.display = 'block';
+  document.getElementById('communityBuddies').style.display = 'none';
+  document.getElementById('communityLeaderboard').style.display = 'none';
+  state.forumCat = 'All';
+  renderCatChips();
+  state.openReplies[idx] = true;
+  renderForum();
+  const card = document.getElementById('replies-'+idx);
+  if(card) card.closest('.q-card').scrollIntoView({ behavior:'smooth', block:'center' });
 }
 
 async function submitReply(post, text){
@@ -1141,30 +1235,56 @@ async function fetchAndRenderProfileStats(){
 }
 
 function likedListings(){
-  return listings.filter(l => state.feedLikes[l.city+'|'+l.rent+'|'+l.wa]);
+  // Community questions surfaced in Explore (see forumFeedItems) are likeable there
+  // too, so a liked one needs to show up here alongside liked housing/tips posts.
+  return listings.concat(forumFeedItems()).filter(l => state.feedLikes[l.id]);
 }
 
 function profileGridTile(l){
+  const isHousing = l.city != null && l.rent != null;
+  const icon = isHousing ? houseIconSvg : (l.postType==='inquiry' ? chatIconSvg : bulbIconSvg);
   return `<div class="pf-tile">
-    <div class="pf-tile-media">${houseIconSvg}</div>
+    <div class="pf-tile-media">${icon}</div>
     <div class="pf-tile-scrim"></div>
     <div class="pf-tile-info">
-      <strong>${l.rent} SAR</strong>
-      <span>${l.city}</span>
+      ${isHousing
+        ? `<strong>${l.rent} SAR</strong><span>${l.city}</span>`
+        : `<span class="pf-tile-snippet">${(l.desc||'').slice(0,60)}</span>`}
     </div>
   </div>`;
+}
+
+/* Tapping a grid tile (Posts or Liked) jumps to where that item actually lives —
+   Explore for a housing/tips post, Community (with replies open) for a question. */
+function viewFeedItem(l){
+  if(l.forumIndex != null){ jumpToForumPost(l.forumIndex); return; }
+  if(!l.id) return;
+  state.filters.postType = 'all';
+  document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-feed-type')==='all'));
+  setTab('housing');
+  renderListings();
+  const card = document.querySelector('.feed-card[data-listing-id="'+CSS.escape(l.id)+'"]');
+  if(card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function bindGridTileClicks(gridEl, items){
+  const tiles = gridEl.querySelectorAll('.pf-tile');
+  items.forEach((l,i)=>{ if(tiles[i]) tiles[i].addEventListener('click', ()=> viewFeedItem(l)); });
 }
 
 function renderProfileGrids(){
   const postsGrid = document.getElementById('profilePostsGrid');
   const likedGrid = document.getElementById('profileLikedGrid');
-  postsGrid.innerHTML = myListingsCache.length
-    ? myListingsCache.map(l=> profileGridTile({rent:l.rent, city:l.city})).join('')
+  const myPosts = myListingsCache.map(l=> ({id:l.id, rent:l.rent, city:l.city, desc:l.description, postType:l.post_type}));
+  postsGrid.innerHTML = myPosts.length
+    ? myPosts.map(l=> profileGridTile(l)).join('')
     : `<div class="pf-grid-empty">${t('noPostsYet')}</div>`;
+  bindGridTileClicks(postsGrid, myPosts);
   const liked = likedListings();
   likedGrid.innerHTML = liked.length
     ? liked.map(l=> profileGridTile(l)).join('')
     : `<div class="pf-grid-empty">${t('noLikedYet')}</div>`;
+  bindGridTileClicks(likedGrid, liked);
 }
 
 /* ---- Public profile (tapping a poster's avatar/handle in the feed) ---- */
@@ -1193,6 +1313,7 @@ async function showPublicProfile(userId){
     gridEl.innerHTML = theirListings.length
       ? theirListings.map(l=> profileGridTile(l)).join('')
       : `<div class="pf-grid-empty">${t('noPostsYet')}</div>`;
+    bindGridTileClicks(gridEl, theirListings);
     if(badgeEl) badgeEl.style.display = isTopHelper(userId) ? 'inline-flex' : 'none';
     if(contactEl){
       const wa = openToWorkMap[userId];
@@ -1218,7 +1339,7 @@ async function showPublicProfile(userId){
     ]);
     if(error) console.error('Could not load public profile listings:', error);
     const user = userRows && userRows[0];
-    renderInto(user && user.name, (theirListings || []).map(l=>({ rent:l.rent, city:l.city })));
+    renderInto(user && user.name, (theirListings || []).map(l=>({ id:l.id, rent:l.rent, city:l.city, desc:l.description, postType:l.post_type })));
   } catch(err){
     console.error('Could not load public profile:', err);
     nameEl.textContent = t('publicProfileUnavailable');
@@ -1588,6 +1709,7 @@ function renderAll(){
   renderForum();
   renderBuddies();
   renderProfile();
+  setQcCategory(qcCategory); // re-sync the composer's dynamic label/fields after a language switch
 }
 
 /* ============================= Events ============================= */
@@ -1607,17 +1729,145 @@ document.querySelectorAll('[data-goto]').forEach(btn=>{
 function setPostFormOpen(open){
   document.getElementById('postForm').style.display = open ? 'block' : 'none';
 }
-document.getElementById('btnOpenPost').addEventListener('click', ()=>{
-  const open = document.getElementById('postForm').style.display === 'none';
-  setPostFormOpen(open);
-  if(open) closeFilters(); // only one sheet at a time
-});
 document.getElementById('btnClosePost').addEventListener('click', ()=> setPostFormOpen(false));
+
+/* ---- Quick composer: the '+' FAB's entry point — category buttons, not a dropdown. ---- */
+let qcCategory = 'guide';
+
+function setQuickComposerOpen(open){
+  document.getElementById('quickComposer').classList.toggle('open', open);
+  document.getElementById('quickComposerScrim').classList.toggle('open', open);
+}
+document.getElementById('btnOpenPost').addEventListener('click', ()=>{
+  const open = !document.getElementById('quickComposer').classList.contains('open');
+  setQuickComposerOpen(open);
+  if(open){ closeFilters(); setPostFormOpen(false); } // only one sheet at a time
+});
+document.getElementById('btnCloseQuickComposer').addEventListener('click', ()=> setQuickComposerOpen(false));
+document.getElementById('quickComposerScrim').addEventListener('click', ()=> setQuickComposerOpen(false));
+
+/* Radio-button-style toggle: switching categories only ever changes which
+   fields show, never closes the composer — so the user can freely change
+   their mind between Housing/Inquiry/Guide right up until they submit. */
+function setQcCategory(cat){
+  qcCategory = cat;
+  document.querySelectorAll('#qcCatRow [data-qc-cat]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-qc-cat')===cat));
+  const isHousing = cat === 'housing';
+  document.getElementById('qcHousingFields').style.display = isHousing ? '' : 'none';
+  document.getElementById('qcImageField').style.display = isHousing ? 'none' : '';
+  document.getElementById('qcTextLabelEl').textContent = t(isHousing ? 'lblDesc' : 'qcTextLabel');
+}
+document.querySelectorAll('#qcCatRow [data-qc-cat]').forEach(btn=>{
+  btn.addEventListener('click', ()=> setQcCategory(btn.getAttribute('data-qc-cat')));
+});
+document.getElementById('qc-nat').addEventListener('change', e=>{
+  document.getElementById('qcNatOtherField').style.display = e.target.value === 'other' ? '' : 'none';
+});
+
+document.getElementById('btnSubmitQuickPost').addEventListener('click', async ()=>{
+  const isHousing = qcCategory === 'housing';
+  const text = document.getElementById('qc-text').value.trim();
+  const imageFile = document.getElementById('qc-image').files[0];
+
+  if(!text){ document.getElementById('qc-text').focus(); return; }
+
+  // Housing-only fields — same set (and same "rent is required" rule) as the old detailed form.
+  const city = document.getElementById('qc-city').value;
+  const rent = parseInt(document.getElementById('qc-rent').value) || 0;
+  const room_type = document.getElementById('qc-roomtype').value;
+  const gender_pref = document.getElementById('qc-gender').value;
+  const natValue = document.getElementById('qc-nat').value;
+  const nationality_pref = natValue === 'all' ? 'Any'
+    : natValue === 'other' ? (document.getElementById('qc-nat-other').value.trim() || t('natOther'))
+    : natValue;
+  const bills_included = document.getElementById('qc-bills').checked;
+  const whatsapp = document.getElementById('qc-wa').value.trim();
+  const videoFile = document.getElementById('qc-video').files[0];
+
+  if(isHousing && !rent){ document.getElementById('qc-rent').focus(); return; }
+  if(isHousing && !whatsapp){ document.getElementById('qc-wa').focus(); return; }
+
+  const clearAndClose = () => {
+    document.getElementById('qc-text').value = '';
+    document.getElementById('qc-image').value = '';
+    document.getElementById('qc-rent').value = '';
+    document.getElementById('qc-wa').value = '';
+    document.getElementById('qc-video').value = '';
+    document.getElementById('qc-nat-other').value = '';
+    document.getElementById('qcNatOtherField').style.display = 'none';
+    document.getElementById('qcImageUploadStatus').style.display = 'none';
+    document.getElementById('qcVideoUploadStatus').style.display = 'none';
+    setQuickComposerOpen(false);
+  };
+
+  requireSignIn(async ()=>{
+    const postedCategory = qcCategory;
+
+    if (!SUPABASE_CONFIGURED) {
+      const localImageUrl = imageFile ? URL.createObjectURL(imageFile) : null;
+      const localVideoUrl = videoFile ? URL.createObjectURL(videoFile) : null;
+      listings.unshift(isHousing
+        ? { id:'local-'+Date.now(), posterUserId: appUser.id, postType: 'housing', city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: text, by: appUser.name, wa: whatsapp, video: localVideoUrl }
+        : { id:'local-'+Date.now(), posterUserId: appUser.id, postType: postedCategory, desc: text, by: appUser.name, media: localImageUrl });
+      clearAndClose();
+      state.filters.postType = postedCategory;
+      document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-feed-type')===postedCategory));
+      renderListings();
+      return;
+    }
+
+    try {
+      let row;
+      if (isHousing) {
+        let video_url = null;
+        if (videoFile) {
+          const statusEl = document.getElementById('qcVideoUploadStatus');
+          statusEl.style.display = 'block';
+          const path = `${Date.now()}_${videoFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
+          const { error: uploadError } = await supabaseClient.storage.from('listing-videos').upload(path, videoFile);
+          statusEl.style.display = 'none';
+          if (uploadError) console.error('Error uploading video:', uploadError);
+          else video_url = supabaseClient.storage.from('listing-videos').getPublicUrl(path).data.publicUrl;
+        }
+        row = {
+          post_type: 'housing', city, rent, room_type, gender_pref, nationality_pref, bills_included,
+          description: text, whatsapp, video_url, poster_role: appUser.name, poster_user_id: appUser.id
+        };
+      } else {
+        let media_url = null;
+        if (imageFile) {
+          const statusEl = document.getElementById('qcImageUploadStatus');
+          statusEl.style.display = 'block';
+          const path = `${Date.now()}_${imageFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
+          const { error: uploadError } = await supabaseClient.storage.from('post-images').upload(path, imageFile);
+          statusEl.style.display = 'none';
+          if (uploadError) console.error('Error uploading image:', uploadError);
+          else media_url = supabaseClient.storage.from('post-images').getPublicUrl(path).data.publicUrl;
+        }
+        row = { post_type: postedCategory, description: text, media_url, poster_role: appUser.name, poster_user_id: appUser.id };
+      }
+
+      const { error } = await supabaseClient.from('housing_listings').insert([row]);
+
+      if (error) {
+        console.error('Error publishing post:', error);
+        return;
+      }
+
+      clearAndClose();
+      state.filters.postType = postedCategory;
+      document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-feed-type')===postedCategory));
+      await fetchAndRenderListings();
+    } catch (err) {
+      console.error('Could not reach Supabase to publish post:', err);
+    }
+  });
+});
 
 /* ---- Filter bottom sheet (mobile) ---- */
 function setFiltersOpen(open){
   const sheet = document.getElementById('filterSheet');
-  const btn = document.getElementById('btnToggleFilters');
+  const btn = document.getElementById('btnChipFilter');
   if(!sheet) return;
   sheet.classList.toggle('open', open);
   if(btn) btn.setAttribute('aria-expanded', String(open));
@@ -1630,7 +1880,7 @@ function setFiltersOpen(open){
 function closeFilters(){ setFiltersOpen(false); }
 
 function resetFilters(){
-  state.filters = {city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'};
+  state.filters = {postType:state.filters.postType, city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'};
   ['filterCity','filterBudget','filterNat','filterGender','filterRoomType'].forEach(id=>{
     const el = document.getElementById(id);
     if(el) el.value = 'all';
@@ -1638,11 +1888,6 @@ function resetFilters(){
   renderListings();
 }
 
-document.getElementById('btnToggleFilters').addEventListener('click', ()=>{
-  const open = !document.getElementById('filterSheet').classList.contains('open');
-  setFiltersOpen(open);
-  if(open) setPostFormOpen(false); // only one sheet at a time
-});
 document.querySelectorAll('[data-close-filters]').forEach(el=>{
   el.addEventListener('click', closeFilters);
 });
@@ -1651,6 +1896,7 @@ document.addEventListener('keydown', e=>{
   if(e.key !== 'Escape') return;
   closeFilters();
   setPostFormOpen(false);
+  setQuickComposerOpen(false);
 });
 document.getElementById('btnOpenAsk').addEventListener('click', ()=>{
   const p = document.getElementById('askForm');
@@ -1717,6 +1963,19 @@ document.querySelectorAll('[data-lb-filter]').forEach(btn=>{
 });
 
 document.getElementById('btnSubmitBuddy').addEventListener('click', submitBuddy);
+
+document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    state.filters.postType = btn.getAttribute('data-feed-type');
+    document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(b=> b.classList.toggle('active', b===btn));
+    renderListings();
+  });
+});
+document.getElementById('btnChipFilter').addEventListener('click', ()=>{
+  const open = !document.getElementById('filterSheet').classList.contains('open');
+  setFiltersOpen(open);
+  if(open){ setPostFormOpen(false); setQuickComposerOpen(false); }
+});
 
 document.getElementById('filterCity').addEventListener('change', e=>{ state.filters.city = e.target.value; renderListings(); });
 document.getElementById('filterBudget').addEventListener('change', e=>{ state.filters.budget = e.target.value; renderListings(); });
@@ -1840,6 +2099,19 @@ document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=
 /* ============================= Initial load ============================= */
 async function initApp(){
   restoreAppUser();
+
+  // A session saved before session tokens existed, or rotated by a fresh
+  // login elsewhere, can't be verified server-side — treat it as signed out
+  // rather than routing a not-really-authenticated user past the landing page.
+  if(appUser && SUPABASE_CONFIGURED && !String(appUser.id).startsWith('local-') && !appUser.sessionToken){
+    appUser = null;
+    persistAppUser();
+  }
+
+  // Returning, authenticated users skip the static landing page entirely
+  // and land straight on the feed (Housing today, Explore in Phase 3).
+  if(appUser){ setTab('housing'); }
+
   renderAll();
   applyFeedMode();
   await trackIncomingShareCode();

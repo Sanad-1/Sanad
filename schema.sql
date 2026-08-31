@@ -380,3 +380,31 @@ create or replace view open_to_work_directory as
   where open_to_work = true;
 
 grant select on open_to_work_directory to anon, authenticated;
+
+-- ============================================================
+-- 10. Phase 2 (plan.md): generalize housing_listings toward a
+--     unified "Posts" structure so Phase 3's Explore feed can
+--     show housing, inquiries, and guides from one table.
+--     description already serves as the bio/description "content"
+--     column the plan asks for, so it's left as-is — no rename,
+--     no change to the existing RLS policies from section 5.
+-- ============================================================
+
+alter table housing_listings add column if not exists post_type text default 'housing';
+alter table housing_listings add column if not exists media_url text;
+alter table housing_listings add column if not exists nationality_target text;
+
+-- Every row that predates this migration was a housing listing.
+update housing_listings set post_type = 'housing' where post_type is null;
+
+alter table housing_listings alter column post_type set not null;
+
+do $$
+begin
+  alter table housing_listings add constraint housing_listings_post_type_check
+    check (post_type in ('housing', 'inquiry', 'guide'));
+exception
+  when duplicate_object then null;
+end $$;
+
+create index if not exists idx_housing_listings_post_type on housing_listings(post_type);

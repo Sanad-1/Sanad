@@ -233,8 +233,6 @@
   .fab-badge{display:none;}
   /* Sheet chrome — mobile only; the desktop panels are plain in-flow blocks. */
   .sheet-grabber,.sheet-close{display:none;}
-  /* Filters live in the sheet on mobile; on desktop the panel is always visible. */
-  #btnToggleFilters{display:none;}
 
   /* ---------- Housing: listing card ---------- */
   .listing-card{
@@ -277,6 +275,10 @@
   .panel .hint{font-size:12px;color:var(--ink-faint);margin:0 0 14px;}
   .field{margin-bottom:12px;}
   .field label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px;}
+  .field-label-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:5px;}
+  .field-label-row label{margin-bottom:0;}
+  .field-req-tag{font-size:10.5px;font-weight:600;color:var(--ink-faint);flex:none;}
+  .field-req-tag--required{color:var(--green);}
   .field input,.field select,.field textarea{
     width:100%;border:1px solid var(--line);background:var(--bg);border-radius:var(--radius-sm);
     padding:10px 12px;font-size:13px;color:var(--ink);font-family:var(--font-body);
@@ -311,6 +313,70 @@
     padding:7px 13px;font-size:11.5px;font-weight:600;color:var(--ink-soft);
   }
   .cat-chip.active{background:var(--green-dark);border-color:var(--green-dark);color:#fff;}
+
+  /* ---- Quick composer: big single-select category buttons, not a dropdown ---- */
+  .qc-cat-row{display:flex;gap:8px;margin:4px 0 16px;}
+  .qc-cat-btn{
+    flex:1;border:1.5px solid var(--line);background:var(--card);border-radius:var(--radius-md);
+    padding:12px 6px;font-size:12.5px;font-weight:700;color:var(--ink-soft);text-align:center;
+  }
+  .qc-cat-btn.active{background:var(--green-dark);border-color:var(--green-dark);color:#fff;}
+
+  /* ---- Create Post is always an overlay (all screen sizes), never a panel
+     sitting inline in the page — otherwise its category buttons (Housing /
+     Inquiries / Guides) land directly next to the Explore feed's own filter
+     chip row with the same labels, which reads as a duplicated filter bar. ---- */
+  .quick-composer-scrim{display:none;}
+  #quickComposer{display:none;}
+  /* Two ID-strength selectors (#view-housing + #quickComposer) so this beats
+     the mobile "#view-housing .panel{display:none}" rule regardless of
+     source order — otherwise that later, equal-specificity rule would win
+     and hide the composer again even while .open is set. */
+  #view-housing #quickComposer.open{
+    display:block;position:fixed;z-index:96;
+    left:0;right:0;bottom:0;margin:0 auto;
+    width:100%;max-width:480px;max-height:88vh;overflow-y:auto;
+    border:none;border-radius:22px 22px 0 0;
+    box-shadow:0 -14px 40px rgba(0,0,0,0.30);
+  }
+  #view-housing .quick-composer-scrim.open{
+    display:block;position:fixed;inset:0;z-index:95;
+    background:rgba(8,14,11,0.55);
+  }
+  #quickComposer .sheet-grabber{
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);
+    width:38px;height:4px;border-radius:999px;background:var(--line);
+  }
+  @media (min-width:760px){
+    #view-housing #quickComposer.open{top:50%;bottom:auto;transform:translateY(-50%);border-radius:var(--radius-md);max-height:80vh;}
+  }
+
+  /* ---- Explore feed: type chips + nationality filter icon, sits above the feed ---- */
+  .explore-chip-bar{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .explore-chip-row{flex:1;min-width:0;margin-bottom:0;padding-bottom:0;}
+  .explore-nat-filter{
+    flex:none;position:relative;width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  }
+  .explore-nat-filter:active{transform:scale(0.92);}
+  .explore-nat-filter svg{width:16px;height:16px;}
+  @media (max-width:759px){
+    #view-housing .explore-chip-bar{
+      position:fixed;z-index:55;left:0;right:0;margin:0;
+      top:calc(14px + env(safe-area-inset-top));
+      padding-inline-start:14px;padding-inline-end:68px; /* clears the floating '+' FAB pinned to the end side */
+    }
+    #view-housing .explore-chip-row .cat-chip{
+      background:rgba(12,18,15,0.55);border-color:rgba(255,255,255,0.22);color:#fff;
+      -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    }
+    #view-housing .explore-chip-row .cat-chip.active{background:var(--green);border-color:rgba(255,255,255,0.30);}
+    #view-housing .explore-nat-filter{
+      background:rgba(12,18,15,0.55);border-color:rgba(255,255,255,0.22);color:#fff;
+      -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    }
+  }
   .q-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);padding:15px 16px;margin-bottom:12px;}
   .q-top{display:flex;gap:10px;}
   .vote{display:flex;flex-direction:column;align-items:center;gap:2px;flex:none;width:34px;}
@@ -438,7 +504,6 @@
     #view-housing .feed-actions .toggle-open:active{transform:scale(0.94);}
     #view-housing .feed-actions .toggle-open svg{width:21px;height:21px;stroke-width:2.1;}
     #view-housing .feed-actions .fab-label{display:none;}
-    #view-housing #btnToggleFilters{display:flex;}
     #view-housing .fab-badge.on{
       display:flex;align-items:center;justify-content:center;
       position:absolute;top:-3px;inset-inline-end:-3px;
@@ -523,6 +588,22 @@
     display:flex;align-items:center;justify-content:center;
   }
   .feed-placeholder svg{width:56px;height:56px;stroke:rgba(255,255,255,0.35);}
+  /* ---- Distinct look per post type so text-only cards (Inquiries/Tips) feel
+     designed rather than an empty housing card missing its photo. ---- */
+  .feed-placeholder--inquiry{
+    background:
+      radial-gradient(circle at 25% 25%, rgba(35,241,234,0.28), transparent 55%),
+      radial-gradient(circle at 80% 75%, rgba(94,124,255,0.22), transparent 50%),
+      linear-gradient(160deg, #0B1420, #0A0A0C 72%);
+  }
+  .feed-placeholder--inquiry svg{width:72px;height:72px;stroke:rgba(35,241,234,0.55);}
+  .feed-placeholder--guide{
+    background:
+      radial-gradient(circle at 25% 25%, rgba(255,196,74,0.28), transparent 55%),
+      radial-gradient(circle at 80% 75%, rgba(254,44,85,0.16), transparent 50%),
+      linear-gradient(160deg, #1A140A, #0A0A0C 72%);
+  }
+  .feed-placeholder--guide svg{width:72px;height:72px;stroke:rgba(255,196,74,0.65);}
   .feed-scrim{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.75) 100%);}
   /* Start-side so it never collides with the floating actions pinned to the end side. */
   .feed-mute{
@@ -562,6 +643,7 @@
   .feed-rail .lk.active{background:rgba(254,44,85,0.18);}
   .feed-rail .lk.active svg{fill:var(--feed-pink);stroke:var(--feed-pink);animation:likePop .35s ease;}
   .feed-rail .wa{background:linear-gradient(145deg, var(--feed-pink), #C21F41);}
+  .feed-rail .ans{background:linear-gradient(145deg, #5E7CFF, #23F1EA);}
   .feed-rail .sh{background:linear-gradient(145deg, var(--feed-cyan), #0FBDB6);}
   .feed-rail .lbl{font-size:9px;color:var(--feed-ink-soft);text-align:center;margin-top:-7px;font-weight:600;}
   @keyframes likePop{0%{transform:scale(1);}35%{transform:scale(1.35);}100%{transform:scale(1);}}
@@ -601,11 +683,17 @@
   .feed-price-pill{
     flex:none;font-family:var(--font-display);font-weight:700;color:#0A0A0C;font-size:11.5px;
     background:var(--feed-cyan);padding:3px 10px;border-radius:999px;
+    display:flex;align-items:center;gap:4px;
   }
+  .feed-price-pill--muted{background:rgba(255,255,255,0.16);color:#fff;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+  .feed-price-pill--muted svg{width:11px;height:11px;}
   .feed-content h3{margin:0 0 6px;font-size:16px;color:#fff;font-weight:700;}
   .feed-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;}
   .feed-tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.14);color:var(--feed-cyan);backdrop-filter:blur(4px);}
   .feed-desc{font-size:12.5px;color:var(--feed-ink-soft);line-height:1.5;max-width:90%;}
+  /* Inquiries/Tips have no photo to carry the card, so the text itself is the
+     visual focus — bigger and bolder, quote-like, instead of a small caption. */
+  .feed-desc--quote{font-size:16.5px;font-weight:600;color:#fff;line-height:1.45;max-width:94%;}
 
   /* ---- Sound ticker: the little scrolling attribution TikTok always shows ---- */
   .feed-sound{
@@ -711,7 +799,9 @@
   .pf-tile{
     position:relative;aspect-ratio:3/4;border-radius:8px;overflow:hidden;
     background:var(--feed-bg);display:flex;align-items:flex-end;
+    cursor:pointer;transition:transform .12s ease;
   }
+  .pf-tile:active{transform:scale(0.96);}
   .pf-tile-media{
     position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     background:radial-gradient(circle at 30% 20%, rgba(35,241,234,0.16), transparent 55%),
@@ -723,6 +813,10 @@
   .pf-tile-info{position:relative;z-index:2;width:100%;padding:7px 8px;color:#fff;line-height:1.25;}
   .pf-tile-info strong{display:block;font-family:var(--font-display);font-size:11.5px;}
   .pf-tile-info span{display:block;font-size:9.5px;color:rgba(255,255,255,0.75);}
+  .pf-tile-snippet{
+    display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    overflow:hidden;font-weight:600;font-size:10.5px!important;color:#fff!important;
+  }
   .pf-grid-empty{
     grid-column:1/-1;padding:34px 20px;text-align:center;
     font-size:12.5px;color:var(--ink-faint);
