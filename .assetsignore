@@ -1,0 +1,30 @@
+# Files in this repository that are NOT part of the deployed application.
+# Anything listed here is excluded from the Workers asset upload, so it is
+# never published to the web. Syntax is the same as .gitignore
+
+# Deployment configuration itself
+wrangler.toml
+.assetsignore
+
+# Version control and CI
+.git/
+.github/
+.gitignore
+.wrangler/
+
+# Dependency directory. Nothing in the application imports from it, but the
+# Workers build step can create it, and uploading it breaks the deploy: some
+# files inside exceed the 25 MiB per-asset limit.
+node_modules/
+
+# Project documentation and working notes
+*.md
+
+# Database definition -- applied via the Supabase SQL editor, never served
+schema.sql
+
+# Supabase Edge Functions -- deployed to Supabase, not to Cloudflare
+supabase/
+
+# Local-only workspace (see WORKFLOW.md); never committed, excluded defensively
+private/
