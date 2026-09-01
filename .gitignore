@@ -1,0 +1,21 @@
+# Local-only workspace — notes, investigations, evidence, scratch SQL.
+# Never committed, never pushed, never released. See WORKFLOW.md.
+private/
+
+# Secrets — the service_role key and admin credentials never enter this repo.
+.env
+.env.*
+*.key
+secrets.*
+
+# Editor / OS noise
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local server / tooling artefacts
+node_modules/
+.cache/
+*.log
