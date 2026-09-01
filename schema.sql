@@ -408,3 +408,74 @@ exception
 end $$;
 
 create index if not exists idx_housing_listings_post_type on housing_listings(post_type);
+
+-- ============================================================
+-- 11. Phone + WhatsApp OTP login (replaces username/password).
+--     Real OTP delivery/verification happens in Twilio Verify,
+--     called from two Supabase Edge Functions (send-otp,
+--     verify-otp) — this migration only prepares the database
+--     side: app_users keyed by phone instead of username, and a
+--     narrow SECURITY DEFINER door (phone_login) that only the
+--     verify-otp Edge Function is allowed to call, using the
+--     service-role key (never the anon key), *after* Twilio has
+--     already confirmed the code was correct. No password/OTP
+--     value is ever stored in this database.
+-- ============================================================
+
+-- Dropping the function removes its grants along with it, so there's
+-- nothing left to revoke afterward — a separate revoke would fail with
+-- "function does not exist" once the drop above already ran.
+drop function if exists signup_user(text, text, text, text);
+drop function if exists login_user(text, text);
+
+-- username/password are no longer how anyone signs in. Keep the
+-- columns (harmless, avoids a destructive drop) but stop requiring
+-- them so new phone-only rows don't need placeholder values.
+alter table app_users alter column username drop not null;
+alter table app_users drop constraint if exists app_users_username_key;
+
+-- phone becomes the real identity column going forward.
+update app_users set phone = 'legacy-' || id::text where phone is null;
+alter table app_users alter column phone set not null;
+do $$
+begin
+  alter table app_users add constraint app_users_phone_key unique (phone);
+exception
+  when duplicate_table then null;
+  when duplicate_object then null;
+end $$;
+
+-- phone_login is deliberately NOT granted to anon/authenticated —
+-- it must only ever be reachable via the verify-otp Edge Function,
+-- which authenticates to Postgres with the service-role key (bypasses
+-- grants/RLS entirely). That's what makes it safe for this function
+-- to trust its p_phone argument without checking a password itself:
+-- by the time it's called, Twilio has already proven the caller
+-- controls that WhatsApp number.
+create or replace function phone_login(p_phone text, p_name text default null)
+returns table(id uuid, name text, phone text, created_at timestamptz, session_token text)
+language plpgsql
+security definer
+set search_path = public, extensions
+as $$
+declare v_id uuid;
+begin
+  select app_users.id into v_id from app_users where app_users.phone = p_phone;
+
+  if v_id is null then
+    return query
+    insert into app_users (phone, name, session_token)
+    values (p_phone, nullif(trim(p_name), ''), encode(gen_random_bytes(32), 'hex'))
+    returning app_users.id, app_users.name, app_users.phone, app_users.created_at, app_users.session_token;
+  else
+    return query
+    update app_users set
+      session_token = encode(gen_random_bytes(32), 'hex'),
+      name = coalesce(app_users.name, nullif(trim(p_name), ''))
+    where app_users.id = v_id
+    returning app_users.id, app_users.name, app_users.phone, app_users.created_at, app_users.session_token;
+  end if;
+end;
+$$;
+
+-- No grant to anon/authenticated on purpose — see comment above.

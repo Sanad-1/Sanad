@@ -29,17 +29,16 @@
   </header>
 
   <nav class="tabbar">
-    <button data-tab="home" class="active">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-      <span data-i18n="navHome">Home</span>
+    <button data-tab="housing" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M10 8.5l6 3.5-6 3.5v-7z"/></svg>
+      <span data-i18n="navHousing">Feed</span>
     </button>
     <button data-tab="guide">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h9v18H6a2 2 0 01-2-2V5z"/><path d="M15 3l5 2v16l-5-2"/></svg>
       <span data-i18n="navGuide">Guide</span>
     </button>
-    <button data-tab="housing">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
-      <span data-i18n="navHousing">Housing</span>
+    <button class="tabbar-post" id="btnOpenPost" data-i18n-title="composerNewPost" aria-label="New post">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
     </button>
     <button data-tab="community">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M2 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M14.5 15c2.7.2 4.5 2.1 4.5 5"/></svg>
@@ -52,232 +51,8 @@
   </nav>
 
   <main>
-    <!-- HOME -->
-    <section class="view active" id="view-home">
-      <div class="hero">
-        <h1 data-i18n="heroTitle">One place for housing, guidance, and community.</h1>
-        <p data-i18n="heroSub">Skip the confusing Facebook groups. Find a room, understand your rights, and ask people who've been there.</p>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="num">6</div><div class="lbl" data-i18n="statCities">Cities covered</div></div>
-          <div class="hero-stat"><div class="num">120+</div><div class="lbl" data-i18n="statListings">Rooms shared this month</div></div>
-          <div class="hero-stat"><div class="num">3</div><div class="lbl" data-i18n="statLangs">Languages</div></div>
-        </div>
-      </div>
-
-      <div class="quicknav">
-        <button class="qn-card" data-goto="guide">
-          <div class="ic g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h9v18H6a2 2 0 01-2-2V5z"/><path d="M15 3l5 2v16l-5-2"/></svg></div>
-          <h3 data-i18n="qnGuideTitle">Know your rights</h3>
-          <p data-i18n="qnGuideSub">Labor law, Qiwa, Iqama &amp; banking, explained simply</p>
-        </button>
-        <button class="qn-card" data-goto="housing">
-          <div class="ic h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg></div>
-          <h3 data-i18n="qnHousingTitle">Find a room</h3>
-          <p data-i18n="qnHousingSub">Shared housing across 6 major cities</p>
-        </button>
-        <button class="qn-card full" data-goto="community">
-          <div class="ic c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M2 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/></svg></div>
-          <h3 data-i18n="qnCommunityTitle">Ask the community</h3>
-          <p data-i18n="qnCommunitySub">Real answers from people already living here — not a random Facebook group</p>
-        </button>
-      </div>
-
-      <div class="trust-strip">
-        <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <p><strong data-i18n="trustTitle">Built to be trustworthy</strong><span data-i18n="trustBody">No login wall for browsing, no algorithm deciding what you see. Guide content is written in plain language and reviewed for accuracy, not virality.</span></p>
-      </div>
-    </section>
-
-    <!-- GUIDE HUB -->
-    <section class="view" id="view-guide">
-      <div class="page-head-row">
-        <p class="eyebrow" data-i18n="guideEyebrow">Knowledge guide hub</p>
-        <button class="share-btn" data-share-page="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg><span data-i18n="shareLabel">Share</span></button>
-      </div>
-      <h1 class="page-title" data-i18n="guideTitle">Understand the system before it confuses you</h1>
-      <p class="page-sub" data-i18n="guideSub">Short, plain-language explainers on the things every worker eventually needs.</p>
-      <div class="guide-grid" id="guideGrid"></div>
-    </section>
-
-    <!-- HOUSING -->
-    <section class="view" id="view-housing">
-      <div class="page-head-row">
-        <p class="eyebrow" data-i18n="housingEyebrow">Roommate &amp; shared housing board</p>
-        <button class="share-btn" data-share-page="housing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg><span data-i18n="shareLabel">Share</span></button>
-      </div>
-      <h1 class="page-title" data-i18n="housingTitle">Find your next room</h1>
-      <p class="page-sub" data-i18n="housingSub">Real listings from tenants and property owners. Contact directly on WhatsApp — no middleman.</p>
-
-      <div class="feed-actions">
-        <button class="toggle-open" id="btnOpenPost" aria-label="Post a listing">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-          <span class="fab-label" data-i18n="housingPostBtn">Post a room or list a spare bed</span>
-        </button>
-      </div>
-
-      <div class="panel" id="postForm" style="display:none;">
-        <span class="sheet-grabber" aria-hidden="true"></span>
-        <button class="sheet-close" id="btnClosePost" aria-label="Close">✕</button>
-        <h3 data-i18n="postFormTitle">Post a listing</h3>
-        <p class="hint" data-i18n="postFormHint">This is a demo form — submissions are shown below but not saved.</p>
-        <div class="field">
-          <label data-i18n="lblCity">City</label>
-          <select id="f-city">
-            <option value="Riyadh">Riyadh</option>
-            <option value="Jeddah">Jeddah</option>
-            <option value="Dammam/Khobar">Dammam / Khobar</option>
-            <option value="Makkah">Makkah</option>
-            <option value="Madinah">Madinah</option>
-            <option value="Hail">Hail</option>
-          </select>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label data-i18n="lblRent">Monthly rent (SAR)</label>
-            <input type="number" id="f-rent" placeholder="600">
-          </div>
-          <div class="field">
-            <label data-i18n="lblRoomType">Room type</label>
-            <select id="f-roomtype">
-              <option value="shared" data-i18n="rtShared">Shared room</option>
-              <option value="private" data-i18n="rtPrivate">Private room</option>
-              <option value="bed" data-i18n="rtBed">Bed space</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label data-i18n="lblGender">Gender preference</label>
-            <select id="f-gender">
-              <option value="any" data-i18n="genAny">Any</option>
-              <option value="male" data-i18n="genMale">Men only</option>
-              <option value="female" data-i18n="genFemale">Women only</option>
-            </select>
-          </div>
-          <div class="field">
-            <label data-i18n="lblNationality">Nationality / language preference</label>
-            <select id="f-nat">
-              <option value="all" data-i18n="natAny">Any</option>
-              <option value="Indian">Indian</option>
-              <option value="Pakistani">Pakistani</option>
-              <option value="Filipino">Filipino</option>
-              <option value="Arab" data-i18n="natArab">Arab</option>
-              <option value="Bangladeshi">Bangladeshi</option>
-            </select>
-          </div>
-        </div>
-        <div class="toggle-row">
-          <span data-i18n="lblBills">Electricity &amp; water included</span>
-          <label class="switch"><input type="checkbox" id="f-bills" checked><span class="track"></span></label>
-        </div>
-        <div class="field">
-          <label data-i18n="lblDesc">Description</label>
-          <textarea id="f-desc" data-i18n-ph="descPh"></textarea>
-        </div>
-        <div class="field">
-          <label data-i18n="lblWhatsapp">WhatsApp number</label>
-          <input type="text" id="f-wa" placeholder="+966 5x xxx xxxx">
-        </div>
-        <div class="field">
-          <label data-i18n="videoLabel">Room video (optional)</label>
-          <p class="hint" style="margin:0 0 8px;" data-i18n="videoHint">A short walkthrough gets far more replies than photos alone.</p>
-          <input type="file" id="f-video" accept="video/*">
-          <p class="hint" id="videoUploadStatus" style="margin:6px 0 0;display:none;" data-i18n="uploadingVideo">Uploading video...</p>
-        </div>
-        <button class="btn-primary" id="btnSubmitListing" data-i18n="postFormSubmit">Publish listing</button>
-      </div>
-
-      <div class="quick-composer-scrim" id="quickComposerScrim"></div>
-      <div class="panel" id="quickComposer">
-        <span class="sheet-grabber" aria-hidden="true"></span>
-        <button class="sheet-close" id="btnCloseQuickComposer" aria-label="Close">✕</button>
-        <h3 data-i18n="qcTitle">New post</h3>
-
-        <div class="qc-cat-row" id="qcCatRow">
-          <button class="qc-cat-btn" data-qc-cat="housing" data-i18n="chipHousing">Housing</button>
-          <button class="qc-cat-btn active" data-qc-cat="guide" data-i18n="chipGuides">Tips</button>
-        </div>
-        <p class="hint" data-i18n="qcAskHint">Got a question instead? Ask it in Community — it'll also show up here for others to discover.</p>
-
-        <div id="qcHousingFields" style="display:none;">
-          <div class="field-row">
-            <div class="field">
-              <div class="field-label-row"><label data-i18n="lblRent">Monthly rent (SAR)</label><span class="field-req-tag field-req-tag--required" data-i18n="requiredTag">(required)</span></div>
-              <input type="number" id="qc-rent" placeholder="600">
-            </div>
-            <div class="field">
-              <div class="field-label-row"><label data-i18n="lblWhatsapp">WhatsApp number</label><span class="field-req-tag field-req-tag--required" data-i18n="requiredTag">(required)</span></div>
-              <input type="text" id="qc-wa" placeholder="+966 5x xxx xxxx">
-            </div>
-          </div>
-          <div class="field">
-            <div class="field-label-row"><label data-i18n="lblCity">City</label><span class="field-req-tag" data-i18n="optionalTag">(optional)</span></div>
-            <select id="qc-city">
-              <option value="Riyadh">Riyadh</option>
-              <option value="Jeddah">Jeddah</option>
-              <option value="Dammam/Khobar">Dammam / Khobar</option>
-              <option value="Makkah">Makkah</option>
-              <option value="Madinah">Madinah</option>
-              <option value="Hail">Hail</option>
-            </select>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <div class="field-label-row"><label data-i18n="lblRoomType">Room type</label><span class="field-req-tag" data-i18n="optionalTag">(optional)</span></div>
-              <select id="qc-roomtype">
-                <option value="shared" data-i18n="rtShared">Shared room</option>
-                <option value="private" data-i18n="rtPrivate">Private room</option>
-                <option value="bed" data-i18n="rtBed">Bed space</option>
-              </select>
-            </div>
-            <div class="field">
-              <div class="field-label-row"><label data-i18n="lblGender">Gender preference</label><span class="field-req-tag" data-i18n="optionalTag">(optional)</span></div>
-              <select id="qc-gender">
-                <option value="any" data-i18n="genAny">Any</option>
-                <option value="male" data-i18n="genMale">Men only</option>
-                <option value="female" data-i18n="genFemale">Women only</option>
-              </select>
-            </div>
-          </div>
-          <div class="field">
-            <div class="field-label-row"><label data-i18n="lblNationality">Nationality / language preference</label><span class="field-req-tag" data-i18n="optionalTag">(optional)</span></div>
-            <select id="qc-nat">
-              <option value="all" data-i18n="natAny">Any</option>
-              <option value="Indian">Indian</option>
-              <option value="Pakistani">Pakistani</option>
-              <option value="Filipino">Filipino</option>
-              <option value="Arab" data-i18n="natArab">Arab</option>
-              <option value="Bangladeshi">Bangladeshi</option>
-              <option value="other" data-i18n="natOther">Other</option>
-            </select>
-          </div>
-          <div class="field" id="qcNatOtherField" style="display:none;">
-            <label data-i18n="lblNatOther">Specify nationality / language</label>
-            <input type="text" id="qc-nat-other" placeholder="e.g. Nepali">
-          </div>
-          <div class="toggle-row">
-            <span data-i18n="lblBills">Electricity &amp; water included</span>
-            <label class="switch"><input type="checkbox" id="qc-bills" checked><span class="track"></span></label>
-          </div>
-          <div class="field">
-            <label data-i18n="videoLabel">Room video (optional)</label>
-            <p class="hint" style="margin:0 0 8px;" data-i18n="videoHint">A short walkthrough gets far more replies than photos alone.</p>
-            <input type="file" id="qc-video" accept="video/*">
-            <p class="hint" id="qcVideoUploadStatus" style="margin:6px 0 0;display:none;" data-i18n="uploadingVideo">Uploading video...</p>
-          </div>
-        </div>
-
-        <div class="field" id="qcTextField">
-          <label id="qcTextLabelEl">What's on your mind?</label>
-          <textarea id="qc-text" data-i18n-ph="qcTextPh"></textarea>
-        </div>
-        <div class="field" id="qcImageField">
-          <label data-i18n="qcImageLabel">Add a photo (optional)</label>
-          <input type="file" id="qc-image" accept="image/*">
-          <p class="hint" id="qcImageUploadStatus" style="margin:6px 0 0;display:none;" data-i18n="uploadingImage">Uploading image...</p>
-        </div>
-        <button class="btn-primary" id="btnSubmitQuickPost" data-i18n="qcSubmit">Post</button>
-      </div>
+    <!-- FEED (housing + community inquiries + tips, unified) -->
+    <section class="view active" id="view-housing">
 
       <div class="filter-sheet" id="filterSheet">
         <div class="filter-scrim" data-close-filters></div>
@@ -288,42 +63,46 @@
             <button class="filter-reset" id="btnResetFilters" data-i18n="filtersReset">Reset</button>
           </div>
 
-          <div class="filter-grid">
-            <label class="filter-field">
-              <span data-i18n="lblCity">City</span>
-              <select id="filterCity"><option value="all" data-i18n="filterAllCities">All cities</option></select>
-            </label>
-            <label class="filter-field">
-              <span data-i18n="lblBudget">Budget</span>
-              <select id="filterBudget">
-                <option value="all" data-i18n="filterAnyBudget">Any budget</option>
-                <option value="500" data-i18n="filterUnder500">Under 500 SAR</option>
-                <option value="800" data-i18n="filterUnder800">Under 800 SAR</option>
-                <option value="1200" data-i18n="filterUnder1200">Under 1,200 SAR</option>
-              </select>
-            </label>
-            <label class="filter-field">
-              <span data-i18n="lblNatShort">Nationality</span>
-              <select id="filterNat"><option value="all" data-i18n="filterAnyNat">Any nationality pref.</option></select>
-            </label>
-            <label class="filter-field">
-              <span data-i18n="lblGenderShort">Gender</span>
-              <select id="filterGender">
-                <option value="all" data-i18n="filterAnyGender">Any gender</option>
-                <option value="male" data-i18n="filterMaleOnly">Men only</option>
-                <option value="female" data-i18n="filterFemaleOnly">Women only</option>
-              </select>
-            </label>
-            <label class="filter-field wide">
-              <span data-i18n="lblRoomType">Room type</span>
-              <select id="filterRoomType">
-                <option value="all" data-i18n="filterAnyRoom">Any room type</option>
-                <option value="shared" data-i18n="filterShared">Shared room</option>
-                <option value="private" data-i18n="filterPrivate">Private room</option>
-                <option value="bed" data-i18n="filterBed">Bed space</option>
-              </select>
-            </label>
+          <p class="filter-group-label" data-i18n="lblBudget">Budget per month</p>
+          <div class="filter-option-grid" data-filter-group="budget">
+            <button class="filter-option" data-filter-value="500" data-i18n="filterUnder500">Under 500</button>
+            <button class="filter-option" data-filter-value="800" data-i18n="filterBudget500to800">500 – 800</button>
+            <button class="filter-option" data-filter-value="1200" data-i18n="filterBudget800to1200">800 – 1200</button>
+            <button class="filter-option active" data-filter-value="all" data-i18n="filterAnyBudget">Any budget</button>
           </div>
+
+          <p class="filter-group-label" data-i18n="lblRoomType">Room type</p>
+          <div class="filter-icon-grid" data-filter-group="roomType">
+            <button class="filter-icon-option" data-filter-value="shared">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="11" width="18" height="7" rx="2"/><path d="M6 11V8h5v3M13 11V8h5v3"/></svg>
+              <span data-i18n="filterShared">Shared</span>
+            </button>
+            <button class="filter-icon-option" data-filter-value="private">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 18v2M16 18v2"/></svg>
+              <span data-i18n="filterPrivate">Private</span>
+            </button>
+            <button class="filter-icon-option" data-filter-value="bed">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 17v-4a2 2 0 012-2h14a2 2 0 012 2v4"/><path d="M6 11V8h6v3"/><path d="M3 17h18v3"/></svg>
+              <span data-i18n="filterBed">Bed</span>
+            </button>
+            <button class="filter-icon-option active" data-filter-value="all">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/></svg>
+              <span data-i18n="filterAnyRoom">Any</span>
+            </button>
+          </div>
+
+          <p class="filter-group-label" data-i18n="lblCity">City</p>
+          <div class="filter-chip-row" data-filter-group="city" id="filterCityRow"></div>
+
+          <p class="filter-group-label" data-i18n="lblGenderShort">Gender</p>
+          <div class="filter-chip-row" data-filter-group="gender">
+            <button class="filter-chip active" data-filter-value="all" data-i18n="filterAnyGender">Any gender</button>
+            <button class="filter-chip" data-filter-value="male" data-i18n="filterMaleOnly">Men only</button>
+            <button class="filter-chip" data-filter-value="female" data-i18n="filterFemaleOnly">Women only</button>
+          </div>
+
+          <p class="filter-group-label" data-i18n="lblNatShort">Nationality</p>
+          <div class="filter-chip-row" data-filter-group="nat" id="filterNatRow"></div>
 
           <button class="btn-primary filter-apply" id="btnApplyFilters" data-close-filters>
             <span data-i18n="filtersShow">Show results</span>
@@ -333,11 +112,18 @@
       </div>
 
       <div class="explore-chip-bar">
+        <div class="lang-switch lang-switch--floating">
+          <button data-lang-btn="en">EN</button>
+          <button data-lang-btn="ar">عربي</button>
+          <button data-lang-btn="ur">اردو</button>
+        </div>
+      </div>
+      <div class="explore-chip-bar explore-chip-bar--cats">
         <div class="cat-chip-row explore-chip-row" id="feedTypeChips">
           <button class="cat-chip active" data-feed-type="all" data-i18n="chipAll">All</button>
           <button class="cat-chip" data-feed-type="housing" data-i18n="chipHousing">Housing</button>
           <button class="cat-chip" data-feed-type="inquiry" data-i18n="chipInquiries">Inquiries</button>
-          <button class="cat-chip" data-feed-type="guide" data-i18n="chipGuides">Guides</button>
+          <button class="cat-chip" data-feed-type="guide" data-i18n="chipGuides">Tips</button>
         </div>
         <button class="explore-nat-filter" id="btnChipFilter" aria-label="Filters" aria-expanded="false" aria-controls="filterSheet">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
@@ -348,14 +134,23 @@
       <div class="feed-scroll" id="listingsGrid"></div>
     </section>
 
+    <!-- GUIDE -->
+    <section class="view" id="view-guide">
+      <div class="page-head-row">
+        <p class="eyebrow" data-i18n="guideEyebrow">Knowledge guide hub</p>
+        <button class="share-btn" data-share-page="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg><span data-i18n="shareLabel">Share</span></button>
+      </div>
+      <h1 class="page-title" data-i18n="guideTitle">Understand the system before it confuses you</h1>
+      <p class="page-sub" data-i18n="guideSub">Short, plain-language explainers on the things every worker eventually needs.</p>
+      <div class="guide-grid" id="guideGrid"></div>
+    </section>
+
     <!-- COMMUNITY -->
     <section class="view" id="view-community">
       <div class="page-head-row">
         <p class="eyebrow" data-i18n="communityEyebrow">Community Q&amp;A</p>
         <button class="share-btn" data-share-page="community"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg><span data-i18n="shareLabel">Share</span></button>
       </div>
-      <h1 class="page-title" data-i18n="communityTitle">Ask people who've already figured it out</h1>
-      <p class="page-sub" data-i18n="communitySub">Peer answers on housing, legal questions, jobs, and everyday life.</p>
 
       <div class="cat-chip-row" id="communitySubTabs" style="margin-bottom:16px;">
         <button class="cat-chip active" data-subtab="qa" data-i18n="communityTabQA">Q&amp;A</button>
@@ -364,32 +159,8 @@
       </div>
 
       <div id="communityQA">
-        <button class="toggle-open" id="btnOpenAsk">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-          <span data-i18n="communityAskBtn">Ask a question</span>
-        </button>
-
-        <div class="panel" id="askForm" style="display:none;">
-          <h3 data-i18n="askFormTitle">New question</h3>
-          <p class="hint" data-i18n="askFormHint">This is a demo form — submissions are shown below but not saved.</p>
-          <div class="field">
-            <label data-i18n="lblCategory">Category</label>
-            <select id="q-cat">
-              <option data-i18n="catHousing">Housing</option>
-              <option data-i18n="catLegal">Legal</option>
-              <option data-i18n="catJobs">Jobs</option>
-              <option data-i18n="catLife">General life</option>
-            </select>
-          </div>
-          <div class="field">
-            <label data-i18n="lblQuestion">Your question</label>
-            <textarea id="q-text" data-i18n-ph="questionPh"></textarea>
-          </div>
-          <button class="btn-primary" id="btnSubmitQuestion" data-i18n="askFormSubmit">Post question</button>
-        </div>
-
         <div class="cat-chip-row" id="catChipRow"></div>
-        <div id="forumList"></div>
+        <div class="feed-scroll" id="forumFeedScroll"></div>
       </div>
 
       <div id="communityBuddies" style="display:none;">
@@ -438,10 +209,41 @@
     <!-- PROFILE -->
     <section class="view" id="view-profile">
       <div id="profileSignedOut">
-        <p class="eyebrow" data-i18n="profileEyebrow">Your account</p>
-        <h1 class="page-title" data-i18n="profileTitleSignedOut">Sign in to unlock more</h1>
-        <p class="page-sub" data-i18n="profileSubSignedOut">Posting, becoming a buddy, and sharing links all use the same quick sign-in.</p>
-        <button class="btn-primary" id="btnProfileSignIn" style="width:auto;padding:12px 22px;" data-i18n="signInBtnShort">Log in / Sign up</button>
+        <div class="guest-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.8 4.4-5.8 7.5-5.8s6.1 2 7.5 5.8"/></svg></div>
+        <h1 class="guest-title" data-i18n="profileTitleSignedOut">You're browsing as a guest</h1>
+        <p class="guest-sub" data-i18n="profileSubSignedOut">Browsing, liking, and saving all work without an account. An account is only needed to post or contact someone.</p>
+
+        <div class="guest-rows">
+          <button class="guest-row" id="btnGuestLiked">
+            <span class="guest-row-ic guest-row-ic--pink"><svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.6-10-9.1C.5 8.6 1.8 5 5.3 4.1c2-.5 4 .3 5.2 2 .4.5.7 1 1 1.6.3-.6.6-1.1 1-1.6 1.2-1.7 3.2-2.5 5.2-2 3.5.9 4.8 4.5 3.3 7.8-2.8 4.5-10 9.1-10 9.1z"/></svg></span>
+            <span class="guest-row-body"><strong data-i18n="tabLiked">Liked</strong><span id="guestLikedCount"></span></span>
+            <svg class="guest-row-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="pf-grid guest-inline-grid" id="guestLikedGrid" style="display:none;"></div>
+
+          <button class="guest-row" id="btnGuestSaved">
+            <span class="guest-row-ic guest-row-ic--cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v6l3-1.5L18 9V3"/><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"/></svg></span>
+            <span class="guest-row-body"><strong data-i18n="guestSavedLabel">Saved</strong><span id="guestSavedCount"></span></span>
+            <svg class="guest-row-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="pf-grid guest-inline-grid" id="guestSavedGrid" style="display:none;"></div>
+
+          <button class="guest-row" id="btnGuestLanguage">
+            <span class="guest-row-ic guest-row-ic--gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>
+            <span class="guest-row-body"><strong data-i18n="guestLanguageLabel">Language</strong><span data-i18n="guestLanguageValue">العربية · English · اردو</span></span>
+            <svg class="guest-row-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="guest-inline-lang" id="guestLanguageRow" style="display:none;">
+            <button data-lang-btn="en">EN</button>
+            <button data-lang-btn="ar">عربي</button>
+            <button data-lang-btn="ur">اردو</button>
+          </div>
+        </div>
+
+        <button class="btn-primary guest-signin-btn" id="btnProfileSignIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+          <span data-i18n="signInBtnShort">Sign in with WhatsApp</span>
+        </button>
       </div>
 
       <div id="profileSignedIn" style="display:none;">
@@ -486,9 +288,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.2-4.6-10-9.1C.5 8.6 1.8 5 5.3 4.1c2-.5 4 .3 5.2 2 .4.5.7 1 1 1.6.3-.6.6-1.1 1-1.6 1.2-1.7 3.2-2.5 5.2-2 3.5.9 4.8 4.5 3.3 7.8-2.8 4.5-10 9.1-10 9.1z"/></svg>
             <span data-i18n="tabLiked">Liked</span>
           </button>
+          <button class="pf-tab" data-ptab="saved">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v6l3-1.5L18 9V3"/><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"/></svg>
+            <span data-i18n="guestSavedLabel">Saved</span>
+          </button>
         </div>
         <div class="pf-grid" id="profilePostsGrid"></div>
         <div class="pf-grid" id="profileLikedGrid" style="display:none;"></div>
+        <div class="pf-grid" id="profileSavedGrid" style="display:none;"></div>
 
         <div class="panel" style="margin-top:20px;">
           <h3 data-i18n="myLinksTitle">My share links</h3>
@@ -518,30 +325,198 @@
     </section>
   </main>
 
-  <!-- SIGN-IN MODAL -->
+  <!-- QUICK COMPOSER: global overlay, reachable from every tab via the center nav button -->
+  <div class="quick-composer-scrim" id="quickComposerScrim"></div>
+  <div class="composer" id="quickComposer">
+    <div class="composer-step" data-qc-step="1" id="qcStep1">
+      <div class="composer-head">
+        <button class="composer-close" id="btnCloseQuickComposer" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div class="composer-dots"><span class="dot active"></span><span class="dot"></span></div>
+      </div>
+      <h2 data-i18n="qcStep1Title">What do you want to post?</h2>
+      <p class="composer-sub" data-i18n="qcStep1Sub">Pick one — you can change your mind anytime before you submit.</p>
+      <div class="composer-options" id="qcCatRow">
+        <button class="composer-option" data-qc-cat="housing">
+          <span class="composer-option-ic composer-option-ic--cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span>
+          <span class="composer-option-body">
+            <strong data-i18n="qcOptHousingTitle">Room or bed space</strong>
+            <span data-i18n="qcOptHousingSub">You have a spare space and need a tenant</span>
+          </span>
+          <svg class="composer-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        </button>
+        <button class="composer-option" data-qc-cat="inquiry">
+          <span class="composer-option-ic composer-option-ic--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 11.5a8.5 8.5 0 01-8.5 8.5c-1.35 0-2.61-.34-3.7-.94L3 21l1.94-5.8A8.5 8.5 0 1121 11.5z"/></svg></span>
+          <span class="composer-option-body">
+            <strong data-i18n="qcOptInquiryTitle">Question</strong>
+            <span data-i18n="qcOptInquirySub">Get an answer from people who've done it</span>
+          </span>
+          <svg class="composer-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        </button>
+        <button class="composer-option" data-qc-cat="guide">
+          <span class="composer-option-ic composer-option-ic--gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 18h6M10 22h4M12 2a6 6 0 00-3.5 10.9c.5.4.8 1 .8 1.6V16h5.4v-1.5c0-.6.3-1.2.8-1.6A6 6 0 0012 2z"/></svg></span>
+          <span class="composer-option-body">
+            <strong data-i18n="qcOptGuideTitle">Tip</strong>
+            <span data-i18n="qcOptGuideSub">Something you learned that could help others</span>
+          </span>
+          <svg class="composer-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="composer-step" data-qc-step="2" id="qcStep2" style="display:none;">
+      <div class="composer-head">
+        <button class="composer-back" id="btnQcBack" aria-label="Back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <div class="composer-dots"><span class="dot"></span><span class="dot active"></span></div>
+      </div>
+      <h2 id="qcStep2Title"></h2>
+
+      <div id="qcHousingFields" style="display:none;">
+        <div class="composer-field-card">
+          <div class="composer-field-head composer-field-head--cyan">
+            <span class="composer-field-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M8 7h5.5a2.5 2.5 0 010 5H8h6a2.5 2.5 0 010 5H8"/></svg></span>
+            <span data-i18n="lblRent">Monthly rent (SAR)</span>
+          </div>
+          <div class="composer-rent-row">
+            <input type="number" id="qc-rent" placeholder="600">
+            <span data-i18n="sarLabel">SAR</span>
+          </div>
+        </div>
+
+        <div class="composer-field-card">
+          <div class="composer-field-head composer-field-head--gold">
+            <span class="composer-field-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+            <span data-i18n="lblCity">City</span>
+          </div>
+          <div class="composer-chip-row" id="qcCityRow"></div>
+        </div>
+
+        <div class="composer-field-card">
+          <div class="composer-field-head composer-field-head--green">
+            <span class="composer-field-ic"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.34.63 4.53 1.73 6.42L3 29l7.27-2.19a12.4 12.4 0 005.73 1.4c6.905 0 12.5-5.596 12.5-12.5S22.906 3 16.001 3z"/></svg></span>
+            <span data-i18n="lblWhatsapp">WhatsApp number</span>
+          </div>
+          <input type="text" id="qc-wa" class="composer-plain-input" placeholder="+966 5x xxx xxxx">
+        </div>
+
+        <button class="composer-advanced-toggle" id="qcToggleAdvanced" type="button">
+          <span data-i18n="qcAdvancedToggle">Add more details (optional)</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div id="qcAdvancedFields" style="display:none;">
+          <div class="field-row">
+            <div class="field">
+              <label data-i18n="lblRoomType">Room type</label>
+              <select id="qc-roomtype">
+                <option value="shared" data-i18n="rtShared">Shared room</option>
+                <option value="private" data-i18n="rtPrivate">Private room</option>
+                <option value="bed" data-i18n="rtBed">Bed space</option>
+              </select>
+            </div>
+            <div class="field">
+              <label data-i18n="lblGender">Gender preference</label>
+              <select id="qc-gender">
+                <option value="any" data-i18n="genAny">Any</option>
+                <option value="male" data-i18n="genMale">Men only</option>
+                <option value="female" data-i18n="genFemale">Women only</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="lblNationality">Nationality / language preference</label>
+            <select id="qc-nat">
+              <option value="all" data-i18n="natAny">Any</option>
+              <option value="Indian">Indian</option>
+              <option value="Pakistani">Pakistani</option>
+              <option value="Filipino">Filipino</option>
+              <option value="Arab" data-i18n="natArab">Arab</option>
+              <option value="Bangladeshi">Bangladeshi</option>
+              <option value="other" data-i18n="natOther">Other</option>
+            </select>
+          </div>
+          <div class="field" id="qcNatOtherField" style="display:none;">
+            <label data-i18n="lblNatOther">Specify nationality / language</label>
+            <input type="text" id="qc-nat-other" placeholder="e.g. Nepali">
+          </div>
+          <div class="toggle-row">
+            <span data-i18n="lblBills">Electricity &amp; water included</span>
+            <label class="switch"><input type="checkbox" id="qc-bills" checked><span class="track"></span></label>
+          </div>
+          <div class="field">
+            <label data-i18n="videoLabel">Room video (optional)</label>
+            <p class="hint" style="margin:0 0 8px;" data-i18n="videoHint">A short walkthrough gets far more replies than photos alone.</p>
+            <input type="file" id="qc-video" accept="video/*">
+            <p class="hint" id="qcVideoUploadStatus" style="margin:6px 0 0;display:none;" data-i18n="uploadingVideo">Uploading video...</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="qcInquiryFields" style="display:none;">
+        <p class="composer-field-label" data-i18n="lblCategory">Category</p>
+        <div class="composer-chip-row" id="qcInquiryCatRow">
+          <button class="composer-chip active" data-qc-i-cat="Housing" data-i18n="catHousing">Housing</button>
+          <button class="composer-chip" data-qc-i-cat="Legal" data-i18n="catLegal">Legal</button>
+          <button class="composer-chip" data-qc-i-cat="Jobs" data-i18n="catJobs">Jobs</button>
+          <button class="composer-chip" data-qc-i-cat="General life" data-i18n="catLife">General life</button>
+        </div>
+        <div class="field">
+          <label data-i18n="lblQuestion">Your question</label>
+          <textarea id="qc-i-text" data-i18n-ph="questionPh"></textarea>
+        </div>
+      </div>
+
+      <div id="qcGuideFields" style="display:none;">
+        <div class="field">
+          <label data-i18n="qcTextLabel">What's on your mind?</label>
+          <textarea id="qc-text" data-i18n-ph="qcTextPh"></textarea>
+        </div>
+        <div class="field">
+          <label data-i18n="qcImageLabel">Add a photo (optional)</label>
+          <input type="file" id="qc-image" accept="image/*">
+          <p class="hint" id="qcImageUploadStatus" style="margin:6px 0 0;display:none;" data-i18n="uploadingImage">Uploading image...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer-footer">
+      <button class="btn-primary composer-cta" id="btnQcNext" data-i18n="qcNext">Next</button>
+      <button class="btn-primary composer-cta" id="btnSubmitQuickPost" style="display:none;" data-i18n="qcPublish">Publish</button>
+    </div>
+  </div>
+
+  <!-- SIGN-IN MODAL (WhatsApp OTP) -->
   <div class="modal-overlay" id="signInModal" style="display:none;">
     <div class="modal-box">
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="authTabLogin" data-auth-tab="login" data-i18n="loginTabLabel">Log in</button>
-        <button class="auth-tab" id="authTabSignup" data-auth-tab="signup" data-i18n="signupTabLabel">Sign up</button>
-      </div>
-      <p class="hint" id="authHint" data-i18n="loginHint">Log in with your username and password.</p>
+      <h3 data-i18n="signInTitle">Sign in with WhatsApp</h3>
+      <p class="hint" data-i18n="signInHint">Browsing, liking, and saving never need an account — this is only for posting or contacting someone.</p>
 
       <p class="auth-error" id="authError" style="display:none;"></p>
 
-      <div class="field" id="signupNameField" style="display:none;">
-        <label data-i18n="lblName">Your name</label>
-        <input type="text" id="si-name" autocomplete="name">
+      <div id="otpPhoneStep">
+        <div class="field">
+          <label data-i18n="lblPhone">WhatsApp number</label>
+          <input type="tel" id="si-phone" placeholder="+9665xxxxxxxx" autocomplete="tel">
+        </div>
+        <button class="btn-primary" id="btnSendOtp" data-i18n="sendCodeBtn">Send code on WhatsApp</button>
       </div>
-      <div class="field">
-        <label data-i18n="lblUsername">Username</label>
-        <input type="text" id="si-username" autocomplete="username" autocapitalize="off" spellcheck="false">
+
+      <div id="otpCodeStep" style="display:none;">
+        <p class="hint" id="otpSentHint"></p>
+        <div class="field">
+          <label data-i18n="lblOtpCode">6-digit code</label>
+          <input type="tel" id="si-code" maxlength="6" inputmode="numeric" placeholder="••••••">
+        </div>
+        <div class="field">
+          <label data-i18n="lblName">Your name (optional)</label>
+          <input type="text" id="si-name" autocomplete="name">
+        </div>
+        <button class="btn-primary" id="btnVerifyOtp" data-i18n="verifyBtn">Verify &amp; sign in</button>
+        <button class="toggle-open" id="btnResendOtp" style="margin-top:10px;" data-i18n="resendCodeBtn">Resend code</button>
       </div>
-      <div class="field">
-        <label data-i18n="lblPassword">Password</label>
-        <input type="password" id="si-password" autocomplete="current-password">
-      </div>
-      <button class="btn-primary" id="btnSignInSubmit" data-i18n="signInSubmit">Log in</button>
+
       <button class="toggle-open" id="btnSignInCancel" style="margin-top:10px;margin-bottom:0;border-style:solid;">✕</button>
     </div>
   </div>
