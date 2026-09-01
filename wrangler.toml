@@ -1,0 +1,23 @@
+# Cloudflare Workers deployment for Sanad.
+#
+# Sanad is a static, no-build application: index.html, app.js and styles.css
+# are served to the browser exactly as they exist in this repository. There is
+# nothing to compile, so this Worker runs no server-side code at all -- it is
+# an assets-only Worker, which is why there is no `main` entrypoint.
+#
+# Workers Builds was failing before this file existed: the Cloudflare project
+# was connected to the repository but had no configuration telling it what to
+# deploy, so every build failed at dispatch without running.
+
+name = "sanad"
+compatibility_date = "2026-09-01"
+
+[assets]
+# The application lives at the repository root. Everything that is not part of
+# the served application is excluded in .assetsignore.
+directory = "./"
+
+# Deep links are query strings (/?listing=..., /?profile=..., /?ref=...), never
+# paths, so any unmatched path should still land on the app rather than a bare
+# 404. This also makes the Worker assets-only: no Worker code is invoked.
+not_found_handling = "single-page-application"
