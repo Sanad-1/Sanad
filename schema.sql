@@ -435,14 +435,97 @@ alter table app_users alter column username drop not null;
 alter table app_users drop constraint if exists app_users_username_key;
 
 -- phone becomes the real identity column going forward.
-update app_users set phone = 'legacy-' || id::text where phone is null;
-alter table app_users alter column phone set not null;
+--
+-- Existing rows predate OTP login: their phone column was free text
+-- (or empty), while sign-in now requires strict E.164 (+<country><number>).
+-- Three rules here, chosen so that no existing account is silently lost:
+--
+--   1. The original value is preserved in legacy_phone before anything
+--      touches phone, so a human can reconcile accounts by hand later.
+--   2. phone is normalised for FORMATTING ONLY — separators stripped,
+--      a leading 00 turned into +. No country code is ever guessed:
+--      inventing +966 for a bare local number would silently bind an
+--      account to a number its owner may not control.
+--   3. Anything that still is not valid E.164 becomes NULL, not a
+--      fabricated placeholder. NULL means "cannot sign in until
+--      reconciled", which is recoverable. A fake value like
+--      'legacy-<uuid>' would occupy the unique slot forever and can
+--      never be matched by any real OTP login.
+
+alter table app_users add column if not exists legacy_phone text;
+
+-- Drop NOT NULL first: an earlier version of this migration set it, and
+-- rule 3 below needs to be able to write NULL over a fabricated value.
+alter table app_users alter column phone drop not null;
+
+-- Undo the fabricated placeholders written by that earlier version, so
+-- rerunning this file repairs a database it previously mangled.
+update app_users set phone = null where phone like 'legacy-%';
+
+update app_users
+   set legacy_phone = phone
+ where legacy_phone is null
+   and phone is not null;
+
+-- Formatting-only normalisation: strip spaces, dashes, dots, brackets;
+-- convert an international 00 prefix to +.
+update app_users
+   set phone = regexp_replace(regexp_replace(phone, '[\s().-]', '', 'g'), '^00', '+')
+ where phone is not null;
+
+-- Anything not valid E.164 after normalisation cannot be an identity.
+update app_users
+   set phone = null
+ where phone is not null
+   and phone !~ '^\+[1-9][0-9]{7,14}$';
+
+-- Two legacy rows can normalise to the SAME number (the same person
+-- signed up twice, or a shared phone was reused). A unique index would
+-- simply abort the migration part-way, leaving auth dropped and no
+-- replacement in place. Instead keep the OLDEST row as the owner of that
+-- number and park the others at NULL — recoverable, and it never picks a
+-- winner by accident.
 do $$
+declare v_dupes int;
 begin
-  alter table app_users add constraint app_users_phone_key unique (phone);
-exception
-  when duplicate_table then null;
-  when duplicate_object then null;
+  with ranked as (
+    select id,
+           row_number() over (partition by phone order by created_at, id) as rn
+      from app_users
+     where phone is not null
+  )
+  update app_users u
+     set phone = null
+    from ranked r
+   where u.id = r.id
+     and r.rn > 1;
+
+  get diagnostics v_dupes = row_count;
+  if v_dupes > 0 then
+    raise notice
+      'Sanad: % app_users row(s) shared a phone number with an older account and were parked at NULL. Original values remain in app_users.legacy_phone.',
+      v_dupes;
+  end if;
+end $$;
+
+-- phone stays NULLABLE on purpose. Making it NOT NULL would force a
+-- fabricated value onto every unreconciled legacy row — see rule 3.
+-- A partial unique index gives the same identity guarantee for real
+-- numbers while allowing many unreconciled rows to sit at NULL.
+create unique index if not exists app_users_phone_key
+    on app_users (phone)
+ where phone is not null;
+
+-- Report what could not be migrated, so this is never silent.
+do $$
+declare v_orphans int;
+begin
+  select count(*) into v_orphans from app_users where phone is null;
+  if v_orphans > 0 then
+    raise notice
+      'Sanad: % app_users row(s) have no valid E.164 phone and cannot sign in until reconciled. Their original value is preserved in app_users.legacy_phone.',
+      v_orphans;
+  end if;
 end $$;
 
 -- phone_login is deliberately NOT granted to anon/authenticated —
