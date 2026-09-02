@@ -36,74 +36,60 @@ if (!SUPABASE_CONFIGURED) {
 const translations = {
 en: {
   brandName:"Sanad · سند", brandTag:"Your support system in Saudi Arabia",
-  navHome:"Home", navGuide:"Guide", navHousing:"Explore", navCommunity:"Community",
+  navHome:"Home", navGuide:"Guide", navHousing:"Feed", navCommunity:"Community",
   chipAll:"All", chipHousing:"Housing", chipInquiries:"Inquiries", chipGuides:"Tips",
-  heroTitle:"One place for housing, guidance, and community.",
-  heroSub:"Skip the confusing Facebook groups. Find a room, understand your rights, and ask people who've been there.",
-  statCities:"Cities covered", statListings:"Rooms shared this month", statLangs:"Languages",
   qnGuideTitle:"Know your rights", qnGuideSub:"Labor law, Qiwa, Iqama & banking, explained simply",
   qnHousingTitle:"Find a room", qnHousingSub:"Shared housing across 6 major cities",
   qnCommunityTitle:"Ask the community", qnCommunitySub:"Real answers from people already living here — not a random Facebook group",
-  trustTitle:"Built to be trustworthy",
-  trustBody:"No login wall for browsing, no algorithm deciding what you see. Guide content is written in plain language and reviewed for accuracy, not virality.",
   guideEyebrow:"Knowledge guide hub", guideTitle:"Understand the system before it confuses you",
   guideSub:"Short, plain-language explainers on the things every worker eventually needs.",
   housingEyebrow:"Roommate & shared housing board", housingTitle:"Find your next room",
   housingSub:"Real listings from tenants and property owners. Contact directly on WhatsApp — no middleman.",
   housingPostBtn:"New post",
-  postFormTitle:"Post a listing", postFormHint:"This is a demo form — submissions are shown below but not saved.",
   lblCity:"City", lblRent:"Monthly rent (SAR)", lblRoomType:"Room type",
   rtShared:"Shared room", rtPrivate:"Private room", rtBed:"Bed space",
   lblGender:"Gender preference", genAny:"Any", genMale:"Men only", genFemale:"Women only",
   lblNationality:"Nationality / language preference", natAny:"Any", natArab:"Arab",
   lblBills:"Electricity & water included", lblDesc:"Description", descPh:"e.g. Close to metro, quiet flat, 3 flatmates already...",
-  lblWhatsapp:"WhatsApp number", postFormSubmit:"Publish listing",
-  filterAllCities:"All cities", filterAnyBudget:"Any budget", filterUnder500:"Under 500 SAR", filterUnder800:"Under 800 SAR", filterUnder1200:"Under 1,200 SAR",
+  lblWhatsapp:"WhatsApp number",
+  filterAllCities:"All cities", filterAnyBudget:"Any budget", filterUnder500:"Under 500", filterBudget500to800:"500 – 800 SAR", filterBudget800to1200:"800 – 1,200 SAR",
   filterAnyNat:"Any nationality pref.",
   perMonth:"/ month", contactWA:"WhatsApp", billsIncluded:"Bills included", billsShared:"Bills shared",
   postedBy:"Posted by",
   communityEyebrow:"Community Q&A", communityTitle:"Ask people who've already figured it out",
   communitySub:"Peer answers on housing, legal questions, jobs, and everyday life.",
-  communityAskBtn:"Ask a question",
-  askFormTitle:"New question", askFormHint:"This is a demo form — submissions are shown below but not saved.",
   lblCategory:"Category", catHousing:"Housing", catLegal:"Legal", catJobs:"Jobs", catLife:"General life",
-  lblQuestion:"Your question", questionPh:"Type your question here...", askFormSubmit:"Post question",
+  lblQuestion:"Your question", questionPh:"Type your question here...",
   catAll:"All", replies:"replies", viewReplies:"View replies", hideReplies:"Hide replies",
   repliedBy:"Replied by", replyPh:"Write a helpful answer...", replySubmit:"Reply", replySignInHint:"Sign in to answer this question.",
   footNote:"Sanad is a community platform. Always verify official procedures on government portals such as Qiwa, Absher, and Muqeem.",
   emergencyTitle:"Emergency contacts", em911:"Emergency (Police)", em998:"Civil Defense (Fire)", em997:"Ambulance (Red Crescent)", em19911:"Ministry of HR — Labor Inquiries",
   navProfile:"Profile", shareLabel:"Share", copyLink:"Copy link", linkCopied:"Link copied!", shareViaWhatsapp:"Share via WhatsApp", shareThisPage:"Share this page",
-  loginTabLabel:"Log in", signupTabLabel:"Sign up",
-  loginHint:"Log in with your username and password.", signupHint:"Pick a username and password — that's all you need.",
-  lblName:"Your name", lblUsername:"Username", lblPassword:"Password",
-  signInSubmit:"Log in", signInBtnShort:"Log in / Sign up", signOutBtn:"Sign out",
-  authErrorMissing:"Enter a username and password.", authErrorShort:"Password must be at least 6 characters.",
-  authErrorTaken:"That username is already taken.", authErrorInvalid:"Wrong username or password.",
-  authErrorNetwork:"Couldn't reach the server — try again.",
+  lblName:"Your name", signOutBtn:"Sign out",
   communityTabQA:"Q&A", communityTabBuddies:"Buddies", becomeBuddyBtn:"Become a buddy — help newcomers",
   buddyFormTitle:"Sign up as a buddy", buddyFormHint:"Newcomers will be able to see your profile and reach you on WhatsApp.",
   lblHelpAreas:"What can you help with?", helpHousing:"Finding housing", helpPaperwork:"Paperwork & procedures", helpOrientation:"General orientation",
   lblBio:"Short bio", bioPh:"e.g. Lived in Riyadh for 3 years, happy to help with Absher/Nafath setup...",
   buddyFormSubmit:"Publish my buddy profile", noBuddiesYet:"No buddies listed yet — be the first!", helpsWith:"Can help with",
   videoLabel:"Room video (optional)", videoHint:"A short walkthrough gets far more replies than photos alone.", uploadingVideo:"Uploading video...",
-  qcTitle:"New post", qcHousingHint:"Housing posts need a few extra details — opening the full form…",
-  qcTextLabel:"What's on your mind?", qcTextPh:"Ask something, share a tip, or post an update...",
-  qcImageLabel:"Add a photo (optional)", uploadingImage:"Uploading image...", qcSubmit:"Post",
-  qcAskHint:"Got a question instead? Ask it in Community — it'll also show up here for others to discover.",
+  qcTextLabel:"What's on your mind?", qcTextPh:"Share a tip that could help someone new...",
+  qcImageLabel:"Add a photo (optional)", uploadingImage:"Uploading image...",
   viewAndAnswer:"View & answer", fromCommunity:"From Community",
   requiredTag:"(required)", optionalTag:"(optional)", natOther:"Other", lblNatOther:"Specify nationality / language",
-  profileEyebrow:"Your account", profileTitleSignedOut:"Sign in to unlock more", profileSubSignedOut:"Posting, becoming a buddy, and sharing links all use the same account.",
+  profileEyebrow:"Your account",
+  profileTitleSignedOut:"You're browsing as a guest",
+  profileSubSignedOut:"Browsing, liking, and saving all work without an account. An account is only needed to post or contact someone.",
   myLinksTitle:"My share links", myLinksHint:"Generate a personal link for any section — you'll see how many times each one gets clicked.",
   generateLinkBtn:"Get link", clicksLabel:"clicks",
   filterAnyGender:"Any gender", filterMaleOnly:"Men only", filterFemaleOnly:"Women only",
-  filterAnyRoom:"Any room type", filterShared:"Shared room", filterPrivate:"Private room", filterBed:"Bed space",
+  filterAnyRoom:"Any room type", filterShared:"Shared", filterPrivate:"Private", filterBed:"Bed",
   filtersLabel:"Filters", filtersReset:"Reset", filtersShow:"Show results",
-  lblBudget:"Budget", lblNatShort:"Nationality", lblGenderShort:"Gender",
+  lblBudget:"Budget per month", lblNatShort:"Nationality", lblGenderShort:"Gender",
   noListingsTitle:"No rooms match these filters", noListingsSub:"Try a wider budget, or clear a filter or two.",
-  soundTicker:"Original sound · Sanad Housing", likeLabel:"Like",
+  soundTicker:"Original sound · Sanad Housing", likeLabel:"Like", saveLabel:"Save",
   statMyListings:"Listings", statMyQuestions:"Questions", statMyClicks:"Link clicks",
   tabMyPosts:"Posts", tabLiked:"Liked", memberSince:"Member since",
-  noPostsYet:"No listings posted yet", noLikedYet:"Rooms you like will show up here",
+  noPostsYet:"No listings posted yet", noLikedYet:"Rooms you like will show up here", noSavedYet:"Things you save will show up here",
   backBtn:"Back", loadingProfile:"Loading…", publicProfileUnavailable:"Profile not available",
   communityTabLeaderboard:"Top Helpers", leaderboardMonthLabel:"Top Helpers —",
   lbFilterAll:"Everyone", lbFilterOpenToWork:"Open to work", lbStatReplies:"replies", lbStatVotes:"upvotes",
@@ -112,77 +98,74 @@ en: {
   openToWorkToggleLabel:"Visible to employers looking to hire",
   openToWorkHint:"Turning this on shows your name and lets employers message you on WhatsApp from the Top Helpers list.",
   openToWorkWhatsappLabel:"WhatsApp number to show employers", saveBtn:"Save",
+  composerNewPost:"New post",
+  qcStep1Title:"What do you want to post?", qcStep1Sub:"Pick one — you can change your mind anytime before you submit.",
+  qcOptHousingTitle:"Room or bed space", qcOptHousingSub:"You have a spare space and need a tenant",
+  qcOptInquiryTitle:"Question", qcOptInquirySub:"Get an answer from people who've done it",
+  qcOptGuideTitle:"Tip", qcOptGuideSub:"Something you learned that could help others",
+  qcAdvancedToggle:"Add more details (optional)", qcNext:"Next", qcPublish:"Publish", sarLabel:"SAR",
+  guestSavedLabel:"Saved", guestLanguageLabel:"Language", guestLanguageValue:"العربية · English · اردو",
+  likedCountLabel:"{n} liked on this phone", savedCountLabel:"{n} saved on this phone",
+  signInBtnShort:"Log in / Sign up",
+  authErrorInvalid:"Wrong username or password.", authErrorMissing:"Enter a username and password.", authErrorNetwork:"Couldn't reach the server — try again.", authErrorShort:"Password must be at least 6 characters.", authErrorTaken:"That username is already taken.", loginHint:"Log in with your username and password.", loginTabLabel:"Log in", signInSubmit:"Log in", signupHint:"Pick a username and password — that's all you need.", signupTabLabel:"Sign up",
+  lblUsername:"Username", lblPassword:"Password",
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
-  navHome:"الرئيسية", navGuide:"الدليل", navHousing:"استكشف", navCommunity:"المجتمع",
+  navHome:"الرئيسية", navGuide:"الدليل", navHousing:"الفيد", navCommunity:"المجتمع",
   chipAll:"الكل", chipHousing:"سكن", chipInquiries:"استفسارات", chipGuides:"نصائح",
-  heroTitle:"مكان واحد للسكن والإرشاد والمجتمع",
-  heroSub:"تجاوز مجموعات فيسبوك المربكة. اعثر على غرفة، افهم حقوقك، واسأل من سبقوك بالتجربة.",
-  statCities:"مدن مغطاة", statListings:"غرف تم مشاركتها هذا الشهر", statLangs:"لغات",
   qnGuideTitle:"اعرف حقوقك", qnGuideSub:"نظام العمل، قوى، الإقامة والبنوك بشرح مبسّط",
   qnHousingTitle:"ابحث عن غرفة", qnHousingSub:"سكن مشترك في ٦ مدن رئيسية",
   qnCommunityTitle:"اسأل المجتمع", qnCommunitySub:"إجابات حقيقية من أشخاص يعيشون هنا فعلاً — وليس مجموعة فيسبوك عشوائية",
-  trustTitle:"مصمَّم ليكون جديراً بالثقة",
-  trustBody:"لا تحتاج تسجيل دخول للتصفح، ولا خوارزمية تتحكم بما تراه. محتوى الدليل مكتوب بلغة بسيطة ويُراجَع للدقة لا للانتشار.",
   guideEyebrow:"مركز الدليل المعرفي", guideTitle:"افهم النظام قبل أن يربكك",
   guideSub:"شروحات قصيرة وبلغة بسيطة لكل ما يحتاجه العامل عاجلاً أم آجلاً.",
   housingEyebrow:"لوحة السكن المشترك والزملاء", housingTitle:"ابحث عن غرفتك القادمة",
   housingSub:"إعلانات حقيقية من مستأجرين وملاك عقارات. تواصل مباشرة عبر واتساب — بدون وسيط.",
   housingPostBtn:"منشور جديد",
-  postFormTitle:"نشر إعلان", postFormHint:"هذا نموذج تجريبي — تظهر الإعلانات أدناه ولا يتم حفظها.",
   lblCity:"المدينة", lblRent:"الإيجار الشهري (ريال)", lblRoomType:"نوع الغرفة",
   rtShared:"غرفة مشتركة", rtPrivate:"غرفة خاصة", rtBed:"سرير فقط",
   lblGender:"تفضيل الجنس", genAny:"الكل", genMale:"رجال فقط", genFemale:"نساء فقط",
   lblNationality:"تفضيل الجنسية / اللغة", natAny:"أي جنسية", natArab:"عربي",
   lblBills:"الكهرباء والماء شاملة", lblDesc:"الوصف", descPh:"مثال: قريب من المترو، شقة هادئة، ٣ سكان حالياً...",
-  lblWhatsapp:"رقم واتساب", postFormSubmit:"نشر الإعلان",
-  filterAllCities:"كل المدن", filterAnyBudget:"أي ميزانية", filterUnder500:"أقل من ٥٠٠ ريال", filterUnder800:"أقل من ٨٠٠ ريال", filterUnder1200:"أقل من ١٢٠٠ ريال",
+  lblWhatsapp:"رقم واتساب",
+  filterAllCities:"كل المدن", filterAnyBudget:"أي ميزانية", filterUnder500:"أقل من ٥٠٠", filterBudget500to800:"٥٠٠ – ٨٠٠ ريال", filterBudget800to1200:"٨٠٠ – ١٬٢٠٠ ريال",
   filterAnyNat:"أي تفضيل جنسية",
   perMonth:"/ شهرياً", contactWA:"واتساب", billsIncluded:"الفواتير شاملة", billsShared:"الفواتير مشتركة",
   postedBy:"نشره",
   communityEyebrow:"أسئلة وأجوبة المجتمع", communityTitle:"اسأل من سبقك بالتجربة",
   communitySub:"إجابات من زملاء حول السكن والمسائل القانونية والعمل والحياة اليومية.",
-  communityAskBtn:"اطرح سؤالاً",
-  askFormTitle:"سؤال جديد", askFormHint:"هذا نموذج تجريبي — تظهر الأسئلة أدناه ولا يتم حفظها.",
   lblCategory:"التصنيف", catHousing:"السكن", catLegal:"قانوني", catJobs:"وظائف", catLife:"حياة عامة",
-  lblQuestion:"سؤالك", questionPh:"اكتب سؤالك هنا...", askFormSubmit:"نشر السؤال",
+  lblQuestion:"سؤالك", questionPh:"اكتب سؤالك هنا...",
   catAll:"الكل", replies:"ردود", viewReplies:"عرض الردود", hideReplies:"إخفاء الردود",
   repliedBy:"ردّ عليه", replyPh:"اكتب إجابة مفيدة...", replySubmit:"رد", replySignInHint:"سجّل الدخول للإجابة على هذا السؤال.",
   footNote:"سند منصة مجتمعية. تأكد دائماً من الإجراءات الرسمية عبر البوابات الحكومية مثل قوى وأبشر ومقيم.",
   emergencyTitle:"أرقام الطوارئ", em911:"الطوارئ (الشرطة)", em998:"الدفاع المدني (الإطفاء)", em997:"الإسعاف (الهلال الأحمر)", em19911:"وزارة الموارد البشرية — استفسارات العمل",
-  navProfile:"الملف الشخصي", shareLabel:"مشاركة", copyLink:"نسخ الرابط", linkCopied:"تم نسخ الرابط!", shareViaWhatsapp:"مشاركة عبر واتساب", shareThisPage:"شارك هذه الصفحة",
-  loginTabLabel:"تسجيل الدخول", signupTabLabel:"إنشاء حساب",
-  loginHint:"سجّل الدخول باسم المستخدم وكلمة المرور.", signupHint:"اختر اسم مستخدم وكلمة مرور — هذا كل ما تحتاجه.",
-  lblName:"اسمك", lblUsername:"اسم المستخدم", lblPassword:"كلمة المرور",
-  signInSubmit:"تسجيل الدخول", signInBtnShort:"تسجيل الدخول / إنشاء حساب", signOutBtn:"تسجيل الخروج",
-  authErrorMissing:"أدخل اسم المستخدم وكلمة المرور.", authErrorShort:"يجب أن تتكون كلمة المرور من ٦ أحرف على الأقل.",
-  authErrorTaken:"اسم المستخدم هذا مُستخدم بالفعل.", authErrorInvalid:"اسم المستخدم أو كلمة المرور غير صحيحة.",
-  authErrorNetwork:"تعذر الوصول إلى الخادم — حاول مرة أخرى.",
+  navProfile:"أنا", shareLabel:"مشاركة", copyLink:"نسخ الرابط", linkCopied:"تم نسخ الرابط!", shareViaWhatsapp:"مشاركة عبر واتساب", shareThisPage:"شارك هذه الصفحة",
+  lblName:"اسمك", signOutBtn:"تسجيل الخروج",
   communityTabQA:"أسئلة وأجوبة", communityTabBuddies:"الرفقاء", becomeBuddyBtn:"كن رفيقاً — ساعد الوافدين الجدد",
   buddyFormTitle:"سجّل كرفيق", buddyFormHint:"سيتمكن الوافدون الجدد من رؤية ملفك الشخصي والتواصل معك عبر واتساب.",
   lblHelpAreas:"بماذا يمكنك المساعدة؟", helpHousing:"إيجاد السكن", helpPaperwork:"الأوراق والإجراءات", helpOrientation:"التوجيه العام",
   lblBio:"نبذة قصيرة", bioPh:"مثال: أعيش في الرياض منذ 3 سنوات، يسعدني المساعدة في إعداد أبشر ونفاذ...",
   buddyFormSubmit:"نشر ملفي كرفيق", noBuddiesYet:"لا يوجد رفقاء بعد — كن الأول!", helpsWith:"يمكنه المساعدة في",
   videoLabel:"فيديو الغرفة (اختياري)", videoHint:"جولة قصيرة بالفيديو تحصل على ردود أكثر بكثير من الصور فقط.", uploadingVideo:"جارٍ رفع الفيديو...",
-  qcTitle:"منشور جديد", qcHousingHint:"منشورات السكن تحتاج بعض التفاصيل الإضافية — يتم فتح النموذج الكامل…",
-  qcTextLabel:"ما الذي يدور في ذهنك؟", qcTextPh:"اسأل شيئًا، شارك نصيحة، أو انشر تحديثًا...",
-  qcImageLabel:"أضف صورة (اختياري)", uploadingImage:"جارٍ رفع الصورة...", qcSubmit:"نشر",
-  qcAskHint:"عندك سؤال بدل ذلك؟ اسأله في المجتمع — بيظهر هنا بردو عشان الكل يشوفه.",
+  qcTextLabel:"ما الذي يدور في ذهنك؟", qcTextPh:"شارك نصيحة قد تفيد شخصاً جديداً...",
+  qcImageLabel:"أضف صورة (اختياري)", uploadingImage:"جارٍ رفع الصورة...",
   viewAndAnswer:"عرض والإجابة", fromCommunity:"من المجتمع",
   requiredTag:"(مطلوب)", optionalTag:"(اختياري)", natOther:"أخرى", lblNatOther:"حدد الجنسية / اللغة",
-  profileEyebrow:"حسابك", profileTitleSignedOut:"سجّل الدخول لفتح المزيد", profileSubSignedOut:"النشر والانضمام كرفيق ومشاركة الروابط، كلها تستخدم نفس الحساب.",
+  profileEyebrow:"حسابك",
+  profileTitleSignedOut:"أنت تتصفح كزائر",
+  profileSubSignedOut:"التصفح والإعجاب والحفظ كلها تعمل بدون حساب. الحساب فقط للنشر أو التواصل مع أحد.",
   myLinksTitle:"روابط المشاركة الخاصة بي", myLinksHint:"أنشئ رابطاً شخصياً لأي قسم — ستشاهد عدد مرات النقر على كل رابط.",
   generateLinkBtn:"احصل على الرابط", clicksLabel:"نقرات",
   filterAnyGender:"أي جنس", filterMaleOnly:"رجال فقط", filterFemaleOnly:"نساء فقط",
-  filterAnyRoom:"أي نوع غرفة", filterShared:"غرفة مشتركة", filterPrivate:"غرفة خاصة", filterBed:"سرير فقط",
-  filtersLabel:"الفلاتر", filtersReset:"إعادة ضبط", filtersShow:"عرض النتائج",
-  lblBudget:"الميزانية", lblNatShort:"الجنسية", lblGenderShort:"الجنس",
+  filterAnyRoom:"أي نوع", filterShared:"مشتركة", filterPrivate:"خاصة", filterBed:"سرير",
+  filtersLabel:"الفلاتر", filtersReset:"مسح", filtersShow:"عرض النتائج",
+  lblBudget:"الميزانية بالشهر", lblNatShort:"الجنسية", lblGenderShort:"الجنس",
   noListingsTitle:"لا توجد غرف مطابقة لهذه الفلاتر", noListingsSub:"جرّب ميزانية أوسع أو أزل فلتراً أو اثنين.",
-  soundTicker:"صوت أصلي · سند للإسكان", likeLabel:"إعجاب",
+  soundTicker:"صوت أصلي · سند للإسكان", likeLabel:"إعجاب", saveLabel:"احفظ",
   statMyListings:"الإعلانات", statMyQuestions:"الأسئلة", statMyClicks:"نقرات الروابط",
   tabMyPosts:"إعلاناتي", tabLiked:"أعجبني", memberSince:"عضو منذ",
-  noPostsYet:"لم تنشر أي إعلان بعد", noLikedYet:"الغرف التي تعجبك ستظهر هنا",
+  noPostsYet:"لم تنشر أي إعلان بعد", noLikedYet:"الغرف التي تعجبك ستظهر هنا", noSavedYet:"الأشياء التي تحفظها ستظهر هنا",
   backBtn:"رجوع", loadingProfile:"جارٍ التحميل…", publicProfileUnavailable:"الملف الشخصي غير متاح",
   communityTabLeaderboard:"الأكثر مساعدة", leaderboardMonthLabel:"الأكثر مساعدة —",
   lbFilterAll:"الجميع", lbFilterOpenToWork:"متاح للعمل", lbStatReplies:"ردود", lbStatVotes:"إعجابات",
@@ -191,77 +174,74 @@ ar: {
   openToWorkToggleLabel:"مرئي لأصحاب العمل الباحثين عن موظفين",
   openToWorkHint:"تفعيل هذا يُظهر اسمك ويسمح لأصحاب العمل بمراسلتك عبر واتساب من قائمة الأكثر مساعدة.",
   openToWorkWhatsappLabel:"رقم واتساب لعرضه على أصحاب العمل", saveBtn:"حفظ",
+  composerNewPost:"منشور جديد",
+  qcStep1Title:"وش تبغى تنشر؟", qcStep1Sub:"اختر واحد. تقدر ترجع وتغيّر رأيك في أي وقت قبل النشر.",
+  qcOptHousingTitle:"غرفة أو سرير", qcOptHousingSub:"عندك مكان فاضي وتبغى ساكن",
+  qcOptInquiryTitle:"سؤال", qcOptInquirySub:"احصل على إجابة من ناس جربوا قبلك",
+  qcOptGuideTitle:"نصيحة", qcOptGuideSub:"شي تعلمته وتبغى غيرك يستفيد منه",
+  qcAdvancedToggle:"أضف تفاصيل إضافية (اختياري)", qcNext:"التالي", qcPublish:"انشر الآن", sarLabel:"ريال",
+  guestSavedLabel:"المحفوظات", guestLanguageLabel:"اللغة", guestLanguageValue:"العربية · English · اردو",
+  likedCountLabel:"{n} إعجاب على هذا الجهاز", savedCountLabel:"{n} محفوظ على هذا الجهاز",
+  signInBtnShort:"تسجيل الدخول / إنشاء حساب",
+  authErrorInvalid:"اسم المستخدم أو كلمة المرور غير صحيحة.", authErrorMissing:"أدخل اسم المستخدم وكلمة المرور.", authErrorNetwork:"تعذر الوصول إلى الخادم — حاول مرة أخرى.", authErrorShort:"يجب أن تتكون كلمة المرور من ٦ أحرف على الأقل.", authErrorTaken:"اسم المستخدم هذا مُستخدم بالفعل.", loginHint:"سجّل الدخول باسم المستخدم وكلمة المرور.", loginTabLabel:"تسجيل الدخول", signInSubmit:"تسجيل الدخول", signupHint:"اختر اسم مستخدم وكلمة مرور — هذا كل ما تحتاجه.", signupTabLabel:"إنشاء حساب",
+  lblUsername:"اسم المستخدم", lblPassword:"كلمة المرور",
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
-  navHome:"ہوم", navGuide:"گائیڈ", navHousing:"دریافت کریں", navCommunity:"کمیونٹی",
+  navHome:"ہوم", navGuide:"گائیڈ", navHousing:"فیڈ", navCommunity:"کمیونٹی",
   chipAll:"تمام", chipHousing:"رہائش", chipInquiries:"سوالات", chipGuides:"تجاویز",
-  heroTitle:"رہائش، رہنمائی اور کمیونٹی — سب ایک جگہ",
-  heroSub:"الجھی ہوئی فیس بک گروپس کو چھوڑیں۔ کمرہ ڈھونڈیں، اپنے حقوق سمجھیں، اور تجربہ کار لوگوں سے سوال کریں۔",
-  statCities:"شہر شامل ہیں", statListings:"اس مہینے شیئر ہونے والے کمرے", statLangs:"زبانیں",
   qnGuideTitle:"اپنے حقوق جانیں", qnGuideSub:"لیبر قانون، قویٰ، اقامہ اور بینکنگ — آسان زبان میں",
   qnHousingTitle:"کمرہ تلاش کریں", qnHousingSub:"6 بڑے شہروں میں مشترکہ رہائش",
   qnCommunityTitle:"کمیونٹی سے پوچھیں", qnCommunitySub:"یہاں پہلے سے رہنے والے لوگوں کے حقیقی جوابات — کسی بے ترتیب فیس بک گروپ سے نہیں",
-  trustTitle:"اعتماد کے قابل بنایا گیا",
-  trustBody:"براؤز کرنے کے لیے لاگ ان کی ضرورت نہیں، کوئی الگورتھم یہ طے نہیں کرتا کہ آپ کیا دیکھیں۔ گائیڈ کا مواد آسان زبان میں لکھا اور درستگی کے لیے جانچا گیا ہے۔",
   guideEyebrow:"نالج گائیڈ ہب", guideTitle:"نظام کو الجھن سے پہلے سمجھیں",
   guideSub:"ہر ورکر کو بالآخر درکار چیزوں کی مختصر، آسان وضاحتیں۔",
   housingEyebrow:"روم میٹ اور مشترکہ رہائش بورڈ", housingTitle:"اپنا اگلا کمرہ تلاش کریں",
   housingSub:"کرایہ داروں اور مالکان کی حقیقی لسٹنگز۔ براہ راست واٹس ایپ پر رابطہ کریں — کوئی بیچ والا نہیں۔",
   housingPostBtn:"نئی پوسٹ",
-  postFormTitle:"لسٹنگ پوسٹ کریں", postFormHint:"یہ ایک ڈیمو فارم ہے — اندراجات نیچے دکھائے جائیں گے مگر محفوظ نہیں ہوں گے۔",
   lblCity:"شہر", lblRent:"ماہانہ کرایہ (SAR)", lblRoomType:"کمرے کی قسم",
   rtShared:"مشترکہ کمرہ", rtPrivate:"نجی کمرہ", rtBed:"صرف بیڈ",
   lblGender:"صنفی ترجیح", genAny:"کوئی بھی", genMale:"صرف مرد", genFemale:"صرف خواتین",
   lblNationality:"قومیت / زبان کی ترجیح", natAny:"کوئی بھی", natArab:"عرب",
   lblBills:"بجلی اور پانی شامل", lblDesc:"تفصیل", descPh:"مثلاً: میٹرو کے قریب، پرسکون فلیٹ، پہلے سے 3 ساتھی...",
-  lblWhatsapp:"واٹس ایپ نمبر", postFormSubmit:"لسٹنگ شائع کریں",
-  filterAllCities:"تمام شہر", filterAnyBudget:"کوئی بھی بجٹ", filterUnder500:"500 SAR سے کم", filterUnder800:"800 SAR سے کم", filterUnder1200:"1,200 SAR سے کم",
+  lblWhatsapp:"واٹس ایپ نمبر",
+  filterAllCities:"تمام شہر", filterAnyBudget:"کوئی بھی بجٹ", filterUnder500:"500 سے کم", filterBudget500to800:"500 – 800 SAR", filterBudget800to1200:"800 – 1,200 SAR",
   filterAnyNat:"کوئی بھی قومیت ترجیح",
   perMonth:"/ ماہانہ", contactWA:"واٹس ایپ", billsIncluded:"بلز شامل ہیں", billsShared:"بلز مشترکہ",
   postedBy:"پوسٹ کردہ",
   communityEyebrow:"کمیونٹی سوال و جواب", communityTitle:"تجربہ کار لوگوں سے پوچھیں",
   communitySub:"رہائش، قانونی سوالات، ملازمت اور روزمرہ زندگی سے متعلق ساتھیوں کے جوابات۔",
-  communityAskBtn:"سوال پوچھیں",
-  askFormTitle:"نیا سوال", askFormHint:"یہ ایک ڈیمو فارم ہے — سوالات نیچے دکھائے جائیں گے مگر محفوظ نہیں ہوں گے۔",
   lblCategory:"زمرہ", catHousing:"رہائش", catLegal:"قانونی", catJobs:"ملازمتیں", catLife:"عمومی زندگی",
-  lblQuestion:"آپ کا سوال", questionPh:"اپنا سوال یہاں لکھیں...", askFormSubmit:"سوال پوسٹ کریں",
+  lblQuestion:"آپ کا سوال", questionPh:"اپنا سوال یہاں لکھیں...",
   catAll:"تمام", replies:"جوابات", viewReplies:"جوابات دیکھیں", hideReplies:"جوابات چھپائیں",
   repliedBy:"جواب دہندہ", replyPh:"ایک مددگار جواب لکھیں...", replySubmit:"جواب دیں", replySignInHint:"اس سوال کا جواب دینے کے لیے سائن ان کریں۔",
   footNote:"سند ایک کمیونٹی پلیٹ فارم ہے۔ ہمیشہ سرکاری طریقہ کار کی تصدیق قویٰ، ابشر اور مقیم جیسے سرکاری پورٹلز سے کریں۔",
   emergencyTitle:"ہنگامی نمبرز", em911:"ایمرجنسی (پولیس)", em998:"سول ڈیفنس (فائر)", em997:"ایمبولینس (ریڈ کریسنٹ)", em19911:"وزارت انسانی وسائل — لیبر انکوائریز",
   navProfile:"پروفائل", shareLabel:"شیئر", copyLink:"لنک کاپی کریں", linkCopied:"لنک کاپی ہو گیا!", shareViaWhatsapp:"واٹس ایپ پر شیئر کریں", shareThisPage:"یہ صفحہ شیئر کریں",
-  loginTabLabel:"لاگ ان", signupTabLabel:"اکاؤنٹ بنائیں",
-  loginHint:"اپنے یوزرنیم اور پاس ورڈ سے لاگ ان کریں۔", signupHint:"ایک یوزرنیم اور پاس ورڈ منتخب کریں — بس اتنا ہی چاہیے۔",
-  lblName:"آپ کا نام", lblUsername:"یوزرنیم", lblPassword:"پاس ورڈ",
-  signInSubmit:"لاگ ان", signInBtnShort:"لاگ ان / اکاؤنٹ بنائیں", signOutBtn:"سائن آؤٹ",
-  authErrorMissing:"یوزرنیم اور پاس ورڈ درج کریں۔", authErrorShort:"پاس ورڈ کم از کم ۶ حروف کا ہونا چاہیے۔",
-  authErrorTaken:"یہ یوزرنیم پہلے سے لیا جا چکا ہے۔", authErrorInvalid:"غلط یوزرنیم یا پاس ورڈ۔",
-  authErrorNetwork:"سرور تک رسائی نہیں ہو سکی — دوبارہ کوشش کریں۔",
+  lblName:"آپ کا نام", signOutBtn:"سائن آؤٹ",
   communityTabQA:"سوال و جواب", communityTabBuddies:"ساتھی", becomeBuddyBtn:"ساتھی بنیں — نئے آنے والوں کی مدد کریں",
   buddyFormTitle:"بطور ساتھی سائن اپ کریں", buddyFormHint:"نئے آنے والے آپ کی پروفائل دیکھ سکیں گے اور واٹس ایپ پر آپ سے رابطہ کر سکیں گے۔",
   lblHelpAreas:"آپ کس چیز میں مدد کر سکتے ہیں؟", helpHousing:"رہائش تلاش کرنا", helpPaperwork:"کاغذی کارروائی اور طریقہ کار", helpOrientation:"عمومی رہنمائی",
   lblBio:"مختصر تعارف", bioPh:"مثلاً: 3 سال سے ریاض میں مقیم ہوں، ابشر/نفاذ سیٹ اپ میں مدد کے لیے تیار ہوں...",
   buddyFormSubmit:"میری ساتھی پروفائل شائع کریں", noBuddiesYet:"ابھی تک کوئی ساتھی نہیں — پہلے آپ بنیں!", helpsWith:"مدد کر سکتا ہے",
   videoLabel:"کمرے کی ویڈیو (اختیاری)", videoHint:"ایک مختصر ویڈیو صرف تصاویر کے مقابلے میں کہیں زیادہ جوابات لاتی ہے۔", uploadingVideo:"ویڈیو اپ لوڈ ہو رہی ہے...",
-  qcTitle:"نئی پوسٹ", qcHousingHint:"رہائشی پوسٹس کے لیے مزید تفصیلات درکار ہیں — مکمل فارم کھولا جا رہا ہے…",
-  qcTextLabel:"آپ کے ذہن میں کیا ہے؟", qcTextPh:"کچھ پوچھیں، کوئی مشورہ شیئر کریں، یا اپڈیٹ پوسٹ کریں...",
-  qcImageLabel:"تصویر شامل کریں (اختیاری)", uploadingImage:"تصویر اپ لوڈ ہو رہی ہے...", qcSubmit:"پوسٹ کریں",
-  qcAskHint:"اس کے بجائے کوئی سوال ہے؟ کمیونٹی میں پوچھیں — یہ یہاں بھی نظر آئے گا تاکہ دوسرے دیکھ سکیں۔",
+  qcTextLabel:"آپ کے ذہن میں کیا ہے؟", qcTextPh:"ایک تجویز شیئر کریں جو کسی نئے شخص کے کام آئے...",
+  qcImageLabel:"تصویر شامل کریں (اختیاری)", uploadingImage:"تصویر اپ لوڈ ہو رہی ہے...",
   viewAndAnswer:"دیکھیں اور جواب دیں", fromCommunity:"کمیونٹی سے",
   requiredTag:"(ضروری)", optionalTag:"(اختیاری)", natOther:"دیگر", lblNatOther:"قومیت / زبان بتائیں",
-  profileEyebrow:"آپ کا اکاؤنٹ", profileTitleSignedOut:"مزید کے لیے سائن ان کریں", profileSubSignedOut:"پوسٹ کرنا، ساتھی بننا، اور لنکس شیئر کرنا سب ایک ہی اکاؤنٹ استعمال کرتے ہیں۔",
+  profileEyebrow:"آپ کا اکاؤنٹ",
+  profileTitleSignedOut:"آپ بطور مہمان براؤز کر رہے ہیں",
+  profileSubSignedOut:"براؤزنگ، پسند کرنا اور محفوظ کرنا سب بغیر اکاؤنٹ کے کام کرتے ہیں۔ اکاؤنٹ صرف پوسٹ کرنے یا رابطہ کرنے کے لیے درکار ہے۔",
   myLinksTitle:"میرے شیئر لنکس", myLinksHint:"کسی بھی سیکشن کے لیے ذاتی لنک بنائیں — آپ دیکھ سکیں گے کہ ہر لنک پر کتنی بار کلک ہوا۔",
   generateLinkBtn:"لنک حاصل کریں", clicksLabel:"کلکس",
   filterAnyGender:"کوئی بھی صنف", filterMaleOnly:"صرف مرد", filterFemaleOnly:"صرف خواتین",
-  filterAnyRoom:"کوئی بھی کمرہ", filterShared:"مشترکہ کمرہ", filterPrivate:"نجی کمرہ", filterBed:"صرف بیڈ",
+  filterAnyRoom:"کوئی بھی", filterShared:"مشترکہ", filterPrivate:"نجی", filterBed:"بیڈ",
   filtersLabel:"فلٹرز", filtersReset:"ری سیٹ", filtersShow:"نتائج دیکھیں",
-  lblBudget:"بجٹ", lblNatShort:"قومیت", lblGenderShort:"صنف",
+  lblBudget:"ماہانہ بجٹ", lblNatShort:"قومیت", lblGenderShort:"صنف",
   noListingsTitle:"ان فلٹرز سے کوئی کمرہ نہیں ملا", noListingsSub:"بجٹ بڑھائیں یا ایک دو فلٹر ہٹا دیں۔",
-  soundTicker:"اصل آواز · سند ہاؤسنگ", likeLabel:"پسند",
+  soundTicker:"اصل آواز · سند ہاؤسنگ", likeLabel:"پسند", saveLabel:"محفوظ کریں",
   statMyListings:"لسٹنگز", statMyQuestions:"سوالات", statMyClicks:"لنک کلکس",
   tabMyPosts:"پوسٹس", tabLiked:"پسندیدہ", memberSince:"رکن بننے کی تاریخ",
-  noPostsYet:"ابھی تک کوئی لسٹنگ پوسٹ نہیں کی گئی", noLikedYet:"آپ کے پسندیدہ کمرے یہاں نظر آئیں گے",
+  noPostsYet:"ابھی تک کوئی لسٹنگ پوسٹ نہیں کی گئی", noLikedYet:"آپ کے پسندیدہ کمرے یہاں نظر آئیں گے", noSavedYet:"آپ کی محفوظ کردہ چیزیں یہاں نظر آئیں گی",
   backBtn:"واپس", loadingProfile:"لوڈ ہو رہا ہے…", publicProfileUnavailable:"پروفائل دستیاب نہیں",
   communityTabLeaderboard:"ٹاپ ہیلپرز", leaderboardMonthLabel:"ٹاپ ہیلپرز —",
   lbFilterAll:"سب", lbFilterOpenToWork:"کام کے لیے دستیاب", lbStatReplies:"جوابات", lbStatVotes:"اپووٹس",
@@ -270,6 +250,17 @@ ur: {
   openToWorkToggleLabel:"ملازمت دینے والوں کو نظر آئیں",
   openToWorkHint:"اسے آن کرنے سے آپ کا نام نظر آئے گا اور آجر ٹاپ ہیلپرز لسٹ سے آپ کو واٹس ایپ پر پیغام بھیج سکیں گے۔",
   openToWorkWhatsappLabel:"آجروں کو دکھانے کے لیے واٹس ایپ نمبر", saveBtn:"محفوظ کریں",
+  composerNewPost:"نئی پوسٹ",
+  qcStep1Title:"آپ کیا پوسٹ کرنا چاہتے ہیں؟", qcStep1Sub:"ایک منتخب کریں — جمع کرانے سے پہلے کسی بھی وقت بدل سکتے ہیں۔",
+  qcOptHousingTitle:"کمرہ یا بیڈ اسپیس", qcOptHousingSub:"آپ کے پاس خالی جگہ ہے اور کرایہ دار چاہیے",
+  qcOptInquiryTitle:"سوال", qcOptInquirySub:"تجربہ کار لوگوں سے جواب حاصل کریں",
+  qcOptGuideTitle:"تجویز", qcOptGuideSub:"کچھ سیکھا جو دوسروں کے کام آ سکتا ہے",
+  qcAdvancedToggle:"مزید تفصیلات شامل کریں (اختیاری)", qcNext:"اگلا", qcPublish:"شائع کریں", sarLabel:"SAR",
+  guestSavedLabel:"محفوظ شدہ", guestLanguageLabel:"زبان", guestLanguageValue:"العربية · English · اردو",
+  likedCountLabel:"اس فون پر {n} پسند", savedCountLabel:"اس فون پر {n} محفوظ",
+  signInBtnShort:"لاگ ان / اکاؤنٹ بنائیں",
+  authErrorInvalid:"غلط یوزرنیم یا پاس ورڈ۔", authErrorMissing:"یوزرنیم اور پاس ورڈ درج کریں۔", authErrorNetwork:"سرور تک رسائی نہیں ہو سکی — دوبارہ کوشش کریں۔", authErrorShort:"پاس ورڈ کم از کم ۶ حروف کا ہونا چاہیے۔", authErrorTaken:"یہ یوزرنیم پہلے سے لیا جا چکا ہے۔", loginHint:"اپنے یوزرنیم اور پاس ورڈ سے لاگ ان کریں۔", loginTabLabel:"لاگ ان", signInSubmit:"لاگ ان", signupHint:"ایک یوزرنیم اور پاس ورڈ منتخب کریں — بس اتنا ہی چاہیے۔", signupTabLabel:"اکاؤنٹ بنائیں",
+  lblUsername:"یوزرنیم", lblPassword:"پاس ورڈ",
 }
 };
 
@@ -477,13 +468,44 @@ let buddies = [
  {name:"Grace M.", help:["Orientation","Housing"], bio:"Been in Jeddah for 2 years, know the ropes around Al Balad and Corniche housing options.", wa:"966509123456"}
 ];
 
+/* ============================= Local persistence: likes & saves ============================= */
+/* Liking/saving never requires an account — kept in this browser only, exactly like a "downloaded to
+   this phone" folder. A signed-in profile shows the same sets; there's nothing server-side to sync. */
+const LIKED_STORAGE_KEY = 'sanad_liked_ids';
+const SAVED_STORAGE_KEY = 'sanad_saved_ids';
+function loadIdSet(key){
+  try{
+    const raw = localStorage.getItem(key);
+    const arr = raw ? JSON.parse(raw) : [];
+    const obj = {};
+    arr.forEach(id=>{ obj[id] = true; });
+    return obj;
+  } catch(err){ return {}; }
+}
+function persistIdSet(key, obj){
+  try{ localStorage.setItem(key, JSON.stringify(Object.keys(obj).filter(k=>obj[k]))); }
+  catch(err){ /* private-browsing/storage-disabled — likes/saves just won't survive a reload */ }
+}
+
 /* ============================= State & render ============================= */
-let state = { lang:'en', tab:'home', guideOpen:{}, filters:{postType:'all', city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'}, forumCat:'All', openReplies:{}, communitySubTab:'qa', feedLikes:{}, lbFilter:'all' };
-let appUser = null; // { id, username, name, createdAt } once signed in — persisted to localStorage so a reload keeps the session
+let state = {
+  lang:'en', tab:'housing',
+  guideOpen:{},
+  filters:{postType:'all', city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'},
+  forumCat:'All', openReplies:{}, communitySubTab:'qa',
+  feedLikes:{}, feedSaves:{},
+  lbFilter:'all'
+};
+let appUser = null; // { id, name, phone, createdAt, sessionToken } once signed in — persisted to localStorage so a reload keeps the session
 let myShareLinks = []; // [{id, page, code, clicks}]
 let pendingSignInAction = null; // callback to run right after a successful sign-in
 
 function t(key){ return translations[state.lang][key] ?? key; }
+function fmt(key, replacements){
+  let str = t(key);
+  Object.entries(replacements||{}).forEach(([k,v])=>{ str = str.replace('{'+k+'}', v); });
+  return str;
+}
 
 function applyI18n(){
   document.documentElement.lang = state.lang;
@@ -514,18 +536,18 @@ function setTab(tab){
   state.tab = tab;
   document.querySelectorAll('section.view').forEach(s=>s.classList.remove('active'));
   document.getElementById('view-'+tab).classList.add('active');
-  document.querySelectorAll('nav.tabbar button').forEach(b=>b.classList.toggle('active', b.getAttribute('data-tab')===tab));
+  document.querySelectorAll('nav.tabbar button[data-tab]').forEach(b=>b.classList.toggle('active', b.getAttribute('data-tab')===tab));
   window.scrollTo({top:0, behavior:'instant'});
   applyFeedMode();
   closeFilters();
-  setPostFormOpen(false);
   setQuickComposerOpen(false);
-  // Liked rooms come from the feed's in-memory like state, so refresh that grid on every visit.
-  if(tab==='profile' && appUser) renderProfileGrids();
+  if(tab==='profile'){ if(appUser) fetchAndRenderProfileStats(); renderProfile(); }
 }
 
-/* On mobile the housing tab is a full-bleed feed: no header, no page scroll.
-   Everything else is CSS — this only flips the flag. */
+/* On mobile the Feed tab is a full-bleed video-style feed: no header, no page
+   scroll. Everything else is CSS — this only flips the flag. Community's Q&A
+   stream reuses the same card component but stays in-flow (its own sub-tabs —
+   Q&A/Buddies/Top Helpers — need to stay reachable, so it never goes full-bleed). */
 function applyFeedMode(){
   const feedMode = state.tab === 'housing' && window.innerWidth < 760;
   document.body.classList.toggle('feed-mode', feedMode);
@@ -555,46 +577,49 @@ function renderGuide(){
   });
 }
 
+/* ============================= Cities & shared lookups ============================= */
+const CITY_KEYS = ["Riyadh","Jeddah","Dammam/Khobar","Makkah","Madinah","Hail"];
+const CITY_LABELS = {
+  en:CITY_KEYS,
+  ar:["الرياض","جدة","الدمام/الخبر","مكة","المدينة","حائل"],
+  ur:["ریاض","جدہ","دمام/خبر","مکہ","مدینہ","حائل"]
+};
+const NAT_KEYS = ["Any","Indian","Pakistani","Filipino","Arab","Bangladeshi"];
+const NAT_LABELS = {
+  en:["Any nationality pref.","Indian","Pakistani","Filipino","Arab","Bangladeshi"],
+  ar:["أي جنسية","هندي","باكستاني","فلبيني","عربي","بنغلاديشي"],
+  ur:["کوئی بھی قومیت","بھارتی","پاکستانی","فلپائنی","عرب","بنگلہ دیشی"]
+};
+
 /* ---- Housing render ---- */
 function populateFilterOptions(){
-  const cities = ["Riyadh","Jeddah","Dammam/Khobar","Makkah","Madinah","Hail"];
-  const cityLabels = {en:cities, ar:["الرياض","جدة","الدمام/الخبر","مكة","المدينة","حائل"], ur:["ریاض","جدہ","دمام/خبر","مکہ","مدینہ","حائل"]};
-  const fc = document.getElementById('filterCity');
-  fc.querySelectorAll('option:not(:first-child)').forEach(o=>o.remove());
-  cities.forEach((c,i)=>{
-    const opt = document.createElement('option');
-    opt.value=c; opt.textContent = cityLabels[state.lang][i];
-    fc.appendChild(opt);
-  });
-  const nats = ["Any","Indian","Pakistani","Filipino","Arab","Bangladeshi"];
-  const natLabels = {
-    en:["Any nationality pref.","Indian","Pakistani","Filipino","Arab","Bangladeshi"],
-    ar:["أي جنسية","هندي","باكستاني","فلبيني","عربي","بنغلاديشي"],
-    ur:["کوئی بھی قومیت","بھارتی","پاکستانی","فلپائنی","عرب","بنگلہ دیشی"]
-  };
-  const fn = document.getElementById('filterNat');
-  fn.innerHTML = '';
-  nats.forEach((n,i)=>{
-    const opt = document.createElement('option');
-    opt.value = n==='Any' ? 'all' : n;
-    opt.textContent = natLabels[state.lang][i];
-    fn.appendChild(opt);
-  });
-  fc.value = state.filters.city; fn.value = state.filters.nat;
-  const fgSel = document.getElementById('filterGender');
-  if(fgSel) fgSel.value = state.filters.gender;
-  const frtSel = document.getElementById('filterRoomType');
-  if(frtSel) frtSel.value = state.filters.roomType;
+  const cityRow = document.getElementById('filterCityRow');
+  cityRow.innerHTML = `<button class="filter-chip ${state.filters.city==='all'?'active':''}" data-filter-value="all">${t('filterAllCities')}</button>` +
+    CITY_KEYS.map((c,i)=>`<button class="filter-chip ${state.filters.city===c?'active':''}" data-filter-value="${c}">${CITY_LABELS[state.lang][i]}</button>`).join('');
 
-  // room type / gender / nationality select translations inside the post form
-  const rtSel = document.getElementById('f-roomtype');
-  [...rtSel.options].forEach(o=>{ const k=o.getAttribute('data-i18n'); if(k) o.textContent = t(k); });
-  const genSel = document.getElementById('f-gender');
-  [...genSel.options].forEach(o=>{ const k=o.getAttribute('data-i18n'); if(k) o.textContent = t(k); });
-  const natSel = document.getElementById('f-nat');
-  [...natSel.options].forEach(o=>{ const k=o.getAttribute('data-i18n'); if(k) o.textContent = t(k); });
-  const catSel = document.getElementById('q-cat');
-  [...catSel.options].forEach(o=>{ const k=o.getAttribute('data-i18n'); if(k) o.textContent = t(k); });
+  const natRow = document.getElementById('filterNatRow');
+  natRow.innerHTML = NAT_KEYS.map((n,i)=>{
+    const value = n==='Any' ? 'all' : n;
+    return `<button class="filter-chip ${state.filters.nat===value?'active':''}" data-filter-value="${value}">${NAT_LABELS[state.lang][i]}</button>`;
+  }).join('');
+
+  document.querySelectorAll('#filterSheet .filter-option-grid .filter-option, #filterSheet .filter-icon-grid .filter-icon-option').forEach(btn=>{
+    const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
+    btn.classList.toggle('active', state.filters[group] === btn.getAttribute('data-filter-value'));
+  });
+  document.querySelectorAll('#filterSheet [data-filter-group="gender"] .filter-chip').forEach(btn=>{
+    btn.classList.toggle('active', state.filters.gender === btn.getAttribute('data-filter-value'));
+  });
+
+  populateComposerCities();
+}
+
+function populateComposerCities(){
+  const row = document.getElementById('qcCityRow');
+  if(!row) return;
+  const selected = row.getAttribute('data-selected') || CITY_KEYS[0];
+  row.innerHTML = CITY_KEYS.map((c,i)=>`<button class="composer-chip ${c===selected?'active':''}" data-qc-city="${c}">${CITY_LABELS[state.lang][i]}</button>`).join('');
+  row.setAttribute('data-selected', selected);
 }
 
 async function fetchAndRenderListings(){
@@ -641,6 +666,7 @@ const waIconSvg = '<svg viewBox="0 0 32 32"><path d="M16.001 3C9.096 3 3.5 8.596
 const shareIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg>';
 const houseIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg>';
 const heartIconSvg = '<svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.6-10-9.1C.5 8.6 1.8 5 5.3 4.1c2-.5 4 .3 5.2 2 .4.5.7 1 1 1.6.3-.6.6-1.1 1-1.6 1.2-1.7 3.2-2.5 5.2-2 3.5.9 4.8 4.5 3.3 7.8-2.8 4.5-10 9.1-10 9.1z"/></svg>';
+const bookmarkIconSvg = '<svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21V3z"/></svg>';
 const noteIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>';
 const chatIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 01-8.5 8.5c-1.35 0-2.61-.34-3.7-.94L3 21l1.94-5.8A8.5 8.5 0 1121 11.5z"/></svg>';
 const bulbIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a6 6 0 00-3.5 10.9c.5.4.8 1 .8 1.6V16h5.4v-1.5c0-.6.3-1.2.8-1.6A6 6 0 0012 2z"/></svg>';
@@ -703,87 +729,74 @@ function updateFilterUI(){
   if(count) count.textContent = '(' + filterListings().length + ')';
 }
 
-function renderListings(){
-  const wrap = document.getElementById('listingsGrid');
+/* Builds one full-bleed feed card. Shared by the Feed (listingsGrid) and, for
+   inquiry-type items, reused directly by Community's Q&A stream so both feel
+   like the same product instead of two different UIs. */
+function buildFeedCardHtml(l, i){
   const genderLabelKey = {any:'genAny', male:'genMale', female:'genFemale'};
   const roomTypeLabelKey = {shared:'rtShared', private:'rtPrivate', bed:'rtBed'};
-  const filtered = filterListings();
-  updateFilterUI();
-  if(filtered.length===0){
-    wrap.innerHTML = `
-      <div class="feed-card feed-card--empty">
-        <div class="feed-placeholder">${houseIconSvg}</div>
-        <div class="feed-empty">
-          <strong>${t('noListingsTitle')}</strong>
-          <p>${t('noListingsSub')}</p>
-          <button id="btnEmptyReset">${t('filtersReset')}</button>
-        </div>
-      </div>`;
-    wrap.querySelector('#btnEmptyReset').addEventListener('click', resetFilters);
-    return;
-  }
-  wrap.innerHTML = filtered.map((l,i)=>{
-    const postType = l.postType || 'housing';
-    // A 'housing' row only gets the rent/room-type/city card layout if it actually
-    // has that structured data — a post made through the quick composer (text +
-    // image + WhatsApp only) falls back to the generic card instead of showing "undefined".
-    const isHousing = postType === 'housing' && l.city != null && l.rent != null;
-    const isForumInquiry = postType === 'inquiry';
-    const key = l.id;
-    const liked = !!state.feedLikes[key];
-    const count = baseLikeCount(l) + (liked ? 1 : 0);
-    const hasProfile = !!l.posterUserId;
-    const avatarLetter = (isHousing ? l.city : (l.by || l.city || '?')).charAt(0).toUpperCase();
-    const typeTagKey = postType==='inquiry' ? 'chipInquiries' : postType==='guide' ? 'chipGuides' : 'chipHousing';
-    const typeIcon = postType==='inquiry' ? chatIconSvg : postType==='guide' ? bulbIconSvg : houseIconSvg;
-    const mediaHtml = l.video
-      ? `<video class="feed-media" src="${l.video}" muted loop playsinline></video>`
-      : (l.media ? `<img class="feed-media" src="${l.media}" alt="">` : `<div class="feed-placeholder feed-placeholder--${postType}">${typeIcon}</div>`);
-    return `
-    <div class="feed-card" data-idx="${i}" data-like-key="${key}" data-listing-id="${l.id||''}">
-      ${mediaHtml}
-      <div class="feed-scrim"></div>
-      <div class="feed-heart-burst" data-heart-burst></div>
-      ${l.video ? `<button class="feed-mute" data-mute-toggle="${i}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9v6h4l5 4V5l-5 4H5z"/><path d="M17 9a3 3 0 010 6" stroke-opacity="0.4"/></svg></button>` : ''}
-      <div class="feed-rail">
-        <button class="feed-avatar-wrap" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}><div class="feed-avatar">${avatarLetter}</div></button>
-        <div><button class="lk ${liked?'active':''}" data-like="${key}" aria-pressed="${liked}">${heartIconSvg}</button><div class="lbl" data-like-count="${key}">${formatCount(count)}</div></div>
-        ${l.wa ? `<div><button class="wa" data-wa="${l.wa}">${waIconSvg}</button><div class="lbl">${t('contactWA')}</div></div>` : ''}
-        ${isForumInquiry ? `<div><button class="ans" data-view-forum-post="${l.forumIndex}">${chatIconSvg}</button><div class="lbl">${t('viewAndAnswer')}</div></div>` : ''}
-        <div><button class="sh" data-share-listing-id="${l.id||''}">${shareIconSvg}</button><div class="lbl">${t('shareLabel')}</div></div>
-      </div>
-      <div class="feed-content">
-        <div class="feed-handle">
-          <button class="feed-handle-link" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}>
-            <span class="feed-avatar-sm">${avatarLetter}</span>
-            <span class="handle-name">${t('postedBy')} ${l.by}</span>
-          </button>
-          ${isHousing
-            ? `<span class="feed-price-pill">${l.rent} SAR${t('perMonth')}</span>`
-            : isForumInquiry
-              ? `<span class="feed-price-pill feed-price-pill--muted">${chatIconSvg}${l.repliesCount}</span>`
-              : `<span class="feed-tag">${t(typeTagKey)}</span>`}
-        </div>
-        ${isHousing ? `<h3>${t(roomTypeLabelKey[l.type] || l.type)} · ${l.city}</h3>` : ''}
-        <p class="feed-desc${isHousing ? '' : ' feed-desc--quote'}">${l.desc}</p>
-        ${isHousing ? `
-        <div class="feed-tag-row">
-          <span class="feed-tag">#${t(genderLabelKey[l.gender] || l.gender).replace(/\s+/g,'')}</span>
-          <span class="feed-tag">#${(l.nat==='Any' ? t('natAny') : l.nat).replace(/\s+/g,'')}</span>
-          <span class="feed-tag">#${(l.bills ? t('billsIncluded') : t('billsShared')).replace(/\s+/g,'')}</span>
-        </div>` : isForumInquiry
-          ? `<div class="feed-tag-row"><span class="feed-tag">${t('fromCommunity')}</span></div>`
-          : (l.natTarget ? `<div class="feed-tag-row"><span class="feed-tag">#${l.natTarget.replace(/\s+/g,'')}</span></div>` : '')}
-        <div class="feed-sound"><span class="feed-sound-ic">${noteIconSvg}</span><span class="feed-sound-track"><span>${t('soundTicker')}</span><span>${t('soundTicker')}</span></span></div>
-      </div>
+  const postType = l.postType || 'housing';
+  const isHousing = postType === 'housing' && l.city != null && l.rent != null;
+  const isForumInquiry = postType === 'inquiry';
+  const key = l.id;
+  const liked = !!state.feedLikes[key];
+  const saved = !!state.feedSaves[key];
+  const count = baseLikeCount(l) + (liked ? 1 : 0);
+  const hasProfile = !!l.posterUserId;
+  const avatarLetter = (isHousing ? l.city : (l.by || l.city || '?')).charAt(0).toUpperCase();
+  const typeTagKey = postType==='inquiry' ? 'chipInquiries' : postType==='guide' ? 'chipGuides' : 'chipHousing';
+  const typeIcon = postType==='inquiry' ? chatIconSvg : postType==='guide' ? bulbIconSvg : houseIconSvg;
+  const mediaHtml = l.video
+    ? `<video class="feed-media" src="${l.video}" muted loop playsinline></video>`
+    : (l.media ? `<img class="feed-media" src="${l.media}" alt="">` : `<div class="feed-placeholder feed-placeholder--${postType}">${typeIcon}</div>`);
+  return `
+  <div class="feed-card" data-idx="${i}" data-like-key="${key}" data-listing-id="${l.id||''}">
+    ${mediaHtml}
+    <div class="feed-scrim"></div>
+    <div class="feed-heart-burst" data-heart-burst></div>
+    ${l.video ? `<button class="feed-mute" data-mute-toggle="${i}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9v6h4l5 4V5l-5 4H5z"/><path d="M17 9a3 3 0 010 6" stroke-opacity="0.4"/></svg></button>` : ''}
+    <div class="feed-rail">
+      <button class="feed-avatar-wrap" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}><div class="feed-avatar">${avatarLetter}</div></button>
+      <div><button class="lk ${liked?'active':''}" data-like="${key}" aria-pressed="${liked}">${heartIconSvg}</button><div class="lbl" data-like-count="${key}">${formatCount(count)}</div></div>
+      ${l.wa ? `<div><button class="wa" data-wa="${l.wa}">${waIconSvg}</button><div class="lbl">${t('contactWA')}</div></div>` : ''}
+      ${isForumInquiry ? `<div><button class="ans" data-view-forum-post="${l.forumIndex}">${chatIconSvg}</button><div class="lbl">${t('viewAndAnswer')}</div></div>` : ''}
+      <div><button class="sv ${saved?'active':''}" data-save="${key}" aria-pressed="${saved}">${bookmarkIconSvg}</button><div class="lbl">${t('saveLabel')}</div></div>
+      <div><button class="sh" data-share-listing-id="${l.id||''}">${shareIconSvg}</button><div class="lbl">${t('shareLabel')}</div></div>
     </div>
-  `;
-  }).join('');
+    <div class="feed-content">
+      <div class="feed-handle">
+        <button class="feed-handle-link" ${hasProfile ? `data-view-profile="${l.posterUserId}"` : 'disabled'}>
+          <span class="feed-avatar-sm">${avatarLetter}</span>
+          <span class="handle-name">${t('postedBy')} ${l.by}</span>
+        </button>
+        ${isHousing
+          ? `<span class="feed-price-pill">${l.rent} ${t('sarLabel')}${t('perMonth')}</span>`
+          : isForumInquiry
+            ? `<span class="feed-price-pill feed-price-pill--muted">${chatIconSvg}${l.repliesCount}</span>`
+            : `<span class="feed-tag">${t(typeTagKey)}</span>`}
+      </div>
+      ${isHousing ? `<h3>${t(roomTypeLabelKey[l.type] || l.type)} · ${l.city}</h3>` : ''}
+      <p class="feed-desc${isHousing ? '' : ' feed-desc--quote'}">${l.desc}</p>
+      ${isHousing ? `
+      <div class="feed-tag-row">
+        <span class="feed-tag">#${t(genderLabelKey[l.gender] || l.gender).replace(/\s+/g,'')}</span>
+        <span class="feed-tag">#${(l.nat==='Any' ? t('natAny') : l.nat).replace(/\s+/g,'')}</span>
+        <span class="feed-tag">#${(l.bills ? t('billsIncluded') : t('billsShared')).replace(/\s+/g,'')}</span>
+      </div>` : isForumInquiry
+        ? `<div class="feed-tag-row"><span class="feed-tag">${t('fromCommunity')}</span></div>`
+        : (l.natTarget ? `<div class="feed-tag-row"><span class="feed-tag">#${l.natTarget.replace(/\s+/g,'')}</span></div>` : '')}
+      <div class="feed-sound"><span class="feed-sound-ic">${noteIconSvg}</span><span class="feed-sound-track"><span>${t('soundTicker')}</span><span>${t('soundTicker')}</span></span></div>
+    </div>
+  </div>
+`;
+}
 
+/* Wires up whatever a feed-scroll container of .feed-card elements needs — shared
+   by the Feed's listingsGrid and Community's forumFeedScroll. */
+function bindFeedCardEvents(wrap, filtered){
   wrap.querySelectorAll('[data-view-forum-post]').forEach(btn=>{
     btn.addEventListener('click', ()=> jumpToForumPost(parseInt(btn.getAttribute('data-view-forum-post'))));
   });
-
   wrap.querySelectorAll('[data-wa]').forEach(btn=>{
     btn.addEventListener('click', ()=> window.open('https://wa.me/'+btn.getAttribute('data-wa'), '_blank'));
   });
@@ -804,6 +817,7 @@ function renderListings(){
   /* ---- Likes: tap the heart, or double-tap the card (TikTok's classic gesture) ---- */
   function setLiked(card, key, liked){
     state.feedLikes[key] = liked;
+    persistIdSet(LIKED_STORAGE_KEY, state.feedLikes);
     const btn = card.querySelector('[data-like="'+CSS.escape(key)+'"]');
     const lbl = card.querySelector('[data-like-count="'+CSS.escape(key)+'"]');
     if(btn){ btn.classList.toggle('active', liked); btn.setAttribute('aria-pressed', String(liked)); }
@@ -825,6 +839,16 @@ function renderListings(){
       const nowLiked = !state.feedLikes[key];
       setLiked(card, key, nowLiked);
       if(nowLiked) burstHeart(card);
+    });
+  });
+  wrap.querySelectorAll('[data-save]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const key = btn.getAttribute('data-save');
+      const nowSaved = !state.feedSaves[key];
+      state.feedSaves[key] = nowSaved;
+      persistIdSet(SAVED_STORAGE_KEY, state.feedSaves);
+      btn.classList.toggle('active', nowSaved);
+      btn.setAttribute('aria-pressed', String(nowSaved));
     });
   });
   let lastTap = 0;
@@ -852,6 +876,27 @@ function renderListings(){
     }, { root: wrap, threshold: 0.6 });
     videos.forEach(v=>io.observe(v));
   }
+}
+
+function renderListings(){
+  const wrap = document.getElementById('listingsGrid');
+  const filtered = filterListings();
+  updateFilterUI();
+  if(filtered.length===0){
+    wrap.innerHTML = `
+      <div class="feed-card feed-card--empty">
+        <div class="feed-placeholder">${houseIconSvg}</div>
+        <div class="feed-empty">
+          <strong>${t('noListingsTitle')}</strong>
+          <p>${t('noListingsSub')}</p>
+          <button id="btnEmptyReset">${t('filtersReset')}</button>
+        </div>
+      </div>`;
+    wrap.querySelector('#btnEmptyReset').addEventListener('click', resetFilters);
+    return;
+  }
+  wrap.innerHTML = filtered.map((l,i)=> buildFeedCardHtml(l,i)).join('');
+  bindFeedCardEvents(wrap, filtered);
 }
 
 /* ---- Forum render ---- */
@@ -914,6 +959,90 @@ function renderCatChips(){
   });
 }
 
+/* Community's Q&A stream reuses the exact same full-bleed card the Feed uses for
+   inquiry posts (see buildFeedCardHtml) — same swipe, same like/save/share rail —
+   with one addition: an "answer" rail button that opens this post's replies here,
+   in place, instead of jumping away. */
+function renderForum(){
+  const wrap = document.getElementById('forumFeedScroll');
+  const items = (state.forumCat==='All' ? forumPosts : forumPosts.filter(p=>p.cat===state.forumCat))
+    .map(p=>{
+      const idx = forumPosts.indexOf(p);
+      return { id: p.id || ('forum-'+idx), forumIndex: idx, posterUserId: p.posterUserId || null, postType:'inquiry', desc: p.q, by: p.by, repliesCount: (p.replies||[]).length };
+    });
+
+  if(!items.length){
+    wrap.innerHTML = `
+      <div class="feed-card feed-card--empty">
+        <div class="feed-placeholder feed-placeholder--inquiry">${chatIconSvg}</div>
+        <div class="feed-empty">
+          <strong>${t('noHelpersYet')}</strong>
+        </div>
+      </div>`;
+  } else {
+    wrap.innerHTML = items.map((item,i)=>{
+      const card = buildFeedCardHtml(item, i);
+      const idx = item.forumIndex;
+      const post = forumPosts[idx];
+      const open = state.openReplies[idx];
+      const repliesHtml = `
+        <div class="feed-replies-panel ${open?'open':''}" id="feed-replies-${idx}">
+          <button class="feed-replies-close" data-close-replies="${idx}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+          <p class="feed-replies-q">${post.q}</p>
+          <div class="feed-replies-list">${post.replies.map(r=> renderReply(r)).join('') || `<p class="hint">${t('noHelpersYet')}</p>`}</div>
+          ${appUser
+            ? `<div class="reply-compose">
+                <input type="text" data-reply-input="${idx}" placeholder="${t('replyPh')}">
+                <button data-submit-reply="${idx}">${t('replySubmit')}</button>
+              </div>`
+            : `<p class="hint reply-signin-hint" data-reply-signin="${idx}">${t('replySignInHint')}</p>`}
+        </div>`;
+      return `<div class="feed-card-wrap">${card}${repliesHtml}</div>`;
+    }).join('');
+  }
+
+  bindFeedCardEvents(wrap, items);
+
+  wrap.querySelectorAll('[data-view-forum-post]').forEach(btn=>{
+    // Inside Community itself, "answer" opens replies in place rather than navigating.
+    btn.replaceWith(btn.cloneNode(true));
+  });
+  wrap.querySelectorAll('.ans[data-view-forum-post]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = btn.getAttribute('data-view-forum-post');
+      state.openReplies[idx] = !state.openReplies[idx];
+      renderForum();
+    });
+  });
+  wrap.querySelectorAll('[data-close-replies]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.openReplies[btn.getAttribute('data-close-replies')] = false;
+      renderForum();
+    });
+  });
+  wrap.querySelectorAll('[data-submit-reply]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = btn.getAttribute('data-submit-reply');
+      const input = wrap.querySelector('[data-reply-input="'+idx+'"]');
+      const text = input.value.trim();
+      if(!text) return;
+      submitReply(forumPosts[idx], text);
+    });
+  });
+  wrap.querySelectorAll('[data-reply-signin]').forEach(el=>{
+    el.addEventListener('click', ()=> requireSignIn(()=>{}));
+  });
+  wrap.querySelectorAll('[data-vote-reply]').forEach(btn=>{
+    btn.addEventListener('click', ()=> voteOnReply(btn.getAttribute('data-vote-reply')));
+  });
+
+  // Community questions are mirrored into the Feed too (see forumFeedItems),
+  // so any change here — a new question, a new reply count — needs to reach it.
+  renderListings();
+}
+
 /* A reply is either a plain string (old seeded demo data — no author, no
    voting) or an object from Supabase ({id, text, by, votes, posterUserId}).
    Render both without the demo ones looking broken. */
@@ -935,98 +1064,13 @@ function renderReply(r){
   </div>`;
 }
 
-function renderForum(){
-  const list = document.getElementById('forumList');
-  const catKeys = {Housing:"catHousing", Legal:"catLegal", Jobs:"catJobs", "General life":"catLife"};
-  const items = state.forumCat==='All' ? forumPosts : forumPosts.filter(p=>p.cat===state.forumCat);
-  list.innerHTML = items.map((p,i)=>{
-    const idx = forumPosts.indexOf(p);
-    const open = state.openReplies[idx];
-    return `
-    <div class="q-card">
-      <div class="q-top">
-        <div class="vote">
-          <button data-vote="${idx}">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5l7 8H5l7-8z"/></svg>
-          </button>
-          <div class="n">${p.votes}</div>
-        </div>
-        <div class="q-body">
-          <div class="q-cat">${t(catKeys[p.cat])}</div>
-          <h4>${p.q}</h4>
-          <p class="by">${p.by}</p>
-          <div class="q-actions">
-            <button data-toggle-reply="${idx}">${p.replies.length} ${t('replies')} · ${open ? t('hideReplies') : t('viewReplies')}</button>
-          </div>
-          <div class="replies ${open?'open':''}" id="replies-${idx}">
-            ${p.replies.map(r=> renderReply(r)).join('')}
-            ${appUser
-              ? `<div class="reply-compose">
-                  <input type="text" data-reply-input="${idx}" placeholder="${t('replyPh')}">
-                  <button data-submit-reply="${idx}">${t('replySubmit')}</button>
-                </div>`
-              : `<p class="hint reply-signin-hint" data-reply-signin="${idx}">${t('replySignInHint')}</p>`}
-          </div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-  list.querySelectorAll('[data-vote]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const idx = btn.getAttribute('data-vote');
-      const post = forumPosts[idx];
-      post.votes++;
-      renderForum();
-      if (SUPABASE_CONFIGURED && post.id) {
-        try {
-          const { error } = await supabaseClient
-            .from('forum_posts')
-            .update({ votes: post.votes })
-            .eq('id', post.id);
-          if (error) console.error('Error updating vote:', error);
-        } catch (err) {
-          console.error('Could not reach Supabase to save vote:', err);
-        }
-      }
-    });
-  });
-  list.querySelectorAll('[data-toggle-reply]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const idx = btn.getAttribute('data-toggle-reply');
-      state.openReplies[idx] = !state.openReplies[idx];
-      renderForum();
-    });
-  });
-  list.querySelectorAll('[data-submit-reply]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const idx = btn.getAttribute('data-submit-reply');
-      const input = list.querySelector('[data-reply-input="'+idx+'"]');
-      const text = input.value.trim();
-      if(!text) return;
-      submitReply(forumPosts[idx], text);
-    });
-  });
-  list.querySelectorAll('[data-reply-signin]').forEach(el=>{
-    el.addEventListener('click', ()=> requireSignIn(()=>{}));
-  });
-  list.querySelectorAll('[data-vote-reply]').forEach(btn=>{
-    btn.addEventListener('click', ()=> voteOnReply(btn.getAttribute('data-vote-reply')));
-  });
-  list.querySelectorAll('[data-view-profile]').forEach(btn=>{
-    btn.addEventListener('click', ()=> showPublicProfile(btn.getAttribute('data-view-profile')));
-  });
-  // Community questions are mirrored into the Explore feed (see forumFeedItems),
-  // so any change here — a new question, a new reply count — needs to reach it too.
-  renderListings();
-}
-
-/* Jumps from an Explore "View & answer" tap to the actual question in Community,
-   expanding its replies and scrolling it into view. */
+/* Jumps from a Feed "View & answer" tap to the actual question in Community,
+   opening its replies panel. */
 function jumpToForumPost(idx){
   const post = forumPosts[idx];
   if(!post) return;
-  setTab('community');
   state.communitySubTab = 'qa';
+  setTab('community');
   document.querySelectorAll('[data-subtab]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-subtab')==='qa'));
   document.getElementById('communityQA').style.display = 'block';
   document.getElementById('communityBuddies').style.display = 'none';
@@ -1035,8 +1079,8 @@ function jumpToForumPost(idx){
   renderCatChips();
   state.openReplies[idx] = true;
   renderForum();
-  const card = document.getElementById('replies-'+idx);
-  if(card) card.closest('.q-card').scrollIntoView({ behavior:'smooth', block:'center' });
+  const card = document.getElementById('feed-replies-'+idx);
+  if(card) card.closest('.feed-card-wrap').scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
 async function submitReply(post, text){
@@ -1205,7 +1249,7 @@ function signOut(){
   renderProfile();
 }
 
-/* ---- Profile stats + "Posts"/"Liked" grids ---- */
+/* ---- Profile stats + "Posts"/"Liked"/"Saved" grids ---- */
 let profileTab = 'posts';
 let myListingsCache = [];
 
@@ -1235,9 +1279,12 @@ async function fetchAndRenderProfileStats(){
 }
 
 function likedListings(){
-  // Community questions surfaced in Explore (see forumFeedItems) are likeable there
+  // Community questions surfaced in the Feed (see forumFeedItems) are likeable there
   // too, so a liked one needs to show up here alongside liked housing/tips posts.
   return listings.concat(forumFeedItems()).filter(l => state.feedLikes[l.id]);
+}
+function savedListings(){
+  return listings.concat(forumFeedItems()).filter(l => state.feedSaves[l.id]);
 }
 
 function profileGridTile(l){
@@ -1248,14 +1295,14 @@ function profileGridTile(l){
     <div class="pf-tile-scrim"></div>
     <div class="pf-tile-info">
       ${isHousing
-        ? `<strong>${l.rent} SAR</strong><span>${l.city}</span>`
+        ? `<strong>${l.rent} ${t('sarLabel')}</strong><span>${l.city}</span>`
         : `<span class="pf-tile-snippet">${(l.desc||'').slice(0,60)}</span>`}
     </div>
   </div>`;
 }
 
-/* Tapping a grid tile (Posts or Liked) jumps to where that item actually lives —
-   Explore for a housing/tips post, Community (with replies open) for a question. */
+/* Tapping a grid tile (Posts, Liked, or Saved) jumps to where that item actually
+   lives — the Feed for a housing/tips post, Community (with replies open) for a question. */
 function viewFeedItem(l){
   if(l.forumIndex != null){ jumpToForumPost(l.forumIndex); return; }
   if(!l.id) return;
@@ -1275,6 +1322,7 @@ function bindGridTileClicks(gridEl, items){
 function renderProfileGrids(){
   const postsGrid = document.getElementById('profilePostsGrid');
   const likedGrid = document.getElementById('profileLikedGrid');
+  const savedGrid = document.getElementById('profileSavedGrid');
   const myPosts = myListingsCache.map(l=> ({id:l.id, rent:l.rent, city:l.city, desc:l.description, postType:l.post_type}));
   postsGrid.innerHTML = myPosts.length
     ? myPosts.map(l=> profileGridTile(l)).join('')
@@ -1285,6 +1333,33 @@ function renderProfileGrids(){
     ? liked.map(l=> profileGridTile(l)).join('')
     : `<div class="pf-grid-empty">${t('noLikedYet')}</div>`;
   bindGridTileClicks(likedGrid, liked);
+  const saved = savedListings();
+  savedGrid.innerHTML = saved.length
+    ? saved.map(l=> profileGridTile(l)).join('')
+    : `<div class="pf-grid-empty">${t('noSavedYet')}</div>`;
+  bindGridTileClicks(savedGrid, saved);
+}
+
+/* ---- Guest (signed-out) inline Liked/Saved shortcuts + language row ---- */
+function renderGuestGrids(){
+  const likedCountEl = document.getElementById('guestLikedCount');
+  const savedCountEl = document.getElementById('guestSavedCount');
+  if(!likedCountEl) return; // not on the profile view yet
+  const liked = likedListings();
+  const saved = savedListings();
+  likedCountEl.textContent = fmt('likedCountLabel', { n: liked.length });
+  savedCountEl.textContent = fmt('savedCountLabel', { n: saved.length });
+
+  const likedGrid = document.getElementById('guestLikedGrid');
+  if(likedGrid.style.display !== 'none'){
+    likedGrid.innerHTML = liked.length ? liked.map(l=>profileGridTile(l)).join('') : `<div class="pf-grid-empty">${t('noLikedYet')}</div>`;
+    bindGridTileClicks(likedGrid, liked);
+  }
+  const savedGrid = document.getElementById('guestSavedGrid');
+  if(savedGrid.style.display !== 'none'){
+    savedGrid.innerHTML = saved.length ? saved.map(l=>profileGridTile(l)).join('') : `<div class="pf-grid-empty">${t('noSavedYet')}</div>`;
+    bindGridTileClicks(savedGrid, saved);
+  }
 }
 
 /* ---- Public profile (tapping a poster's avatar/handle in the feed) ---- */
@@ -1352,12 +1427,14 @@ document.querySelectorAll('[data-ptab]').forEach(btn=>{
     document.querySelectorAll('[data-ptab]').forEach(b=> b.classList.toggle('active', b===btn));
     document.getElementById('profilePostsGrid').style.display = profileTab==='posts' ? 'grid' : 'none';
     document.getElementById('profileLikedGrid').style.display = profileTab==='liked' ? 'grid' : 'none';
+    document.getElementById('profileSavedGrid').style.display = profileTab==='saved' ? 'grid' : 'none';
   });
 });
 
 function renderProfile(){
   const out = document.getElementById('profileSignedOut');
   const inn = document.getElementById('profileSignedIn');
+  renderGuestGrids();
   if(!appUser){
     out.style.display = 'block';
     inn.style.display = 'none';
@@ -1365,9 +1442,9 @@ function renderProfile(){
   }
   out.style.display = 'none';
   inn.style.display = 'block';
-  document.getElementById('profileAvatar').textContent = (appUser.name || appUser.username || '?').charAt(0).toUpperCase();
-  document.getElementById('profileName').textContent = appUser.name || appUser.username;
-  document.getElementById('profileHandle').textContent = '@' + appUser.username;
+  document.getElementById('profileAvatar').textContent = (appUser.name || appUser.phone || '?').charAt(0).toUpperCase();
+  document.getElementById('profileName').textContent = appUser.name || appUser.phone;
+  document.getElementById('profileHandle').textContent = appUser.phone || '';
   const year = appUser.createdAt ? new Date(appUser.createdAt).getFullYear() : new Date().getFullYear();
   document.getElementById('profileMemberSince').textContent = t('memberSince') + ' ' + year;
   renderProfileGrids();
@@ -1393,7 +1470,6 @@ function renderProfile(){
   }
 
   const pages = [
-    {key:'home', label: t('navHome')},
     {key:'guide', label: t('navGuide')},
     {key:'housing', label: t('navHousing')},
     {key:'community', label: t('navCommunity')}
@@ -1709,7 +1785,7 @@ function renderAll(){
   renderForum();
   renderBuddies();
   renderProfile();
-  setQcCategory(qcCategory); // re-sync the composer's dynamic label/fields after a language switch
+  syncQcStep2Copy(); // re-sync the composer's dynamic labels after a language switch
 }
 
 /* ============================= Events ============================= */
@@ -1719,60 +1795,134 @@ document.querySelectorAll('[data-lang-btn]').forEach(btn=>{
     renderAll();
   });
 });
-document.querySelectorAll('nav.tabbar button').forEach(btn=>{
+document.querySelectorAll('nav.tabbar button[data-tab]').forEach(btn=>{
   btn.addEventListener('click', ()=> setTab(btn.getAttribute('data-tab')));
 });
-document.querySelectorAll('[data-goto]').forEach(btn=>{
-  btn.addEventListener('click', ()=> setTab(btn.getAttribute('data-goto')));
-});
 
-function setPostFormOpen(open){
-  document.getElementById('postForm').style.display = open ? 'block' : 'none';
-}
-document.getElementById('btnClosePost').addEventListener('click', ()=> setPostFormOpen(false));
-
-/* ---- Quick composer: the '+' FAB's entry point — category buttons, not a dropdown. ---- */
-let qcCategory = 'guide';
+/* ---- Quick composer: 2-step wizard reachable from any tab via the '+' nav button ---- */
+let qcCategory = 'housing';
+let qcStep = 1;
 
 function setQuickComposerOpen(open){
   document.getElementById('quickComposer').classList.toggle('open', open);
   document.getElementById('quickComposerScrim').classList.toggle('open', open);
+  if(open){ qcStep = 1; showQcStep(1); setQcCategory(qcCategory); }
 }
 document.getElementById('btnOpenPost').addEventListener('click', ()=>{
-  const open = !document.getElementById('quickComposer').classList.contains('open');
-  setQuickComposerOpen(open);
-  if(open){ closeFilters(); setPostFormOpen(false); } // only one sheet at a time
+  closeFilters();
+  setQuickComposerOpen(true);
 });
 document.getElementById('btnCloseQuickComposer').addEventListener('click', ()=> setQuickComposerOpen(false));
 document.getElementById('quickComposerScrim').addEventListener('click', ()=> setQuickComposerOpen(false));
+document.getElementById('btnQcBack').addEventListener('click', ()=> showQcStep(1));
 
-/* Radio-button-style toggle: switching categories only ever changes which
-   fields show, never closes the composer — so the user can freely change
-   their mind between Housing/Inquiry/Guide right up until they submit. */
+function showQcStep(step){
+  qcStep = step;
+  document.getElementById('qcStep1').style.display = step===1 ? 'block' : 'none';
+  document.getElementById('qcStep2').style.display = step===2 ? 'block' : 'none';
+  document.getElementById('btnQcNext').style.display = step===1 ? 'flex' : 'none';
+  document.getElementById('btnSubmitQuickPost').style.display = step===2 ? 'flex' : 'none';
+}
+
 function setQcCategory(cat){
   qcCategory = cat;
   document.querySelectorAll('#qcCatRow [data-qc-cat]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-qc-cat')===cat));
-  const isHousing = cat === 'housing';
-  document.getElementById('qcHousingFields').style.display = isHousing ? '' : 'none';
-  document.getElementById('qcImageField').style.display = isHousing ? 'none' : '';
-  document.getElementById('qcTextLabelEl').textContent = t(isHousing ? 'lblDesc' : 'qcTextLabel');
 }
 document.querySelectorAll('#qcCatRow [data-qc-cat]').forEach(btn=>{
   btn.addEventListener('click', ()=> setQcCategory(btn.getAttribute('data-qc-cat')));
 });
+
+function syncQcStep2Copy(){
+  const titleKey = qcCategory==='housing' ? 'qcOptHousingTitle' : qcCategory==='inquiry' ? 'qcOptInquiryTitle' : 'qcOptGuideTitle';
+  document.getElementById('qcStep2Title').textContent = t(titleKey);
+  document.getElementById('qcHousingFields').style.display = qcCategory==='housing' ? 'block' : 'none';
+  document.getElementById('qcInquiryFields').style.display = qcCategory==='inquiry' ? 'block' : 'none';
+  document.getElementById('qcGuideFields').style.display = qcCategory==='guide' ? 'block' : 'none';
+}
+
+document.getElementById('btnQcNext').addEventListener('click', ()=>{
+  syncQcStep2Copy();
+  showQcStep(2);
+});
+
+document.getElementById('qcToggleAdvanced').addEventListener('click', ()=>{
+  const panel = document.getElementById('qcAdvancedFields');
+  const open = panel.style.display === 'none';
+  panel.style.display = open ? 'block' : 'none';
+  document.getElementById('qcToggleAdvanced').classList.toggle('open', open);
+});
 document.getElementById('qc-nat').addEventListener('change', e=>{
   document.getElementById('qcNatOtherField').style.display = e.target.value === 'other' ? '' : 'none';
 });
+document.getElementById('qcCityRow').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-qc-city]');
+  if(!btn) return;
+  document.getElementById('qcCityRow').setAttribute('data-selected', btn.getAttribute('data-qc-city'));
+  document.querySelectorAll('#qcCityRow [data-qc-city]').forEach(b=> b.classList.toggle('active', b===btn));
+});
+document.getElementById('qcInquiryCatRow').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-qc-i-cat]');
+  if(!btn) return;
+  document.querySelectorAll('#qcInquiryCatRow [data-qc-i-cat]').forEach(b=> b.classList.toggle('active', b===btn));
+});
+
+function resetComposerFields(){
+  document.getElementById('qc-text').value = '';
+  document.getElementById('qc-image').value = '';
+  document.getElementById('qc-rent').value = '';
+  document.getElementById('qc-wa').value = '';
+  document.getElementById('qc-video').value = '';
+  document.getElementById('qc-i-text').value = '';
+  document.getElementById('qc-nat-other').value = '';
+  document.getElementById('qcNatOtherField').style.display = 'none';
+  document.getElementById('qcImageUploadStatus').style.display = 'none';
+  document.getElementById('qcVideoUploadStatus').style.display = 'none';
+  document.getElementById('qcAdvancedFields').style.display = 'none';
+  setQuickComposerOpen(false);
+}
+
+function setPostedTypeChip(postedCategory){
+  state.filters.postType = postedCategory;
+  document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-feed-type')===postedCategory));
+}
 
 document.getElementById('btnSubmitQuickPost').addEventListener('click', async ()=>{
-  const isHousing = qcCategory === 'housing';
-  const text = document.getElementById('qc-text').value.trim();
+  const category = qcCategory;
+
+  if(category === 'inquiry'){
+    const catBtn = document.querySelector('#qcInquiryCatRow .composer-chip.active');
+    const category_i = catBtn ? catBtn.getAttribute('data-qc-i-cat') : 'General life';
+    const question = document.getElementById('qc-i-text').value.trim();
+    if(!question){ document.getElementById('qc-i-text').focus(); return; }
+    requireSignIn(async ()=>{
+      if(!SUPABASE_CONFIGURED){
+        forumPosts.unshift({ cat: category_i, q: question, by: appUser.name, votes: 0, replies: [] });
+        resetComposerFields();
+        state.forumCat = 'All'; renderCatChips();
+        renderForum();
+        return;
+      }
+      try{
+        const { error } = await supabaseClient.from('forum_posts').insert([{ category: category_i, question, posted_by: appUser.name, votes: 0, poster_user_id: appUser.id }]);
+        if(error){ console.error('Error posting question:', error); return; }
+        resetComposerFields();
+        state.forumCat = 'All'; renderCatChips();
+        await fetchAndRenderForum();
+      } catch(err){
+        console.error('Could not reach Supabase to post question:', err);
+      }
+    });
+    return;
+  }
+
+  const isHousing = category === 'housing';
+  const text = isHousing ? '' : document.getElementById('qc-text').value.trim();
   const imageFile = document.getElementById('qc-image').files[0];
 
-  if(!text){ document.getElementById('qc-text').focus(); return; }
+  if(!isHousing && !text){ document.getElementById('qc-text').focus(); return; }
 
-  // Housing-only fields — same set (and same "rent is required" rule) as the old detailed form.
-  const city = document.getElementById('qc-city').value;
+  const cityRow = document.getElementById('qcCityRow');
+  const city = cityRow.getAttribute('data-selected') || CITY_KEYS[0];
   const rent = parseInt(document.getElementById('qc-rent').value) || 0;
   const room_type = document.getElementById('qc-roomtype').value;
   const gender_pref = document.getElementById('qc-gender').value;
@@ -1787,31 +1937,17 @@ document.getElementById('btnSubmitQuickPost').addEventListener('click', async ()
   if(isHousing && !rent){ document.getElementById('qc-rent').focus(); return; }
   if(isHousing && !whatsapp){ document.getElementById('qc-wa').focus(); return; }
 
-  const clearAndClose = () => {
-    document.getElementById('qc-text').value = '';
-    document.getElementById('qc-image').value = '';
-    document.getElementById('qc-rent').value = '';
-    document.getElementById('qc-wa').value = '';
-    document.getElementById('qc-video').value = '';
-    document.getElementById('qc-nat-other').value = '';
-    document.getElementById('qcNatOtherField').style.display = 'none';
-    document.getElementById('qcImageUploadStatus').style.display = 'none';
-    document.getElementById('qcVideoUploadStatus').style.display = 'none';
-    setQuickComposerOpen(false);
-  };
-
   requireSignIn(async ()=>{
-    const postedCategory = qcCategory;
+    const postedCategory = category;
 
     if (!SUPABASE_CONFIGURED) {
       const localImageUrl = imageFile ? URL.createObjectURL(imageFile) : null;
       const localVideoUrl = videoFile ? URL.createObjectURL(videoFile) : null;
       listings.unshift(isHousing
-        ? { id:'local-'+Date.now(), posterUserId: appUser.id, postType: 'housing', city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: text, by: appUser.name, wa: whatsapp, video: localVideoUrl }
+        ? { id:'local-'+Date.now(), posterUserId: appUser.id, postType: 'housing', city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: text || '—', by: appUser.name, wa: whatsapp, video: localVideoUrl }
         : { id:'local-'+Date.now(), posterUserId: appUser.id, postType: postedCategory, desc: text, by: appUser.name, media: localImageUrl });
-      clearAndClose();
-      state.filters.postType = postedCategory;
-      document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-feed-type')===postedCategory));
+      resetComposerFields();
+      setPostedTypeChip(postedCategory);
       renderListings();
       return;
     }
@@ -1831,7 +1967,7 @@ document.getElementById('btnSubmitQuickPost').addEventListener('click', async ()
         }
         row = {
           post_type: 'housing', city, rent, room_type, gender_pref, nationality_pref, bills_included,
-          description: text, whatsapp, video_url, poster_role: appUser.name, poster_user_id: appUser.id
+          description: text || '—', whatsapp, video_url, poster_role: appUser.name, poster_user_id: appUser.id
         };
       } else {
         let media_url = null;
@@ -1854,9 +1990,8 @@ document.getElementById('btnSubmitQuickPost').addEventListener('click', async ()
         return;
       }
 
-      clearAndClose();
-      state.filters.postType = postedCategory;
-      document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(b=> b.classList.toggle('active', b.getAttribute('data-feed-type')===postedCategory));
+      resetComposerFields();
+      setPostedTypeChip(postedCategory);
       await fetchAndRenderListings();
     } catch (err) {
       console.error('Could not reach Supabase to publish post:', err);
@@ -1864,7 +1999,7 @@ document.getElementById('btnSubmitQuickPost').addEventListener('click', async ()
   });
 });
 
-/* ---- Filter bottom sheet (mobile) ---- */
+/* ---- Filter bottom sheet ---- */
 function setFiltersOpen(open){
   const sheet = document.getElementById('filterSheet');
   const btn = document.getElementById('btnChipFilter');
@@ -1881,10 +2016,7 @@ function closeFilters(){ setFiltersOpen(false); }
 
 function resetFilters(){
   state.filters = {postType:state.filters.postType, city:'all', budget:'all', nat:'all', gender:'all', roomType:'all'};
-  ['filterCity','filterBudget','filterNat','filterGender','filterRoomType'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) el.value = 'all';
-  });
+  populateFilterOptions();
   renderListings();
 }
 
@@ -1895,27 +2027,53 @@ document.getElementById('btnResetFilters').addEventListener('click', resetFilter
 document.addEventListener('keydown', e=>{
   if(e.key !== 'Escape') return;
   closeFilters();
-  setPostFormOpen(false);
   setQuickComposerOpen(false);
-});
-document.getElementById('btnOpenAsk').addEventListener('click', ()=>{
-  const p = document.getElementById('askForm');
-  p.style.display = p.style.display==='none' ? 'block' : 'none';
 });
 document.getElementById('btnOpenBuddy').addEventListener('click', ()=>{
   const p = document.getElementById('buddyForm');
   p.style.display = p.style.display==='none' ? 'block' : 'none';
 });
 
-/* ---- Sign-in modal ---- */
+/* Delegated: every button inside a [data-filter-group] wrapper sets that
+   one state.filters key and toggles .active within its own group only. */
+document.getElementById('filterSheet').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-filter-value]');
+  if(!btn) return;
+  const groupEl = btn.closest('[data-filter-group]');
+  if(!groupEl) return;
+  const group = groupEl.getAttribute('data-filter-group');
+  state.filters[group] = btn.getAttribute('data-filter-value');
+  groupEl.querySelectorAll('[data-filter-value]').forEach(b=> b.classList.toggle('active', b===btn));
+  renderListings();
+});
+
+/* ---- Sign-in modal (username + password) ---- */
 document.getElementById('btnProfileSignIn').addEventListener('click', ()=> openSignIn());
 document.getElementById('btnSignInSubmit').addEventListener('click', submitSignIn);
-document.getElementById('btnSignInCancel').addEventListener('click', closeSignIn);
-document.getElementById('btnSignOut').addEventListener('click', signOut);
 document.querySelectorAll('[data-auth-tab]').forEach(btn=>{
   btn.addEventListener('click', ()=> setAuthMode(btn.getAttribute('data-auth-tab')));
 });
+document.getElementById('btnSignInCancel').addEventListener('click', closeSignIn);
+document.getElementById('btnSignOut').addEventListener('click', signOut);
 document.getElementById('btnPublicProfileBack').addEventListener('click', ()=> setTab('housing'));
+
+/* ---- Guest profile shortcuts ---- */
+document.getElementById('btnGuestLiked').addEventListener('click', ()=>{
+  const grid = document.getElementById('guestLikedGrid');
+  const open = grid.style.display === 'none';
+  grid.style.display = open ? 'grid' : 'none';
+  if(open) renderGuestGrids();
+});
+document.getElementById('btnGuestSaved').addEventListener('click', ()=>{
+  const grid = document.getElementById('guestSavedGrid');
+  const open = grid.style.display === 'none';
+  grid.style.display = open ? 'grid' : 'none';
+  if(open) renderGuestGrids();
+});
+document.getElementById('btnGuestLanguage').addEventListener('click', ()=>{
+  const row = document.getElementById('guestLanguageRow');
+  row.style.display = row.style.display === 'none' ? 'flex' : 'none';
+});
 
 /* ---- Open-to-work opt-in ---- */
 document.getElementById('openToWorkToggle').addEventListener('change', (e)=>{
@@ -1950,6 +2108,7 @@ document.querySelectorAll('[data-subtab]').forEach(btn=>{
     document.getElementById('communityQA').style.display = state.communitySubTab==='qa' ? 'block' : 'none';
     document.getElementById('communityBuddies').style.display = state.communitySubTab==='buddies' ? 'block' : 'none';
     document.getElementById('communityLeaderboard').style.display = state.communitySubTab==='leaderboard' ? 'block' : 'none';
+    applyFeedMode();
     if(state.communitySubTab==='leaderboard') renderLeaderboard();
   });
 });
@@ -1974,144 +2133,24 @@ document.querySelectorAll('#feedTypeChips [data-feed-type]').forEach(btn=>{
 document.getElementById('btnChipFilter').addEventListener('click', ()=>{
   const open = !document.getElementById('filterSheet').classList.contains('open');
   setFiltersOpen(open);
-  if(open){ setPostFormOpen(false); setQuickComposerOpen(false); }
-});
-
-document.getElementById('filterCity').addEventListener('change', e=>{ state.filters.city = e.target.value; renderListings(); });
-document.getElementById('filterBudget').addEventListener('change', e=>{ state.filters.budget = e.target.value; renderListings(); });
-document.getElementById('filterNat').addEventListener('change', e=>{ state.filters.nat = e.target.value; renderListings(); });
-document.getElementById('filterGender').addEventListener('change', e=>{ state.filters.gender = e.target.value; renderListings(); });
-document.getElementById('filterRoomType').addEventListener('change', e=>{ state.filters.roomType = e.target.value; renderListings(); });
-
-document.getElementById('btnSubmitListing').addEventListener('click', async ()=>{
-  const city = document.getElementById('f-city').value;
-  const rent = parseInt(document.getElementById('f-rent').value) || 0;
-  const room_type = document.getElementById('f-roomtype').value;
-  const gender_pref = document.getElementById('f-gender').value;
-  const nationality_pref = document.getElementById('f-nat').value === 'all' ? 'Any' : document.getElementById('f-nat').value;
-  const bills_included = document.getElementById('f-bills').checked;
-  const description = document.getElementById('f-desc').value || '—';
-  const whatsapp = (document.getElementById('f-wa').value || '966500000000').replace(/[^0-9]/g, '');
-  const videoFile = document.getElementById('f-video').files[0];
-
-  if (!rent) {
-    document.getElementById('f-rent').focus();
-    return;
-  }
-
-  const clearFormAndClose = () => {
-    document.getElementById('postForm').style.display = 'none';
-    document.getElementById('f-rent').value = '';
-    document.getElementById('f-desc').value = '';
-    document.getElementById('f-wa').value = '';
-    document.getElementById('f-video').value = '';
-    document.getElementById('videoUploadStatus').style.display = 'none';
-  };
-
-  requireSignIn(async ()=>{
-    if (!SUPABASE_CONFIGURED) {
-      // No backend configured yet — keep the listing in this tab so the form still works.
-      // A locally-picked video plays fine for this session via an object URL, but won't persist across reloads.
-      const localVideoUrl = videoFile ? URL.createObjectURL(videoFile) : null;
-      listings.unshift({ id:'local-'+Date.now(), posterUserId: appUser.id, city, rent, type: room_type, gender: gender_pref, nat: nationality_pref, bills: bills_included, desc: description, by: appUser.name, wa: whatsapp, video: localVideoUrl });
-      clearFormAndClose();
-      setTab('housing');
-      renderListings();
-      return;
-    }
-
-    try {
-      let video_url = null;
-      if (videoFile) {
-        const statusEl = document.getElementById('videoUploadStatus');
-        statusEl.style.display = 'block';
-        const path = `${Date.now()}_${videoFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
-        const { error: uploadError } = await supabaseClient.storage.from('listing-videos').upload(path, videoFile);
-        statusEl.style.display = 'none';
-        if (uploadError) {
-          console.error('Error uploading video:', uploadError);
-        } else {
-          video_url = supabaseClient.storage.from('listing-videos').getPublicUrl(path).data.publicUrl;
-        }
-      }
-
-      const { error } = await supabaseClient.from('housing_listings').insert([{
-        city, rent, room_type, gender_pref, nationality_pref, bills_included, description,
-        poster_role: appUser.name, whatsapp, video_url, poster_user_id: appUser.id
-      }]);
-
-      if (error) {
-        console.error('Error publishing listing:', error);
-        return;
-      }
-
-      clearFormAndClose();
-      await fetchAndRenderListings();
-      setTab('housing');
-    } catch (err) {
-      console.error('Could not reach Supabase to publish listing:', err);
-    }
-  });
-});
-
-document.getElementById('btnSubmitQuestion').addEventListener('click', async ()=>{
-  const catEl = document.getElementById('q-cat');
-  const catMap = {"catHousing":"Housing","catLegal":"Legal","catJobs":"Jobs","catLife":"General life"};
-  const selKey = catEl.selectedOptions[0].getAttribute('data-i18n');
-  const category = catMap[selKey] || "General life";
-  const question = document.getElementById('q-text').value.trim();
-  if(!question){ document.getElementById('q-text').focus(); return; }
-
-  const clearFormAndClose = () => {
-    document.getElementById('askForm').style.display = 'none';
-    document.getElementById('q-text').value = '';
-    state.forumCat = 'All';
-    renderCatChips();
-  };
-
-  requireSignIn(async ()=>{
-    if (!SUPABASE_CONFIGURED) {
-      // No backend configured yet — keep the question in this tab so the form still works.
-      forumPosts.unshift({ cat: category, q: question, by: appUser.name, votes: 0, replies: [] });
-      clearFormAndClose();
-      renderForum();
-      return;
-    }
-
-    try {
-      const { error } = await supabaseClient.from('forum_posts').insert([{
-        category, question, posted_by: appUser.name, votes: 0, poster_user_id: appUser.id
-      }]);
-
-      if (error) {
-        console.error('Error posting question:', error);
-        return;
-      }
-
-      clearFormAndClose();
-      await fetchAndRenderForum();
-    } catch (err) {
-      console.error('Could not reach Supabase to post question:', err);
-    }
-  });
+  if(open){ setQuickComposerOpen(false); }
 });
 
 /* ============================= Initial load ============================= */
 async function initApp(){
   restoreAppUser();
+  state.feedLikes = loadIdSet(LIKED_STORAGE_KEY);
+  state.feedSaves = loadIdSet(SAVED_STORAGE_KEY);
 
   // A session saved before session tokens existed, or rotated by a fresh
   // login elsewhere, can't be verified server-side — treat it as signed out
-  // rather than routing a not-really-authenticated user past the landing page.
+  // rather than routing a not-really-authenticated user past a stale state.
   if(appUser && SUPABASE_CONFIGURED && !String(appUser.id).startsWith('local-') && !appUser.sessionToken){
     appUser = null;
     persistAppUser();
   }
 
-  // Returning, authenticated users skip the static landing page entirely
-  // and land straight on the feed (Housing today, Explore in Phase 3).
-  if(appUser){ setTab('housing'); }
-
+  setTab('housing'); // the Feed is the whole app's landing screen — there's no Home anymore
   renderAll();
   applyFeedMode();
   await trackIncomingShareCode();

@@ -17,5 +17,6 @@ Thumbs.db
 
 # Local server / tooling artefacts
 node_modules/
+.wrangler/
 .cache/
 *.log
