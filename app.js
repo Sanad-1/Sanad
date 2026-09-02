@@ -109,6 +109,7 @@ en: {
   signInBtnShort:"Log in / Sign up",
   authErrorInvalid:"Wrong username or password.", authErrorMissing:"Enter a username and password.", authErrorNetwork:"Couldn't reach the server — try again.", authErrorShort:"Password must be at least 6 characters.", authErrorTaken:"That username is already taken.", loginHint:"Log in with your username and password.", loginTabLabel:"Log in", signInSubmit:"Log in", signupHint:"Pick a username and password — that's all you need.", signupTabLabel:"Sign up",
   lblUsername:"Username", lblPassword:"Password",
+  themeToDark:"Switch to dark mode", themeToLight:"Switch to light mode",
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
@@ -185,6 +186,7 @@ ar: {
   signInBtnShort:"تسجيل الدخول / إنشاء حساب",
   authErrorInvalid:"اسم المستخدم أو كلمة المرور غير صحيحة.", authErrorMissing:"أدخل اسم المستخدم وكلمة المرور.", authErrorNetwork:"تعذر الوصول إلى الخادم — حاول مرة أخرى.", authErrorShort:"يجب أن تتكون كلمة المرور من ٦ أحرف على الأقل.", authErrorTaken:"اسم المستخدم هذا مُستخدم بالفعل.", loginHint:"سجّل الدخول باسم المستخدم وكلمة المرور.", loginTabLabel:"تسجيل الدخول", signInSubmit:"تسجيل الدخول", signupHint:"اختر اسم مستخدم وكلمة مرور — هذا كل ما تحتاجه.", signupTabLabel:"إنشاء حساب",
   lblUsername:"اسم المستخدم", lblPassword:"كلمة المرور",
+  themeToDark:"التبديل إلى الوضع الداكن", themeToLight:"التبديل إلى الوضع الفاتح",
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
@@ -261,6 +263,7 @@ ur: {
   signInBtnShort:"لاگ ان / اکاؤنٹ بنائیں",
   authErrorInvalid:"غلط یوزرنیم یا پاس ورڈ۔", authErrorMissing:"یوزرنیم اور پاس ورڈ درج کریں۔", authErrorNetwork:"سرور تک رسائی نہیں ہو سکی — دوبارہ کوشش کریں۔", authErrorShort:"پاس ورڈ کم از کم ۶ حروف کا ہونا چاہیے۔", authErrorTaken:"یہ یوزرنیم پہلے سے لیا جا چکا ہے۔", loginHint:"اپنے یوزرنیم اور پاس ورڈ سے لاگ ان کریں۔", loginTabLabel:"لاگ ان", signInSubmit:"لاگ ان", signupHint:"ایک یوزرنیم اور پاس ورڈ منتخب کریں — بس اتنا ہی چاہیے۔", signupTabLabel:"اکاؤنٹ بنائیں",
   lblUsername:"یوزرنیم", lblPassword:"پاس ورڈ",
+  themeToDark:"ڈارک موڈ پر جائیں", themeToLight:"لائٹ موڈ پر جائیں",
 }
 };
 
@@ -487,6 +490,31 @@ function persistIdSet(key, obj){
   catch(err){ /* private-browsing/storage-disabled — likes/saves just won't survive a reload */ }
 }
 
+/* ============================= Theme (light / dark) ============================= */
+/* Light is the standard look; dark is opt-in. The attribute is already set by the
+   inline script in index.html before first paint — this only handles switching it
+   afterwards and remembering the choice. */
+const THEME_STORAGE_KEY = 'sanad_theme';
+
+function currentTheme(){
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+function applyTheme(theme){
+  const next = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  try{ localStorage.setItem(THEME_STORAGE_KEY, next); }
+  catch(err){ /* storage disabled — the theme still applies for this visit */ }
+  syncThemeToggles();
+}
+function syncThemeToggles(){
+  // The button offers the OTHER mode, so label it with what tapping it will do.
+  const label = t(currentTheme() === 'dark' ? 'themeToLight' : 'themeToDark');
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn=>{
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', label);
+  });
+}
+
 /* ============================= State & render ============================= */
 let state = {
   lang:'en', tab:'housing',
@@ -526,6 +554,10 @@ function applyI18n(){
       el.setAttribute('aria-label', translations[state.lang][k]);
     }
   });
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn=>{
+    btn.addEventListener('click', ()=> applyTheme(currentTheme() === 'dark' ? 'light' : 'dark'));
+  });
+
   document.querySelectorAll('[data-lang-btn]').forEach(b=>{
     b.classList.toggle('active', b.getAttribute('data-lang-btn')===state.lang);
   });
@@ -1780,6 +1812,7 @@ function renderAll(){
   applyI18n();
   populateFilterOptions();
   renderGuide();
+  syncThemeToggles();
   renderListings();
   renderCatChips();
   renderForum();
