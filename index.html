@@ -160,6 +160,16 @@
         <p class="eyebrow" data-i18n="guideEyebrow">Knowledge guide hub</p>
         <button class="share-btn" data-share-page="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg><span data-i18n="shareLabel">Share</span></button>
       </div>
+      <button class="pa-entry" id="paEntry" type="button">
+        <span class="pa-entry-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.4 3.3v5c0 4.7-3.2 7.6-7.4 8.9-4.2-1.3-7.4-4.2-7.4-8.9v-5z"/><path d="M9.2 12.1l2 2 3.6-3.9"/></svg>
+        </span>
+        <span class="pa-entry-body">
+          <strong data-i18n="paEntryTitle">Before you arrive</strong>
+          <span data-i18n="paEntrySub">6 quick checks that protect your money and your contract</span>
+        </span>
+        <span class="pa-entry-cta" data-i18n="paEntryCta">Start</span>
+      </button>
       <h1 class="page-title" data-i18n="guideTitle">Understand the system before it confuses you</h1>
       <p class="page-sub" data-i18n="guideSub">Short, plain-language explainers on the things every worker eventually needs.</p>
       <div class="guide-grid" id="guideGrid"></div>
@@ -553,6 +563,21 @@
 </div>
 
 <!-- Supabase JS Client -->
+
+  <!-- BEFORE YOU ARRIVE — linear pre-departure walkthrough -->
+  <div class="pa-scrim" id="paScrim"></div>
+  <div class="pa" id="paPanel">
+    <div class="pa-head">
+      <button class="pa-back" id="paBack" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="pa-progress" id="paProgress"></div>
+      <button class="pa-close" id="paClose" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="pa-body" id="paBody"></div>
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="console.warn('Sanad: Supabase CDN script failed to load (network/CORS/blocked) — app will run on local data only.')"></script>
 
 <script src="app.js" defer></script>

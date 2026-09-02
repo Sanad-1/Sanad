@@ -110,6 +110,8 @@ en: {
   authErrorInvalid:"Wrong username or password.", authErrorMissing:"Enter a username and password.", authErrorNetwork:"Couldn't reach the server — try again.", authErrorShort:"Password must be at least 6 characters.", authErrorTaken:"That username is already taken.", loginHint:"Log in with your username and password.", loginTabLabel:"Log in", signInSubmit:"Log in", signupHint:"Pick a username and password — that's all you need.", signupTabLabel:"Sign up",
   lblUsername:"Username", lblPassword:"Password",
   themeToDark:"Switch to dark mode", themeToLight:"Switch to light mode",
+  paEntryTitle:"Before you arrive", paEntrySub:"6 quick checks that protect your money and your contract", paEntryCta:"Start", paStepOf:"Step {n} of {total}", paBack:"Back", paClose:"Close", paNext:"Next", paDoneTitle:"You're set", paDoneClean:"Nothing looked wrong. Keep your contract copy safe and travel with it.", paDoneWarnOne:"1 thing needs your attention before you travel.", paDoneWarnMany:"{n} things need your attention before you travel.", paReview:"Review them", paFinish:"Finish", paOpenMusaned:"Open Musaned", paSourceNote:"Based on published rules from the Ministry of Human Resources (Musaned).",
+  paDoneTitleWarn:"Before you travel",
 },
 ar: {
   brandName:"سند · Sanad", brandTag:"سندك في السعودية",
@@ -187,6 +189,8 @@ ar: {
   authErrorInvalid:"اسم المستخدم أو كلمة المرور غير صحيحة.", authErrorMissing:"أدخل اسم المستخدم وكلمة المرور.", authErrorNetwork:"تعذر الوصول إلى الخادم — حاول مرة أخرى.", authErrorShort:"يجب أن تتكون كلمة المرور من ٦ أحرف على الأقل.", authErrorTaken:"اسم المستخدم هذا مُستخدم بالفعل.", loginHint:"سجّل الدخول باسم المستخدم وكلمة المرور.", loginTabLabel:"تسجيل الدخول", signInSubmit:"تسجيل الدخول", signupHint:"اختر اسم مستخدم وكلمة مرور — هذا كل ما تحتاجه.", signupTabLabel:"إنشاء حساب",
   lblUsername:"اسم المستخدم", lblPassword:"كلمة المرور",
   themeToDark:"التبديل إلى الوضع الداكن", themeToLight:"التبديل إلى الوضع الفاتح",
+  paEntryTitle:"قبل ما تجي", paEntrySub:"6 فحوصات سريعة تحمي فلوسك وعقدك", paEntryCta:"ابدأ", paStepOf:"خطوة {n} من {total}", paBack:"رجوع", paClose:"إغلاق", paNext:"التالي", paDoneTitle:"جاهز", paDoneClean:"ما ظهر شي غلط. احتفظ بنسخة عقدك وسافر فيها.", paDoneWarnOne:"فيه أمر واحد يحتاج انتباهك قبل السفر.", paDoneWarnMany:"فيه {n} أمور تحتاج انتباهك قبل السفر.", paReview:"راجعها", paFinish:"إنهاء", paOpenMusaned:"افتح مساند", paSourceNote:"مبني على الأنظمة المنشورة من وزارة الموارد البشرية (مساند).",
+  paDoneTitleWarn:"قبل ما تسافر",
 },
 ur: {
   brandName:"سند · Sanad", brandTag:"سعودی عرب میں آپ کا سہارا",
@@ -264,6 +268,8 @@ ur: {
   authErrorInvalid:"غلط یوزرنیم یا پاس ورڈ۔", authErrorMissing:"یوزرنیم اور پاس ورڈ درج کریں۔", authErrorNetwork:"سرور تک رسائی نہیں ہو سکی — دوبارہ کوشش کریں۔", authErrorShort:"پاس ورڈ کم از کم ۶ حروف کا ہونا چاہیے۔", authErrorTaken:"یہ یوزرنیم پہلے سے لیا جا چکا ہے۔", loginHint:"اپنے یوزرنیم اور پاس ورڈ سے لاگ ان کریں۔", loginTabLabel:"لاگ ان", signInSubmit:"لاگ ان", signupHint:"ایک یوزرنیم اور پاس ورڈ منتخب کریں — بس اتنا ہی چاہیے۔", signupTabLabel:"اکاؤنٹ بنائیں",
   lblUsername:"یوزرنیم", lblPassword:"پاس ورڈ",
   themeToDark:"ڈارک موڈ پر جائیں", themeToLight:"لائٹ موڈ پر جائیں",
+  paEntryTitle:"آنے سے پہلے", paEntrySub:"6 فوری جانچیں جو آپ کے پیسے اور معاہدے کی حفاظت کرتی ہیں", paEntryCta:"شروع کریں", paStepOf:"مرحلہ {n} از {total}", paBack:"واپس", paClose:"بند کریں", paNext:"اگلا", paDoneTitle:"آپ تیار ہیں", paDoneClean:"کچھ غلط نظر نہیں آیا۔ اپنے معاہدے کی نقل محفوظ رکھیں اور ساتھ لے کر سفر کریں۔", paDoneWarnOne:"سفر سے پہلے ایک بات پر توجہ درکار ہے۔", paDoneWarnMany:"سفر سے پہلے {n} باتوں پر توجہ درکار ہے۔", paReview:"انہیں دیکھیں", paFinish:"مکمل", paOpenMusaned:"مساند کھولیں", paSourceNote:"وزارتِ افرادی قوت (مساند) کے شائع کردہ قواعد پر مبنی۔",
+  paDoneTitleWarn:"سفر سے پہلے",
 }
 };
 
@@ -490,6 +496,242 @@ function persistIdSet(key, obj){
   catch(err){ /* private-browsing/storage-disabled — likes/saves just won't survive a reload */ }
 }
 
+/* ===================== "Before you arrive" — pre-departure safety walkthrough =====================
+   A linear, one-question-per-screen flow rather than a menu. Research on low-literacy
+   users is consistent that linear navigation produces fewer errors and faster recovery
+   than hierarchical menus, and that icons need an accompanying label to be understood
+   — this audience is exactly that group, often on a cheap phone in a second language.
+
+   Every factual claim below is a published Saudi rule, not advice we invented:
+     - Recruitment offices are licensed and listed publicly on Musaned, the Ministry of
+       Human Resources and Social Development platform (musaned.com.sa).
+     - The employer, not the worker, carries recruitment/visa/travel costs; an office
+       charging the worker placement fees is unlicensed or fraudulent.
+     - Contracts are signed and attested electronically through Musaned (e-Tawtheeq)
+       before travel, which fixes salary, hours and duties.
+     - Since January 2026 domestic-worker wages must be paid electronically through
+       Musaned; cash-in-hand is no longer compliant.
+     - Contract substitution on arrival is the most commonly reported abuse, which is
+       why we tell people to photograph the attested contract before flying.
+   Anything added here later needs the same standard: an official source, or it does
+   not ship. See AGENTS.md section 10. */
+const preArrivalData = {
+en: [
+  {k:"office", tone:"ask",
+   title:"Is the office licensed?",
+   body:"Saudi Arabia lists every licensed recruitment office publicly on Musaned. If your office is not on that list, stop before you pay or sign anything.",
+   yes:"Yes, I checked", no:"No / I don't know",
+   okMsg:"Good. A licensed office can be held accountable if something goes wrong.",
+   warnMsg:"Check it on musaned.com.sa before you go further. An unlisted office cannot be held accountable."},
+  {k:"fees", tone:"ask",
+   title:"Has anyone asked you for money?",
+   body:"In Saudi Arabia the employer pays the recruitment, visa and travel costs — not you. An office asking you for placement fees is unlicensed or a scam.",
+   yes:"Yes, they asked", no:"No, nothing",
+   okMsg:"That is how it should be. Keep it that way — and never send money to a personal account.",
+   warnMsg:"This is a serious warning sign. You should not be paying to get the job. Never send money to a personal bank account."},
+  {k:"contract", tone:"ask",
+   title:"Is your contract attested?",
+   body:"Your contract is signed and attested electronically through Musaned before you travel. That is what locks in your salary, your hours and your job.",
+   yes:"Yes, it's attested", no:"No / I don't know",
+   okMsg:"Good. Ask for a copy you can keep, in a language you understand.",
+   warnMsg:"Do not travel on a promise. Without an attested contract there is nothing holding your employer to the salary you agreed."},
+  {k:"salary", tone:"ask",
+   title:"How will your salary reach you?",
+   body:"Since January 2026, domestic workers' wages in Saudi Arabia must be paid electronically through Musaned. Cash in hand is no longer compliant.",
+   yes:"To a bank account", no:"Cash / I don't know",
+   okMsg:"Good. An electronic record is your proof that you were paid — and how much.",
+   warnMsg:"Ask now, before you travel. Cash leaves no record, so an unpaid month becomes your word against theirs."},
+  {k:"copy", tone:"tip",
+   title:"Photograph your contract",
+   body:"The most common trick is a second, worse contract handed to you on arrival. Photograph every page of the attested contract now. Keep it on your phone and send a copy to your family.",
+   next:"I've done this",
+   okMsg:"On arrival, compare salary, job title and working hours against the copy you kept."},
+  {k:"arrival", tone:"tip",
+   title:"Your first week",
+   body:"Your employer cannot keep your passport. Keep a copy of it separately. Save the emergency numbers in this app, and remember that Musaned has a complaints channel you can use.",
+   next:"Got it",
+   okMsg:"You're ready. The Guide in this app covers Iqama, banking and your labour rights once you land."}
+],
+ar: [
+  {k:"office", tone:"ask",
+   title:"المكتب مرخّص؟",
+   body:"السعودية تنشر قائمة بكل مكاتب الاستقدام المرخّصة في منصة مساند. إذا مكتبك مو موجود بالقائمة، توقّف قبل تدفع أو توقّع أي شي.",
+   yes:"نعم، تحققت", no:"لا / ما أدري",
+   okMsg:"ممتاز. المكتب المرخّص يمكن محاسبته إذا صار شي غلط.",
+   warnMsg:"تحقق منه في musaned.com.sa قبل ما تكمل. المكتب غير المسجّل ما يمكن محاسبته."},
+  {k:"fees", tone:"ask",
+   title:"أحد طلب منك فلوس؟",
+   body:"في السعودية صاحب العمل هو اللي يدفع تكاليف الاستقدام والتأشيرة والسفر — مو أنت. المكتب اللي يطلب منك رسوم توظيف إما غير مرخّص أو نصّاب.",
+   yes:"نعم، طلبوا", no:"لا، ولا شي",
+   okMsg:"هذا الصحيح. خلّها كذا — ولا ترسل فلوس لحساب شخصي أبدًا.",
+   warnMsg:"هذي علامة خطر واضحة. ما يفترض تدفع عشان تحصل على الوظيفة. ولا ترسل فلوس لحساب بنكي شخصي."},
+  {k:"contract", tone:"ask",
+   title:"عقدك موثّق؟",
+   body:"عقدك يُوقّع ويُوثّق إلكترونيًا عبر مساند قبل ما تسافر. هذا اللي يثبّت راتبك وساعات عملك وطبيعة شغلك.",
+   yes:"نعم، موثّق", no:"لا / ما أدري",
+   okMsg:"ممتاز. اطلب نسخة تحتفظ فيها، بلغة تفهمها.",
+   warnMsg:"لا تسافر على وعد. بدون عقد موثّق ما فيه شي يلزم صاحب العمل بالراتب اللي اتفقتوا عليه."},
+  {k:"salary", tone:"ask",
+   title:"راتبك كيف بيوصلك؟",
+   body:"من يناير 2026، رواتب العمالة المنزلية في السعودية لازم تُصرف إلكترونيًا عبر مساند. الاستلام نقدًا ما عاد نظاميًا.",
+   yes:"على حساب بنكي", no:"نقدًا / ما أدري",
+   okMsg:"ممتاز. السجل الإلكتروني هو إثباتك إنك استلمت راتبك، وكم استلمت.",
+   warnMsg:"اسأل الحين، قبل السفر. النقد ما يخلّي أثر، فإذا انحرم شهر تصير كلمتك مقابل كلمتهم."},
+  {k:"copy", tone:"tip",
+   title:"صوّر عقدك",
+   body:"أشهر حيلة هي عقد ثاني أسوأ يعطونك إياه عند الوصول. صوّر كل صفحة من العقد الموثّق الحين. خلّها بجوالك وأرسل نسخة لأهلك.",
+   next:"سويتها",
+   okMsg:"عند الوصول، قارن الراتب والمسمى الوظيفي وساعات العمل بالنسخة اللي احتفظت فيها."},
+  {k:"arrival", tone:"tip",
+   title:"أول أسبوع لك",
+   body:"صاحب العمل ما يحق له يحتفظ بجواز سفرك. خلّ نسخة منه بمكان ثاني. احفظ أرقام الطوارئ الموجودة بالتطبيق، وتذكّر إن مساند فيها قناة شكاوى تقدر تستخدمها.",
+   next:"تمام",
+   okMsg:"جاهز. دليل التطبيق يشرح الإقامة والبنك وحقوقك العمالية أول ما تنزل."}
+],
+ur: [
+  {k:"office", tone:"ask",
+   title:"کیا دفتر لائسنس یافتہ ہے؟",
+   body:"سعودی عرب ہر لائسنس یافتہ بھرتی دفتر کی فہرست مساند پلیٹ فارم پر شائع کرتا ہے۔ اگر آپ کا دفتر اس فہرست میں نہیں، تو پیسے دینے یا دستخط کرنے سے پہلے رک جائیں۔",
+   yes:"جی ہاں، میں نے دیکھا", no:"نہیں / مجھے علم نہیں",
+   okMsg:"اچھا۔ لائسنس یافتہ دفتر سے جواب طلبی ہو سکتی ہے اگر کچھ غلط ہو۔",
+   warnMsg:"آگے بڑھنے سے پہلے musaned.com.sa پر تصدیق کریں۔ غیر رجسٹرڈ دفتر سے جواب طلبی ممکن نہیں۔"},
+  {k:"fees", tone:"ask",
+   title:"کیا کسی نے آپ سے پیسے مانگے؟",
+   body:"سعودی عرب میں بھرتی، ویزا اور سفر کے اخراجات آجر ادا کرتا ہے — آپ نہیں۔ جو دفتر آپ سے بھرتی فیس مانگے وہ یا تو غیر لائسنس یافتہ ہے یا فراڈ۔",
+   yes:"جی ہاں، مانگے", no:"نہیں، کچھ نہیں",
+   okMsg:"یہی درست ہے۔ ایسے ہی رہنے دیں — اور کبھی کسی ذاتی اکاؤنٹ میں پیسے نہ بھیجیں۔",
+   warnMsg:"یہ سنگین خطرے کی علامت ہے۔ نوکری حاصل کرنے کے لیے آپ کو ادائیگی نہیں کرنی چاہیے۔ کسی ذاتی بینک اکاؤنٹ میں پیسے ہرگز نہ بھیجیں۔"},
+  {k:"contract", tone:"ask",
+   title:"کیا آپ کا معاہدہ تصدیق شدہ ہے؟",
+   body:"سفر سے پہلے آپ کے معاہدے پر مساند کے ذریعے الیکٹرانک دستخط اور تصدیق ہوتی ہے۔ یہی آپ کی تنخواہ، اوقاتِ کار اور کام کو محفوظ کرتا ہے۔",
+   yes:"جی ہاں، تصدیق شدہ ہے", no:"نہیں / مجھے علم نہیں",
+   okMsg:"اچھا۔ ایک نقل مانگیں جو آپ اپنے پاس رکھ سکیں، ایسی زبان میں جو آپ سمجھتے ہوں۔",
+   warnMsg:"صرف وعدے پر سفر نہ کریں۔ تصدیق شدہ معاہدے کے بغیر آجر کو طے شدہ تنخواہ کا پابند کرنے والی کوئی چیز نہیں۔"},
+  {k:"salary", tone:"ask",
+   title:"تنخواہ آپ تک کیسے پہنچے گی؟",
+   body:"جنوری 2026 سے سعودی عرب میں گھریلو ملازمین کی تنخواہ مساند کے ذریعے الیکٹرانک ادا کرنا لازم ہے۔ نقد ادائیگی اب قانونی نہیں۔",
+   yes:"بینک اکاؤنٹ میں", no:"نقد / مجھے علم نہیں",
+   okMsg:"اچھا۔ الیکٹرانک ریکارڈ ہی آپ کا ثبوت ہے کہ آپ کو کتنی ادائیگی ہوئی۔",
+   warnMsg:"سفر سے پہلے، ابھی پوچھ لیں۔ نقد کا کوئی ریکارڈ نہیں رہتا، اس لیے ایک مہینہ نہ ملنے پر معاملہ آپ کی بات بمقابلہ اُن کی بات بن جاتا ہے۔"},
+  {k:"copy", tone:"tip",
+   title:"اپنے معاہدے کی تصویر لیں",
+   body:"سب سے عام چال یہ ہے کہ پہنچنے پر ایک دوسرا، کمتر معاہدہ تھما دیا جائے۔ ابھی تصدیق شدہ معاہدے کے ہر صفحے کی تصویر لیں۔ اسے اپنے فون میں رکھیں اور ایک نقل گھر والوں کو بھیجیں۔",
+   next:"میں نے کر لیا",
+   okMsg:"پہنچنے پر تنخواہ، عہدے کا نام اور اوقاتِ کار کا اُس نقل سے موازنہ کریں جو آپ نے رکھی تھی۔"},
+  {k:"arrival", tone:"tip",
+   title:"آپ کا پہلا ہفتہ",
+   body:"آپ کا آجر آپ کا پاسپورٹ اپنے پاس نہیں رکھ سکتا۔ اس کی ایک نقل الگ رکھیں۔ اس ایپ میں موجود ہنگامی نمبر محفوظ کریں، اور یاد رکھیں کہ مساند میں شکایت کا راستہ موجود ہے۔",
+   next:"سمجھ گیا",
+   okMsg:"آپ تیار ہیں۔ ایپ کی گائیڈ میں اقامہ، بینکنگ اور آپ کے مزدور حقوق کی تفصیل موجود ہے۔"}
+]
+};
+
+/* ===================== "Before you arrive" — flow control =====================
+   One question per screen, forward and back only. No branching: every user sees
+   the same six screens in the same order, which is what makes it recoverable for
+   someone who is unsure or reading in a second language. Answers stay in memory
+   only — this runs before anyone has an account, and the replies say a lot about
+   a person's situation, so they are deliberately never persisted or uploaded. */
+let paStep = 0;
+let paAnswers = {};
+
+function paSteps(){ return preArrivalData[state.lang] || preArrivalData.en; }
+
+function openPreArrival(){
+  paStep = 0; paAnswers = {};
+  document.getElementById('paScrim').classList.add('open');
+  document.getElementById('paPanel').classList.add('open');
+  document.body.classList.add('pa-open');
+  renderPreArrival();
+}
+function closePreArrival(){
+  document.getElementById('paScrim').classList.remove('open');
+  document.getElementById('paPanel').classList.remove('open');
+  document.body.classList.remove('pa-open');
+}
+function paAnswer(key, value){
+  // Record and stay put. Advancing straight away would skip past the feedback,
+  // which is the part that actually tells someone their situation is wrong --
+  // the answer alone is worthless to them without it.
+  paAnswers[key] = value;
+  renderPreArrival();
+}
+function paAdvance(){
+  paStep += 1;
+  renderPreArrival();
+}
+function paGoBack(){
+  if(paStep === 0){ closePreArrival(); return; }
+  paStep -= 1;
+  renderPreArrival();
+}
+
+function renderPreArrival(){
+  const steps = paSteps();
+  const total = steps.length;
+  const body = document.getElementById('paBody');
+  const prog = document.getElementById('paProgress');
+  const done = paStep >= total;
+
+  prog.innerHTML = done ? '' : steps.map((_, i)=>
+    `<span class="pa-dot ${i < paStep ? 'past' : ''} ${i === paStep ? 'now' : ''}"></span>`).join('');
+
+  if(done){ body.innerHTML = paSummaryHtml(); return; }
+
+  const st = steps[paStep];
+  const answered = paAnswers[st.k];
+  // A warning is only ever shown after the user has answered, so nobody is told
+  // something is wrong before they have said anything.
+  const feedback = answered
+    ? `<div class="pa-feedback ${answered === 'warn' ? 'warn' : 'ok'}">${answered === 'warn' ? st.warnMsg : st.okMsg}</div>`
+    : '';
+
+  // Once answered, the only control is "next" -- the feedback above it is the point
+  // of the screen, so we do not leave the two answer buttons competing with it.
+  let controls;
+  if(answered){
+    controls = `<button class="pa-choice pa-choice--single" data-pa-next="1">${t('paNext')}</button>`;
+  } else if(st.tone === 'tip'){
+    controls = `<button class="pa-choice pa-choice--single" data-pa-answer="ok">${st.next}</button>`;
+  } else {
+    // On the fee question "yes" is the dangerous answer, so the mapping is inverted
+    // there: everywhere else "yes" is the safe one.
+    const yesVal = st.k === 'fees' ? 'warn' : 'ok';
+    controls = `<button class="pa-choice pa-choice--ok" data-pa-answer="${yesVal}">${st.yes}</button>
+       <button class="pa-choice pa-choice--no" data-pa-answer="${yesVal === 'ok' ? 'warn' : 'ok'}">${st.no}</button>`;
+  }
+
+  body.innerHTML = `
+    <p class="pa-step-count">${fmt('paStepOf', { n: paStep + 1, total })}</p>
+    <h2 class="pa-title">${st.title}</h2>
+    <p class="pa-text">${st.body}</p>
+    ${feedback}
+    <div class="pa-choices">${controls}</div>
+    <p class="pa-source">${t('paSourceNote')}</p>`;
+
+  body.querySelectorAll('[data-pa-answer]').forEach(btn=>{
+    btn.addEventListener('click', ()=> paAnswer(st.k, btn.getAttribute('data-pa-answer')));
+  });
+  body.querySelectorAll('[data-pa-next]').forEach(btn=>{
+    btn.addEventListener('click', paAdvance);
+  });
+}
+
+function paSummaryHtml(){
+  const warnings = Object.keys(paAnswers).filter(k=> paAnswers[k] === 'warn');
+  const n = warnings.length;
+  const msg = n === 0 ? t('paDoneClean')
+            : n === 1 ? t('paDoneWarnOne')
+            : fmt('paDoneWarnMany', { n });
+  return `
+    <div class="pa-summary ${n ? 'has-warn' : ''}">
+      <h2 class="pa-title">${t(n ? 'paDoneTitleWarn' : 'paDoneTitle')}</h2>
+      <p class="pa-text">${msg}</p>
+      <a class="pa-musaned" href="https://musaned.com.sa" target="_blank" rel="noopener">${t('paOpenMusaned')}</a>
+      <button class="pa-choice pa-choice--single" id="paFinish">${t('paFinish')}</button>
+    </div>`;
+}
+
 /* ============================= Theme (light / dark) ============================= */
 /* Light is the standard look; dark is opt-in. The attribute is already set by the
    inline script in index.html before first paint — this only handles switching it
@@ -509,6 +751,14 @@ function applyTheme(theme){
 function syncThemeToggles(){
   // The button offers the OTHER mode, so label it with what tapping it will do.
   const label = t(currentTheme() === 'dark' ? 'themeToLight' : 'themeToDark');
+  document.getElementById('paEntry').addEventListener('click', openPreArrival);
+  document.getElementById('paClose').addEventListener('click', closePreArrival);
+  document.getElementById('paScrim').addEventListener('click', closePreArrival);
+  document.getElementById('paBack').addEventListener('click', paGoBack);
+  document.getElementById('paBody').addEventListener('click', e=>{
+    if(e.target.id === 'paFinish') closePreArrival();
+  });
+
   document.querySelectorAll('[data-theme-toggle]').forEach(btn=>{
     btn.setAttribute('aria-label', label);
     btn.setAttribute('title', label);

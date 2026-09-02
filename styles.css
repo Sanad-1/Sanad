@@ -1127,3 +1127,84 @@
   html[data-theme="light"] .lang-switch--floating button.active{color:#2A1D08;}
   html[data-theme="light"] .feed-rail .lk.active svg{fill:var(--feed-pink);stroke:var(--feed-pink);}
   html[data-theme="light"] .feed-rail .sv.active svg{fill:var(--green);stroke:var(--green);}
+
+  /* ---------- "Before you arrive" ---------- */
+  .pa-entry{
+    display:flex;align-items:center;gap:13px;width:100%;text-align:start;
+    border:1px solid var(--green);background:var(--green-tint);
+    border-radius:var(--radius-lg);padding:14px 15px;margin:0 0 18px;
+    color:var(--ink);
+  }
+  .pa-entry:active{transform:scale(0.99);}
+  .pa-entry-ic{
+    flex:none;width:46px;height:46px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--green);color:#fff;
+  }
+  .pa-entry-ic svg{width:24px;height:24px;}
+  .pa-entry-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+  .pa-entry-body strong{font-family:var(--font-display);font-size:15.5px;font-weight:700;}
+  .pa-entry-body span{font-size:12px;line-height:1.5;color:var(--ink-soft);}
+  .pa-entry-cta{
+    flex:none;font-family:var(--font-display);font-size:12.5px;font-weight:700;
+    background:var(--green);color:#fff;padding:8px 14px;border-radius:999px;
+  }
+
+  .pa-scrim{display:none;}
+  .pa-scrim.open{display:block;position:fixed;inset:0;z-index:95;background:rgba(0,0,0,0.6);}
+  .pa{display:none;}
+  .pa.open{
+    display:flex;flex-direction:column;position:fixed;z-index:96;inset:0;
+    background:var(--bg);color:var(--ink);overflow-y:auto;
+  }
+  body.pa-open{overflow:hidden;}
+  .pa-head{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:calc(14px + env(safe-area-inset-top)) 18px 10px;
+  }
+  .pa-back,.pa-close{
+    flex:none;width:44px;height:44px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);
+  }
+  .pa-back svg,.pa-close svg{width:21px;height:21px;}
+  html[dir="rtl"] .pa-back svg{transform:scaleX(-1);}
+  .pa-progress{flex:1;display:flex;gap:5px;align-items:center;justify-content:center;}
+  .pa-dot{width:100%;max-width:38px;height:5px;border-radius:999px;background:var(--line);}
+  .pa-dot.past{background:var(--green);}
+  .pa-dot.now{background:var(--green);box-shadow:0 0 0 3px var(--green-tint);}
+  .pa-body{padding:14px 20px calc(28px + env(safe-area-inset-bottom));flex:1;}
+  .pa-step-count{margin:0 0 10px;font-size:12px;font-weight:700;color:var(--ink-faint);letter-spacing:0.3px;}
+  .pa-title{margin:0 0 12px;font-family:var(--font-display);font-size:25px;line-height:1.35;}
+  .pa-text{margin:0 0 18px;font-size:15px;line-height:1.75;color:var(--ink-soft);}
+  .pa-feedback{
+    border-radius:16px;padding:14px 16px;font-size:14px;line-height:1.65;margin-bottom:18px;
+    border-inline-start:4px solid var(--green);background:var(--green-tint);color:var(--ink);
+  }
+  .pa-feedback.warn{border-inline-start-color:var(--brick);background:var(--brick-tint);}
+  .pa-choices{display:flex;flex-direction:column;gap:11px;}
+  /* Deliberately large targets: this is used on cheap phones, often one-handed. */
+  .pa-choice{
+    width:100%;min-height:56px;border-radius:17px;padding:14px 18px;
+    font-family:var(--font-display);font-size:16px;font-weight:700;
+    border:2px solid var(--card-line);background:var(--card);color:var(--ink);
+    text-align:center;
+  }
+  .pa-choice:active{transform:scale(0.985);}
+  .pa-choice--ok,.pa-choice--single{background:var(--green);border-color:var(--green);color:#fff;}
+  .pa-source{margin:22px 0 0;font-size:11.5px;line-height:1.6;color:var(--ink-faint);}
+  .pa-summary .pa-title{margin-top:6px;}
+  .pa-musaned{
+    display:flex;align-items:center;justify-content:center;min-height:52px;
+    border-radius:17px;border:2px solid var(--green);color:var(--green);
+    font-family:var(--font-display);font-size:15px;font-weight:700;
+    text-decoration:none;margin-bottom:11px;
+  }
+  @media (min-width:760px){
+    .pa.open{max-width:480px;left:50%;right:auto;transform:translateX(-50%);border-inline:1px solid var(--line);}
+  }
+  /* A summary that reports problems should read as a warning, not a success. */
+  .pa-summary.has-warn .pa-text{
+    border-inline-start:4px solid var(--brick);background:var(--brick-tint);
+    border-radius:16px;padding:14px 16px;color:var(--ink);
+  }
